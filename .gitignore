@@ -58,3 +58,6 @@ target/
 
 # Mac
 .DS_Store
+
+# Misc
+files.txt
