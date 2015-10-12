@@ -26,6 +26,7 @@ setup(name='compliancelib',
       include_package_data=True,
       install_requires=[
           'markdown',
+          'pyyaml',
       ],
       test_suite='nose.collector',
       tests_require=['nose'],
