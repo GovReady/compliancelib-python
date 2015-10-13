@@ -19,11 +19,9 @@ __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
 import os
-import sys
 import json
 import yaml
-import pprint
-import commands
+import subprocess
 import re
 
 # sys.path.append(os.path.join('xsl'))
@@ -40,15 +38,14 @@ class SecControl(object):
             self._load_control_from_xml()
         # split description
         self.set_description_sections()
-        
+
     def _load_control_from_xml(self):
         "load control detail from 800-53 xml"
         xslfile = os.path.join(os.path.dirname(__file__), 'xsl/control2json.xsl')
         xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')
-        # print xslfile
-        # print "xsltproc --stringparam controlnumber '%s' %s %s" % (self.id, xslfile, xmlfile)
-        results = commands.getstatusoutput("xsltproc --stringparam controlnumber '%s'  %s %s" % (self.id, xslfile, xmlfile))
-        print results
+
+        results = subprocess.getstatusoutput("xsltproc --stringparam controlnumber '%s'  %s %s" % (self.id, xslfile, xmlfile))
+
         if (results[0] == 0) and (len(results[1]) > 0):
             self.details = json.loads(results[1])
             self.title = self.details["title"]
@@ -65,8 +62,8 @@ class SecControl(object):
         "load control enhancement as a control from 800-53 xml"
         xslfile = os.path.join(os.path.dirname(__file__), 'xsl/controlenhancement2json.xsl')
         xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')
-        results = commands.getstatusoutput("xsltproc --stringparam controlnumber '%s' %s %s" % (self.id, xslfile, xmlfile))
-        # print results
+        results = subprocess.getstatusoutput("xsltproc --stringparam controlnumber '%s' %s %s" % (self.id, xslfile, xmlfile))
+
         if (results[0] == 0) and (len(results[1]) > 0):
             self.details = json.loads(results[1])
             self.title = self.details["title"]
