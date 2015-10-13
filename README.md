@@ -17,14 +17,23 @@ This is early code. There may be errors!
 
 - Python 2.7
 - xsltproc - to perform XSL transformations
+- PyYAML
+
+## Installation
+
+```
+pip install compliancelib
+```
 
 ## Usage
 
 To use, simply do in python shell::
 
-    >>> import compliancelib
-    >>> c=compliancelib.SecControl("AC-1")
-    >>> c.id
-    'AC-1'
-    >>> c.title
-    u'ACCESS CONTROL POLICY AND PROCEDURES'
+```
+>>> import compliancelib
+>>> c=compliancelib.SecControl("AC-1")
+>>> c.id
+'AC-1'
+>>> c.title
+u'ACCESS CONTROL POLICY AND PROCEDURES'
+```

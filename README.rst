@@ -14,8 +14,26 @@ This is early code. There may be errors!
 
 Requirements
 ------------
-- Python 2.7
+- Python 2.6.6 or 2.7+
 - xsltproc - to perform XSL transformations
+- PyYAML - to generate YAML
+
+Installation
+------------
+Compliancelib can be installed with Python pip::
+
+	pip install compliancelib
+
+To install Python pip:
+
+- https://pip.pypa.io/en/stable/installing/
+- http://sharadchhetri.com/2014/05/30/install-pip-centos-rhel-ubuntu-debian/
+
+
+Compliancelib can beinstalled with Python Easy Install::
+
+	easy_install compliancelib
+
 
 Usage
 -----
