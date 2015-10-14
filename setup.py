@@ -5,13 +5,13 @@ def readme():
         return f.read()
 
 setup(name='compliancelib',
-      version='0.2.5',
+      version='0.3.2',
       description='A python library of IT Compliance Standards',
       long_description=readme(),
       classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.0',
         'Topic :: Text Processing :: Linguistic',
       ],
       keywords='compliance FISMA DICAP PCI',

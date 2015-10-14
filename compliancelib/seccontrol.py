@@ -24,8 +24,17 @@ import yaml
 import subprocess
 import re
 
-# sys.path.append(os.path.join('xsl'))
-# sys.path.append(os.path.join('data'))
+def getstatusoutput(cmd): 
+    """Return (status, output) of executing cmd in a shell."""
+    """This new implementation should work on all platforms."""
+    import subprocess
+    pipe = subprocess.Popen(cmd, shell=True, universal_newlines=True,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    output = str.join("", pipe.stdout.readlines()) 
+    sts = pipe.wait()
+    if sts is None:
+        sts = 0
+    return sts, output
 
 
 class SecControl(object):
@@ -44,7 +53,7 @@ class SecControl(object):
         xslfile = os.path.join(os.path.dirname(__file__), 'xsl/control2json.xsl')
         xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')
 
-        results = subprocess.getstatusoutput("xsltproc --stringparam controlnumber '%s'  %s %s" % (self.id, xslfile, xmlfile))
+        results = getstatusoutput("xsltproc --stringparam controlnumber '%s'  %s %s" % (self.id, xslfile, xmlfile))
 
         if (results[0] == 0) and (len(results[1]) > 0):
             self.details = json.loads(results[1])
@@ -62,7 +71,7 @@ class SecControl(object):
         "load control enhancement as a control from 800-53 xml"
         xslfile = os.path.join(os.path.dirname(__file__), 'xsl/controlenhancement2json.xsl')
         xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')
-        results = subprocess.getstatusoutput("xsltproc --stringparam controlnumber '%s' %s %s" % (self.id, xslfile, xmlfile))
+        results = getstatusoutput("xsltproc --stringparam controlnumber '%s' %s %s" % (self.id, xslfile, xmlfile))
 
         if (results[0] == 0) and (len(results[1]) > 0):
             self.details = json.loads(results[1])

@@ -15,7 +15,7 @@ This is early code. There may be errors!
 
 ## Requirements
 
-- Python 2.7
+- Python 2.7 or 3.4+
 - xsltproc - to perform XSL transformations
 - PyYAML
 
