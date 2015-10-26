@@ -45,6 +45,11 @@ class SecControlTest(TestCase):
 		c = SecControl(id)
 		self.assertTrue(c.title == None)
 
+	def test_nonexistent_control_enhancements(self):
+		id = "AC-1"
+		c = SecControl(id)
+		self.assertTrue(c.control_enhancements == None)
+
 	def test_supplemental_guidance(self):
 		id = "AC-16"
 		c = SecControl(id)

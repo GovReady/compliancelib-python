@@ -75,9 +75,12 @@ class SecControl(object):
             self.description = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}statement').itertext())
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
             self.description = self.description.replace(self.id, '\n').strip()
-            self.control_enhancements = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements').itertext())
-            self.control_enhancements = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'[\n ]{2,}','\n',re.sub(r'[ ]{2,}',' ',self.control_enhancements))))
-            # self.control_enhancements = self.control_enhancements.replace(self.id, '\n')
+            if (sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements')) is not None:
+                self.control_enhancements = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements').itertext())
+                self.control_enhancements = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'[\n ]{2,}','\n',re.sub(r'[ ]{2,}',' ',self.control_enhancements))))
+                # self.control_enhancements = self.control_enhancements.replace(self.id, '\n')
+            else:
+                self.control_enhancements = None
             self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
             self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
             related_controls = []
