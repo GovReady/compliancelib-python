@@ -78,7 +78,7 @@ class SecControl(object):
             self.related_controls = ','.join(related_controls)
             self.responsible = self._get_responsible()
         else:
-            print "Issue find control '%s'. Returned object with length of %d" % (self.id, len(sc_elem))
+            print("Issue find control '%s'. Returned object with length of %s" % (self.id, len(sc)))
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
             self.title = self.description = self.supplemental_guidance = self.control_enhancements = self.responsible = None
             self.details = {}
