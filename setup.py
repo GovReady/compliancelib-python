@@ -5,11 +5,11 @@ def readme():
         return f.read()
 
 setup(name='compliancelib',
-      version='0.3.2',
+      version='0.4.2',
       description='A python library of IT Compliance Standards',
       long_description=readme(),
       classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3.0',
         'Topic :: Text Processing :: Linguistic',
@@ -21,7 +21,7 @@ setup(name='compliancelib',
       license='Apache License 2.0',
       packages=['compliancelib'],
       package_data={
-      'compliancelib': ['data/*.xml', 'data/*.pdf', 'xsl/*.xsl'],
+      'compliancelib': ['data/*.xml', 'data/*.pdf'],
       },
       include_package_data=True,
       install_requires=[

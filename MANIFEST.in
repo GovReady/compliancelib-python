@@ -6,5 +6,3 @@ include compliancelib/data/800-53A-R1_Assessment-Cases_All-18-Families_ipd
 include compliancelib/data/800-53a-objectives.xml
 include compliancelib/data/NIST.SP.800-53Ar4.pdf
 include compliancelib/data/NIST.SP.800-53r4.pdf
-include compliancelib/xsl/control2json.xsl
-include compliancelib/xsl/controlenhancement2json.xsl
