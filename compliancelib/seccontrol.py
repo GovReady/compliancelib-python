@@ -47,6 +47,8 @@ class SecControl(object):
             self._load_control_enhancement_from_xml()
         else:
             self._load_control_from_xml()
+            # use pure python xml.etree to extract control from xml
+            self._load_control_from_xml_pure_python()
         # split description
         self.set_description_sections()
 
