@@ -47,26 +47,38 @@ class SecControl(object):
             self._load_control_enhancement_from_xml()
         else:
             self._load_control_from_xml()
-            # use pure python xml.etree to extract control from xml
-            self._load_control_from_xml_pure_python()
         # split description
         self.set_description_sections()
 
     def _load_control_from_xml(self):
-        "load control detail from 800-53 xml"
-        xslfile = os.path.join(os.path.dirname(__file__), 'xsl/control2json.xsl')
-        xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')
-
-        results = getstatusoutput("xsltproc --stringparam controlnumber '%s'  %s %s" % (self.id, xslfile, xmlfile))
-
-        if (results[0] == 0) and (len(results[1]) > 0):
-            self.details = json.loads(results[1])
-            self.title = self.details["title"]
-            self.description = self.details["description"]
-            self.control_enhancements = self.details['control_enhancements']
-            self.supplemental_guidance = self.details['supplemental_guidance']
+        "load control detail from 800-53 xml using a pure python process"
+        tree = ET.parse(self.xmlfile)
+        root = tree.getroot()
+        # handle name spaces thusly:
+        # namespace:tag => {namespace_uri}tag
+        # example: controls:control => {http://scap.nist.gov/schema/sp800-53/feed/2.0}control
+        # find first control where number tag value equals id
+        sc = root.find("./{http://scap.nist.gov/schema/sp800-53/feed/2.0}control/[{http://scap.nist.gov/schema/sp800-53/2.0}number='%s']" % self.id)
+        if sc is not None:
+            self.family = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}family').text
+            self.number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text
+            self.title = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}title').text
+            self.priority = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority').text
+            self.description = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}statement').itertext())
+            self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
+            self.description = self.description.replace(self.id, '\n')
+            self.control_enhancements = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements').itertext())
+            self.control_enhancements = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'[\n ]{2,}','\n',re.sub(r'[ ]{2,}',' ',self.control_enhancements))))
+            # self.control_enhancements = self.control_enhancements.replace(self.id, '\n')
+            self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
+            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text
+            related_controls = []
+            for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
+                related_controls.append(related.text)
+            self.related_controls = ','.join(related_controls)
             self.responsible = self._get_responsible()
         else:
+            print "Issue find control '%s'. Returned object with length of %d" % (self.id, len(sc_elem))
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
             self.title = self.description = self.supplemental_guidance = self.control_enhancements = self.responsible = None
             self.details = {}
@@ -88,29 +100,6 @@ class SecControl(object):
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
             self.title = self.description = self.supplemental_guidance = self.control_enhancements = self.responsible = None
             self.details = {}
-
-    def _load_control_from_xml_pure_python(self):
-        "load control detail from 800-53 xml using a pure python process"
-        tree = ET.parse(self.xmlfile)
-        root = tree.getroot()
-        # handle name spaces thusly:
-        # namespace:tag => {namespace_uri}tag
-        # example: controls:control => {http://scap.nist.gov/schema/sp800-53/feed/2.0}control
-        for sc in root.findall('{http://scap.nist.gov/schema/sp800-53/feed/2.0}control'):
-            if (sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text == self.id):
-                # self.details = json.loads(results[1])
-                self.pfamily = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}family').text
-                self.pnumber = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text
-                self.ptitle = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}title').text
-                self.ppriority = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority').text
-                self.pstatement = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}statement').itertext())
-                self.psupplemental_guidance = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-                self.psupplemental_guidance_description = self.psupplemental_guidance.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text
-                self.psupplemental_guidance_related = self.psupplemental_guidance.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related')
-                # self.description = self.details["description"]
-                # self.control_enhancements = self.details['control_enhancements']
-                # self.supplemental_guidance = self.details['supplemental_guidance']
-                # self.responsible = self._get_responsible()
 
     def _get_responsible(self):
         "determine responsibility"
