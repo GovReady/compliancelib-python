@@ -93,6 +93,9 @@ class SecControl(object):
         "load control detail from 800-53 xml using a pure python process"
         tree = ET.parse(self.xmlfile)
         root = tree.getroot()
+        # handle name spaces thusly:
+        # namespace:tag => {namespace_uri}tag
+        # example: controls:control => {http://scap.nist.gov/schema/sp800-53/feed/2.0}control
         for sc in root.findall('{http://scap.nist.gov/schema/sp800-53/feed/2.0}control'):
             if (sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text == self.id):
                 # self.details = json.loads(results[1])
