@@ -13,8 +13,8 @@ Visit [tbd] for the latest version.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.5 $"
-__date__ = "$Date: 2015/10/11 18:02:00 $"
+__version__ = "$Revision: 0.6 $"
+__date__ = "$Date: 2015/10/26 14:40:00 $"
 __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -60,25 +60,32 @@ class SecControl(object):
         # find first control where number tag value equals id
         sc = root.find("./{http://scap.nist.gov/schema/sp800-53/feed/2.0}control/[{http://scap.nist.gov/schema/sp800-53/2.0}number='%s']" % self.id)
         if sc is not None:
-            self.family = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}family').text
-            self.number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text
-            self.title = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}title').text
-            self.priority = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority').text
+
+            self.family = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}family').text.strip()
+            self.number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text.strip()
+            self.title = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}title').text.strip()
+            # test if control withdrawn
+            if (sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}withdrawn') is not None):
+                # control withdrawn
+                self.description = self.control_enhancements = self.supplemental_guidance = None
+                self.related_controls = self.priority = None
+                self.responsible = 'withdrawn'
+                return True
+            self.priority = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority').text.strip()
             self.description = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}statement').itertext())
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
-            self.description = self.description.replace(self.id, '\n')
+            self.description = self.description.replace(self.id, '\n').strip()
             self.control_enhancements = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements').itertext())
             self.control_enhancements = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'[\n ]{2,}','\n',re.sub(r'[ ]{2,}',' ',self.control_enhancements))))
             # self.control_enhancements = self.control_enhancements.replace(self.id, '\n')
             self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text
+            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
             related_controls = []
             for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
-                related_controls.append(related.text)
+                related_controls.append(related.text.strip())
             self.related_controls = ','.join(related_controls)
             self.responsible = self._get_responsible()
         else:
-            print("Issue find control '%s'. Returned object with length of %s" % (self.id, len(sc)))
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
             self.title = self.description = self.supplemental_guidance = self.control_enhancements = self.responsible = None
             self.details = {}
@@ -95,23 +102,22 @@ class SecControl(object):
         sc = root.find("./{http://scap.nist.gov/schema/sp800-53/feed/2.0}control/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancement/[{http://scap.nist.gov/schema/sp800-53/2.0}number='%s']" % self.id)
         if sc is not None:
             # self.family = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}family').text
-            self.number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text
-            self.title = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}title').text
+            self.number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text.strip()
+            self.title = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}title').text.strip()
             # self.priority = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority').text
             self.description = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}statement').itertext())
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
-            self.description = self.description.replace(self.id, '\n')
+            self.description = self.description.replace(self.id, '\n').strip()
             self.control_enhancements = None
             self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text
+            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
             related_controls = []
             # findall("{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance/{http://scap.nist.gov/schema/sp800-53/2.0}related")
             for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
-                related_controls.append(related.text)
+                related_controls.append(related.text.strip())
             self.related_controls = ','.join(related_controls)
             # self.responsible = self._get_responsible()
         else:
-            print("Issue find control '%s'. Returned object with length of %s" % (self.id, len(sc)))
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
             self.title = self.description = self.supplemental_guidance = self.control_enhancements = self.responsible = None
             self.details = {}
