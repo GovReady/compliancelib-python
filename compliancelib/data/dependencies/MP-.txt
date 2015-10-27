@@ -1,0 +1,51 @@
+MP-1 : precursor : PM-9
+MP-1 : concurrent : None 
+MP-1 : successor : All other controls in this family
+MP-2 : precursor : RA-3
+MP-2 : concurrent : AC-2, AC-3, AC-19, CM-6, PE-2, PE-3, SC-28, SC-34, SI-12
+MP-2 : successor : MP-3, MP-4, MP-5, MP-6"
+MP-2 (1)	: precursor : RA-3
+MP-2 (1)	: concurrent : AC-2, AC-3, AC-19, AU-2, AU-3, CM-6, PE-2, PE-3, SI-12
+MP-2 (1)	: successor : MP-3, MP-4, MP-5, MP-6"
+MP-2 (2) : precursor : RA-3
+MP-2 (2) : concurrent : AC-3, CM-6, SC-12, SC-13, SC-28 
+MP-2 (2) : successor : MP-4, MP-5"
+MP-3 : precursor : MP-2, RA-3
+MP-3 : concurrent : AC-16, SI-12
+MP-3 : successor : None"
+MP-4 : precursor : MP-2, RA-2, RA-3
+MP-4 : concurrent : AC-3, AC-19, CP-6, CP-9, MP-5, PE-2, PE-3, PE-18, SC-28, SC-34, SI-12 
+MP-4 : successor : MP-6"
+MP-4 (1) : precursor : MP-2, RA-3
+MP-4 (1) : concurrent : AC-3, CM-6, CP-6, CP-9, SC-12, SC-13, SC-28, SC-34
+MP-4 (1) : successor : None"
+MP-5 : precursor : MP-2, RA-3
+MP-5 : concurrent : AC-3, AC-19, CM-6, CP-9, MP-4, PE-2, PE-3, PE-6, PE-7, PE-8, PE-16, SC-12, SC-13, SC-28, SC-34
+MP-5 : successor : None"
+MP-5 (2) : precursor : MP-2, RA-3
+MP-5 (2) : concurrent : AC-3, AC-19, CP-9, PE-2, PE-3, PE-6, PE-7, PE-8, PE-16
+MP-5 (2) : successor : None"
+MP-5 (3) : precursor : MP-2
+MP-5 (3) : concurrent : AC-3, AC-19, CP-9, PE-2, PE-3, PE-6, PE-7, PE-8, PE-16
+MP-5 (3) : successor : None"
+MP-5 (4) : precursor : MP-2, RA-3, SC-8, SC-9, SC-12
+concurrent : concurrent : AC-3, AC-19, CM-6, MP-4, SC-13, SC-28, SC-34
+concurrent : successor : None"
+MP-6 : precursor : MP-2, MP-4, RA-2, RA-3
+MP-6 : concurrent : MA-2, MA-3, MA-4, MA-5
+MP-6 : successor : None"
+MP-6 (1) : precursor : MP-2, MP-4
+MP-6 (1) : concurrent : MA-2, MA-3, MA-4, MA-5
+MP-6 (1) : successor : None"
+MP-6 (2) : precursor : None
+MP-6 (2) : concurrent : MA-2, MA-3, MA-4, MA-5
+MP-6 (2) : successor : None"
+MP-6 (3) : precursor : MP-2, RA-2, RA-3
+MP-6 (3) : concurrent : MA-2, MA-3, MA-4, MA-5
+MP-6 (3) : successor : None"
+MP-6 (4) : precursor : RA-2, RA-3
+MP-6 (4) : concurrent : MA-2, MA-3, MA-4, MA-5
+MP-6 (4) : successor : None"
+MP-6 (5) : precursor : RA-2, RA-3
+MP-6 (5) : concurrent : MA-2, MA-3, MA-4, MA-5
+MP-6 (5) : successor : None"

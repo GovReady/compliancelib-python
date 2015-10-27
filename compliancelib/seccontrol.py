@@ -60,7 +60,6 @@ class SecControl(object):
         # find first control where number tag value equals id
         sc = root.find("./{http://scap.nist.gov/schema/sp800-53/feed/2.0}control/[{http://scap.nist.gov/schema/sp800-53/2.0}number='%s']" % self.id)
         if sc is not None:
-
             self.family = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}family').text.strip()
             self.number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text.strip()
             self.title = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}title').text.strip()
@@ -71,7 +70,10 @@ class SecControl(object):
                 self.related_controls = self.priority = None
                 self.responsible = 'withdrawn'
                 return True
-            self.priority = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority').text.strip()
+            if (sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority') is not None):
+                self.priority = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}priority').text.strip()
+            else:
+                self.priority = None
             self.description = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}statement').itertext())
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
             self.description = self.description.replace(self.id, '\n').strip()

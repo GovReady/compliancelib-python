@@ -1,0 +1,12 @@
+RA-1 : precursor : PM-9
+RA-1 : concurrent : None 
+RA-1 : successor : All other controls in this family
+RA-2 : precursor : PM-9
+RA-2 : concurrent : PE-19, PL-2, PL-5, PM-7, PM-11, RA-3
+RA-2 : successor : CA-2, CA-6, CA-7, CM-4, MP-4, MP-6, RA-5, SA-13, SC-8, SC-9, SC-28
+RA-3 : precursor : PM-9
+RA-3 : concurrent : CA-2, CA-6, CA-7, CM-4, RA-2, RA-5, PL-2, PL-5, PM-8, SI-4
+RA-3 : successor : AC-6, AU-2, CA-5, CP-6, CP-7, IA-8, MP-2, MP-3, MP-4, MP-5, MP-6, PL-6
+RA-5 : precursor : RA-2
+RA-5 : concurrent : AU-6, CA-2, CA-6, CA-7, CM-4, CM-6, CM-7, RA-3, SA-11, SI-2, SI-3, SI-4  
+RA-5 : successor : CA-5, PM-4

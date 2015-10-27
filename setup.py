@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='compliancelib',
-      version='0.4.2',
+      version='0.5.0',
       description='A python library of IT Compliance Standards',
       long_description=readme(),
       classifiers=[
@@ -21,12 +21,13 @@ setup(name='compliancelib',
       license='Apache License 2.0',
       packages=['compliancelib'],
       package_data={
-      'compliancelib': ['data/*.xml', 'data/*.pdf'],
+      'compliancelib': ['data/*.xml', 'data/*.pdf', 'data/dependencies/*.txt'],
       },
       include_package_data=True,
       install_requires=[
           'markdown',
           'pyyaml',
+          'graphviz',
       ],
       test_suite='nose.collector',
       tests_require=['nose'],

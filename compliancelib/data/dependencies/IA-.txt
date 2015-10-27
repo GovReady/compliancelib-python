@@ -1,0 +1,99 @@
+IA-1 : precursor : PM-9
+IA-1 : concurrent : None 
+IA-1 : successor : All other controls in this family
+IA-2 : precursor : AC-2, AC-3, AC-14
+IA-2 : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7, MA-4
+IA-2 : successor : IA-8
+IA-2(1) : precursor : AC-2, AC-3, AC-14
+IA-2(1) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7, MA-4
+IA-2(1) : successor : IA-8
+IA-2(2) : precursor : AC-2, AC-3, AC-14
+IA-2(2) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7,
+IA-2(2) : successor : IA-8
+IA-2(3) : precursor : AC-2, AC-3, AC-14
+IA-2(3) : concurrent : CM-6, IA-4, IA-5, IA-6, IA-7
+IA-2(3) : successor : IA-8
+IA-2(4) : precursor : AC-2, AC-3, AC-14
+IA-2(4) : concurrent : CM-6, IA-4, IA-5, IA-6, IA-7
+IA-2(4) : successor : IA-8
+IA-2(5) : precursor : AC-2, AC-3, AC-14
+IA-2(5) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7, MA-4
+IA-2(5) : successor : IA-8
+IA-2(6) : precursor : AC-2, AC-3, AC-14
+IA-2(6) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7, MA-4
+IA-2(6) : successor : IA-8
+IA-2(7) : precursor : AC-2, AC-3, AC-14
+IA-2(7) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7
+IA-2(7) : successor : IA-8
+IA-2(8) : precursor : AC-2, AC-3, AC-14
+IA-2(8) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7, MA-4
+IA-2(8) : successor : IA-8
+IA-2(9) : precursor : AC-2, AC-3, AC-14
+IA-2(9) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-3, IA-4, IA-5, IA-6, IA-7,
+IA-2(9) : successor : IA-8
+IA-3 : precursor : AC-2, AC-3, AC-4, AC-14
+IA-3 : concurrent : AC-17, AC-18, AC-19, CA-3, CM-6, IA-2, IA-4, IA-5, IA-6, IA-7, MA-4 
+IA-3 : successor : IA-8
+IA-3(1) : precursor : AC-2, AC-3, AC-4, AC-14
+IA-3(1) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-2, IA-4, IA-5, IA-6. IA-7, SC-13
+IA-3(1) : successor : IA-8
+IA-3(2) : precursor : AC-2, AC-3, AC-4, AC-14
+IA-3(2) : concurrent : AC-17, AC-18, AC-19, CM-6, IA-2, IA-4, IA-5, IA-6, IA-7, SC-13
+IA-3(2) : successor : IA-8
+IA-3(3) : precursor : None
+IA-3(3) : concurrent : AU-2, AU-3, AU-6, AU-7, AU-8, AU-12, CM-6, IA-4, IA-5, SC-7, SI-4
+IA-3(3) : successor : None
+IA-4 : precursor : AC-2, AC-3, AC-14
+IA-4 : concurrent : CM-6, IA-2, IA-3, IA-6, IA-7, IA-8, MA-4 
+IA-4 : successor : IA-5
+IA-4(1) : precursor : AC-2, AC-3, AC-14
+IA-4(1) : concurrent : CM-6, IA-2, IA-3, IA-6, IA-7, IA-8
+IA-4(1) : successor : IA-5
+IA-4(2) : precursor : AC-2, AC-3,
+IA-4(2) : concurrent : IA-2, IA-3, IA-8
+IA-4(2) : successor : IA-5
+IA-4(3) : precursor : AC-2, AC-3
+IA-4(3) : concurrent : IA-2, IA-3, IA-8
+IA-4(3) : successor : IA-5
+IA-4(4) : precursor : AC-2, AC-3
+IA-4(4) : concurrent : IA-2, IA-3, IA-8
+IA-4(4) : successor : IA-5
+IA-4(5) : precursor : AC-2, AC-3, AC-14
+IA-4(5) : concurrent : CM-6, IA-2, IA-3, IA-6, IA-7, IA-8
+IA-4(5) : successor : IA-5
+IA-5 : precursor : AC-2, AC-3, AC-14, IA-4
+IA-5 : concurrent : CM-6, IA-2, IA-3, IA-6, IA-7, IA-8, MA-4, SC-28
+IA-5 : successor : None
+IA-5(1) : precursor : AC-2, AC-3, AC-14, IA-4
+IA-5(1) : concurrent : CM-6, IA-2, IA-3, IA-7, IA-8, MA-4, SC-28
+IA-5(1) : successor : None
+IA-5(2) : precursor : AC-2, AC-3, AC-14, IA-4
+IA-5(2) : concurrent : CM-6, IA-2, IA-3, IA-7, IA-8, MA-4, SC-12, SC-13, SC-28
+IA-5(2) : successor : None
+IA-5(3) : precursor : AC-2, AC-3, IA-4
+IA-5(3) : concurrent : IA-2, IA-3, IA-7, IA-8
+IA-5(3) : successor : None
+IA-5(4) : precursor : AC-2, AC-3, IA-4
+IA-5(4) : concurrent : CM-6, IA-2,IA-3, IA-6, IA-7, IA-8
+IA-5(4) : successor : None
+IA-5(5) : precursor : IA-4
+IA-5(5) : concurrent : IA-2, IA-3, IA-8, SA-4
+IA-5(5) : successor : None
+IA-5(6)	: precursor : IA-4
+IA-5(6)	: concurrent : IA-2, IA-3, IA-8, RA-2, RA-3
+IA-5(6)	: successor : None
+IA-5(7) : precursor : IA-4
+IA-5(7) : concurrent : CM-6, IA-2, IA-3, IA-8, SC-28
+IA-5(7) : successor : None
+IA-5(8) : precursor : AC-2, AC-3, IA-4
+IA-5(8) : concurrent : IA-2, IA-3, IA-8, PM-9, RA-3
+IA-5(8) : successor : None
+IA-6 : precursor : None
+IA-6 : pconcurrent : CM-6, IA-2, IA-3, IA-4, IA-5, IA-8
+IA-6 : psuccessor : None
+IA-7 : precursor : AC-2, AC-3, AC-14
+IA-7 : concurrent : CM-6, IA-2, IA-3, IA-4, IA-5, IA-8, SC-13
+IA-7 : successor : None
+IA-8 : precursor : AC-2, AC-3, AC-14, IA-2, IA-3
+IA-8 : concurrent : AC-17, AC-18, AC-19, CM-6, IA-4, IA-5, IA-6, IA-7, MA-4, MA-5
+IA-8 : successor : None

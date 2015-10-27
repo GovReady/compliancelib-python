@@ -1,0 +1,240 @@
+AC-1 : precursor : PM-9
+AC-1 : concurrent : None 
+AC-1 : successor : All other controls in this family
+AC-2 : precursor : PL-2
+AC-2 : concurrent : IA-2, IA-4, IA-5, CM-6
+AC-2 : successor : AC-3, AC-4, AC-5, AC-6, AC-7, AC-9, AC10, AC-13
+AC-3 : precursor : AC-2, AC-5, AC-6, AC-16, AC-17, AC-18, AC-19, AC-20, AC-21, AC-22, AU-9, CM-5, IA-2, IA-4, IA-5, MA-3, MA-4, MA-5, MP-2, SA-7, SI-9
+AC-3 : concurrent : AC-4 , CM-6
+AC-3 : successor : None
+AC-3 (1) : precursor : N/A
+AC-3 (1) : concurrent : N/A
+AC-3 (1) : successor : N/A
+AC-3 (2) : precursor : AC-2, IA-2, IA-4, IA-5
+AC-3 (2) : concurrent : CM-6
+AC-3 (2) : successor : None
+AC-3 (3) : precursor : AC-2, IA-2, IA-4, IA-5
+AC-3 (3) : concurrent : CM-6
+AC-3 (3) : successor : None
+AC-3 (4) : precursor : AC-2, IA-2, IA-4, IA-5
+AC-3 (4) : concurrent : CM-6
+AC-3 (4) : successor : None
+AC-3 (5) : precursor : AC-2, IA-2, IA-4, IA-5
+AC-3 (5) : concurrent : CM-6
+AC-3 (5) : successor : None
+AC-3 (6) : precursor : None
+AC-3 (6) : concurrent : CM-6, MP-4, SC-13, SC-28
+AC-3 (6) : successor : None
+AC-4 : precursor : AC-2, CA-3, CM-2, IA-2, SA-8
+AC-4 : concurrent : AC-3, AC-17, AC-18, AC-19, AC-21, CM-6, CM-7, SC-2, SC-5, SC-7, SC-18
+AC-4 : successor : None
+AC-4 (1)	: precursor : None
+AC-4 (1)	: concurrent : AC-16, SC-7, SC-16, CM-6
+AC-4 (1)	: successor : None
+AC-4 (2) : precursor : None
+AC-4 (2) : concurrent : CM-6, SC-7, SC-32
+AC-4 (2) : successor : None
+AC-4 (3) : precursor : None
+AC-4 (3) : concurrent : CM-6, SC-7
+AC-4 (3) : successor : None
+AC-4 (4) : precursor : None
+AC-4 (4) : concurrent : CM-6, SC-7
+AC-4 (4) : successor : None
+AC-4 (5) : precursor : None
+AC-4 (5) : concurrent : CM-6
+AC-4 (5) : successor : None
+AC-4 (6) : precursor : None
+AC-4 (6) : concurrent : CM-6
+AC-4 (6) : successor : None
+AC-4 (7) : precursor : None
+AC-4 (7) : concurrent : CM-6
+AC-4 (7) : successor : None
+AC-4 (8) : precursor : None
+AC-4 (8) : concurrent : CM-6
+AC-4 (8) : successor : None
+AC-4 (9) : precursor : None
+AC-4 (9) : concurrent : AC-16, CM-6, SC-7, SC-16
+AC-4 (9) : successor : None
+AC-4 (10) : precursor : None
+AC-4 (10) : concurrent : AC-6, AC-16, CM-6
+AC-4 (10) : successor : None
+AC-4 (11) : precursor : None
+AC-4 (11) : concurrent : AC-6, AC-16, CM-6, SC-16
+AC-4 (11) : successor : None
+AC-4 (12) : precursor : None
+AC-4 (12) : concurrent : AC-3, CM-6, SC-7, SC-31, SC-32
+AC-4 (12) : successor : None
+AC-4 (13) : precursor : None
+AC-4 (13) : concurrent : AC-3, CM-6, SC-7, SC-31, SC-32
+AC-4 (13) : successor : None
+AC-4 (14) : precursor : None
+AC-4 (14) : concurrent : AC-3, CM-6, SC-7, SC-31, SC-32
+AC-4 (14) : successor : None
+AC-4 (15) : precursor : None
+AC-4 (15) : concurrent : AC-3, CM-6, SC-7, SC-31, SC-32
+AC-4 (15) : successor : None
+AC-4 (16) : precursor : CA-3
+AC-4 (16) : concurrent : AC-16, CM-6, SC-7, SC-16
+AC-4 (16) : successor : None
+AC-4 (17) : precursor : None
+AC-4 (17) : concurrent : AC-16, AU-2, AU-3, AU-12, CM-6, IR-5, SC-7, SC-20, SC-21
+AC-4 (17) : successor : None
+AC-5 : precursor : AC-2, AC-3, IA-2 
+AC-5 : concurrent : AC-6, PS-2, PS-6
+AC-5 : successor : None
+AC-6 : precursor : AC-2, AC-3, IA-2
+AC-6 : concurrent : AC-5, CM-6
+AC-6 : successor : None
+AC-6 (1) : precursor : AC-2, AC-3, IA-2
+AC-6 (1) : concurrent : AC-17, SC-3, SC-11
+AC-6 (1) : successor : None
+AC-6 (2) : precursor : AC-2, AC-3, IA-2
+AC-6 (2) : concurrent : AC-17, SC-3, AU-2, AU-3, AU-6, AU-12
+AC-6 (2) : successor : None
+AC-6 (3) : precursor : AC-2, AC-3, IA-2
+AC-6 (3) : concurrent : None
+AC-6 (3) : successor : None
+AC-6 (4) : precursor : AC-2, AC-3, IA-2
+AC-6 (4) : concurrent : None
+AC-6 (4) : successor : None
+AC-6 (5) : precursor : AC-2, AC-3, IA-2
+AC-6 (5) : concurrent : None
+AC-6 (5) : successor : None
+AC-6 (6) : precursor : AC-2, AC-3, IA-2, IA-8
+AC-6 (6) : concurrent : None
+AC-6 (6) : successor : None
+AC-7 : precursor : IA-2, IA-3, IA-5, IA-8
+AC-7 : concurrent : IA-6, CM-6
+AC-7 : successor : None
+AC-7 (1) : precursor : IA-2, IA-3, IA-5, IA-8
+AC-7 (1) : concurrent : IA-6, CM-6
+AC-7 (1) : successor : None
+AC-7 (2) : precursor : IA-2, IA-3, IA-5
+AC-7 (2) : concurrent : IA-6, AC-19, CM-6
+AC-7 (2) : successor : None
+AC-8 : precursor : None
+AC-8 : concurrent : CM-6, PL-4, PS-6, SI-4
+AC-8 : successor : None
+AC-9 : precursor : None
+AC-9 : concurrent : CM-6
+AC-9 : successor : None
+AC-9 (1) : precursor : AC-7
+AC-9 (1) : concurrent : CM-6
+AC-9 (1) : successor : None
+AC-9 (2) : precursor : AC-7
+AC-9 (2) : concurrent : CM-6
+AC-9 (2) : successor : None
+AC-9 (3) : precursor : AC-2, AC-3
+AC-9 (3) : pconcurrent : CM-6
+AC-9 (3) : psuccessor : None
+AC-10 : precursor : None
+AC-10 : concurrent : AC-2, AC-3, CM-6
+AC-10 : successor : None
+AC-11 : precursor : None
+AC-11 : concurrent : AC-2, CM-6, IA-2, IA-8
+AC-11 : successor : None
+AC-11 (1) : precursor : None
+AC-11 (1) : concurrent : CM-6
+AC-11 (1) : successor : None
+AC-14 : precursor : None
+AC-14 : concurrent : AC-2, AC-3, AC-4, AC-6
+AC-14 : successor : IA-2, IA-3, IA-8
+AC-14 (1) : precursor : None
+AC-14 (1) : concurrent : AC-2, AC-3, AC-4, AC-6, PM-11, RA-2, RA-3
+AC-14 (1) : successor : IA-2, IA-3, IA-8
+AC-16 : precursor : None
+AC-16 : concurrent : CM-6, MP-3, SC-16
+AC-16 : successor : None
+AC-16 (1) : precursor : none
+AC-16 (1) : concurrent : CM-6, SC-16
+AC-16 (1) : successor : None
+AC-16 (2) : precursor : None
+AC-16 (2) : concurrent : CM-6, SC-16
+AC-16 (2) : successor : None
+AC-16 (3) : precursor : None
+AC-16 (3) : concurrent : CM-6, SC-16
+AC-16 (3) : successor : None
+AC-16 (4) : precursor : None
+AC-16 (4) : concurrent : CM-6, SC-16
+AC-16 (4) : successor : None
+AC-16 (5) : precursor : none
+AC-16 (5) : concurrent : CM-6, SC-16
+AC-16 (5) : successor : None
+AC-17 : precursor : AC-2 
+AC-17 : concurrent : AC-3, AC-4, AC-18, AC-20, AU-2, AU-3, AU-6, AU-7, AU-12, AU-14, CM-8, IA-2, IA-3, IA-8, MA-4, SC-7, SI-4 
+AC-17 : successor : None
+AC-17 (1) : precursor : AC-2
+AC-17 (1) : concurrent : AC-3, AC-4, AU-2, AU-3, AU-6, AU-7, AU-12, AU-14, CM-6, CM-8, IA-2, IA-8, SC-7, SI-4
+AC-17 (1) : successor : None
+AC-17 (2) : precursor : None
+AC-17 (2) : concurrent : AC-4, CM-6, IA-2, SC-7, SC-8, SC-9, SC-13
+AC-17 (2) : successor : None
+AC-17 (3) : precursor : None
+AC-17 (3) : concurrent : AC-3, AC-4, CM-6, SC-7
+AC-17 (3) : successor : None
+AC-17 (4) : precursor : AC-2
+AC-17 (4) : concurrent : AC-3, AC-4, AC-6, IA-2, MA-4, SC-7
+AC-17 (4) : successor : None
+AC-17 (5) : precursor : None
+AC-17 (5) : concurrent : AC-2, AU-2, AU-3, AU-6, AU-7, AU-12, AU-14, CM-8, IA-8, SI-4, SC-7
+AC-17 (5) : successor : None
+AC-17 (6) : precursor : None
+AC-17 (6) : concurrent : AC-8, PL-4, PS-6
+AC-17 (6) : successor : None
+AC-17 (7) : precursor : None
+AC-17 (7) : concurrent : AC-2, AC-3, AC-6, AU-2, AU-3, AU-6, AU-7, AU-12, AU-14, CM-6, SC-7, SC-8, SC-9 
+AC-17 (7) : successor : None
+AC-17 (8) : precursor : None
+AC-17 (8) : concurrent : CM-6, CM-7, CM-8, SC-7
+AC-17 (8) : successor : None
+AC-18 : precursor : AC-2
+AC-18 : concurrent : AC-3, AC-17, AC-19, CM-6, CM-7, IA-2, IA-3, IA-8, SC-7
+AC-18 : successor : None
+AC-18 (1) : precursor : None
+AC-18 (1) : concurrent : AC-2, AC-3, AC-4, AC-17, AC-19, CM-6, IA-2, IA-3, IA-8, SC-7, SC-8, SC-9, SC-13
+AC-18 (1) : successor : None
+AC-18 (2) : precursor : None
+AC-18 (2) : concurrent : AC-2, AU-2, AU-3, AU-6, AU-7, AU-12, AU-14, CM-6, CM-8, IA-3, IR-4, IR-5, IR-6, IR-8, SI-4, SC-7
+AC-18 (2) : successor : None
+AC-18 (3) : precursor : None
+AC-18 (3) : concurrent : CM-6, CM-7, IA-3
+AC-18 (3) : successor : None
+AC-18 (4) : precursor : None
+AC-18 (4) : pconcurrent : CM-6, CM-7, IA-3
+AC-18 (4) : psuccessor : None
+AC-18 (5) : precursor : None
+AC-18 (5) : concurrent : CM-6, CM-7, IA-3, SC-7
+AC-18 (5) : successor : None
+AC-19 : precursor : None
+AC-19 : concurrent : AC-3, AC-17, AC-18, CM-6, CM-7, MP-4, MP-5, SI-3, SI-4
+AC-19 : successor : None
+AC-19 (1) : precursor : None
+AC-19 (1) : concurrent : CM-6, CM-7, MP-4, SC-34, SI-4
+AC-19 (1) : successor : None
+AC-19 (2) : precursor : None
+AC-19 (2) : concurrent : AC-20, CM-6,CM-7, MP-4, SI-4
+AC-19 (2) : successor : None
+AC-19 (3) : precursor : None
+AC-19 (3) : concurrent : CM-6, CM-7, MP-4, SI-4
+AC-19 (3) : successor : None
+AC-19 (4) : precursor : None
+AC-19 (4) : concurrent : AC-18, AC-20, AU-13, CM-6, CM-7, MP-4, MP-5, IR-4, IR-5, IR-6, IR-8, SI-4
+AC-19 (4) : successor : None
+AC-20 : precursor : None
+AC-20 : concurrent : AC-2, AC-3, AC-4, AC-17, AC-19, CA-3, PL-4, SA-9
+AC-20 : successor : None
+AC-20 (1) : precursor : None
+AC-20 (1) : concurrent : CA-3, PL-4, SA-9
+AC-20 (1) : successor : None
+AC-20 (2) : precursor : None
+AC-20 (2) : concurrent : PL-4, SA-9
+AC-20 (2) : successor : None
+AC-21 : precursor : None
+AC-21 : concurrent : AC-2, AC-3, AC-6, AU-13, CM-6
+AC-21 : successor : None
+AC-21 (1) : precursor : None
+AC-21 (1) : concurrent : AC-2, AC-3, AC-6, AU-13, CM-6
+AC-21 (1) : successor : None
+AC-22 : precursor : None
+AC-22 : concurrent : AC-3, AC-6, AT-3, AU-13
+AC-22 : successor : None

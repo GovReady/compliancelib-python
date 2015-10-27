@@ -1,0 +1,24 @@
+AT-1 : precursor : PM-9
+AT-1 : concurrent : None 
+AT-1 : successor : All other controls in this family
+AT-2 : precursor : None
+AT-2 : concurrent : None 
+AT-2 : successor : AT-4
+AT-2 (1) : precursor : None
+AT-2 (1) : concurrent : None
+AT-2 (1) : successor : AT-4
+AT-3 : precursor : None
+AT-3 : concurrent : None
+AT-3 : successor : AT-4
+AT-3 (1) : precursor : None
+AT-3 (1) : concurrent : None
+AT-3 (1) : successor : AT-4
+AT-3 (2) : precursor : None
+AT-3 (2) : concurrent : None
+AT-3 (2) : successor : AT-4
+AT-4 : precursor : AT-2, AT-3
+AT-4 : concurrent : None 
+AT-4 : successor : None
+AT-5 : precursor : None
+AT-5 : concurrent : None 
+AT-5 : successor : None

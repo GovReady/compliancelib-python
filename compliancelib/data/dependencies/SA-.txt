@@ -1,0 +1,123 @@
+SA-1 : precursor : PM-9
+SA-1 : concurrent : None 
+SA-1 : successor : All other controls in this family
+SA-2 : precursor : PM-3, PM-7, PM-11, SA-3, SA-8
+SA-2 : concurrent : None
+SA-2 : successor : SA-4, SA-5
+SA-3 : precursor : PM-7, PM-11, SA-8
+SA-3 : concurrent : AT-3, SA-9, SA-10, SA-11, SA-12
+SA-3 : successor : SA-2, SA-4
+SA-4 : precursor : CM-9, PM-3, PM-7, PM-11, SA-2, SA-3, SA-8, SA-12, SA-13, SC-3
+SA-4 : concurrent : CA-2, CM-2, CM-6, CM-8, RA-3, SI-2, SI-3, SI-6, SI-7
+SA-4 : successor : CA-6, SA-5, SA-6, SA-7, SA-9, SA-10, SA-11, SI-6
+SA-4 (1) : precursor : PM-3, PM-7, PM-11, SA-2, SA-3, SA-8, SA-12, SA-13, SC-2, SC-3
+SA-4 (1) : concurrent : CA-2, CM-2, CM-6, CM-8, SI-2, SI-3, SI-6, SI-7
+SA-4 (1) : successor : CA-6, SA-5, SA-6, SA-7, SA-9, SA-10, SA-11
+SA-4 (2) : precursor : PM-3, PM-7, PM-11, SA-2, SA-3, SA-8, SA-12, SA-13, SC-2, SC-3
+SA-4 (2) : concurrent : CA-2, CM-2, CM-6, CM-8, SI-2, SI-3, SI-6, SI-7
+SA-4 (2) : successor : CA-6, SA-5, SA-6, SA-7, SA-9, SA-10, SA-11
+SA-4 (3) : precursor : PM-7, SA-2, SA-3, SA-8, SA-12, SA-13
+SA-4 (3) : concurrent : CA-2, RA-5,SI-2, SI-6, SI-7
+SA-4 (3) : successor : CA-6, SA-5, SA-6, SA-7, SA-9, SA-10, SA-11, 
+SA-4 (4) : precursor : PM-7, CM-9
+SA-4 (4) : concurrent : CM-2, CM-8, PL-2
+SA-4 (4) : successor : CA-6, PE-18
+SA-4 (5) : precursor : CM-9, PM-7, SA-3, SA-8
+SA-4 (5) : concurrent : CM-2, CM-6, CM-8
+SA-4 (5) : successor : SA-5, SA-6, SA-7, SA-10, SA-11 
+SA-4 (6) : precursor : PM-7, SA-8, SA-13
+SA-4 (6) : concurrent : CM-2, CM-6
+SA-4 (6) : successor : SA-5, SA-6, SA-7
+SA-4 (7) : precursor : PM-7, SA-8, SA-13
+SA-4 (7) : concurrent : CM-2, CM-6, SC-13
+SA-4 (7) : successor : SA-5, SA-6, SA-7 
+SA-5 : precursor : CM-9, SA-2, PM-3, PM-7, SA-4, SA-8, SA-13, SC-2, SC-3
+SA-5 : concurrent : CM-2, CM-6
+SA-5 : successor : SA-6, SA-7, SA-9, SA-10, SA-11
+SA-5 (1) : precursor : CM-9, SA-2, PM-3, PM-7, SA-4, SA-8, SA-13, SC-2, SC-3
+SA-5 (1) : concurrent : CM-2, CM-6
+SA-5 (1) : successor : SA-6, SA-7, SA-9, SA-10, SA-11
+SA-5 (2) : precursor : CM-9, SA-2, PM-3, PM-7, SA-4, SA-8, SA-13, SC-2, SC-3
+SA-5 (2) : concurrent : CM-2, CM-6
+SA-5 (2) : successor : SA-6, SA-7, SA-9, SA-10, SA-11
+SA-5 (3) : precursor : CM-9, SA-2, PM-3, PM-7, SA-4, SA-8, SA-13, SC-2, SC-3
+SA-5 (3) : concurrent : CM-2, CM-6
+SA-5 (3) : successor : SA-6, SA-7, SA-9, SA-10, SA-11
+SA-5 (4) : precursor : CM-9, SA-2, PM-3, PM-7, SA-4, SA-8, SA-13, SC-2, SC-3
+SA-5 (4) : concurrent : CM-2, CM-6
+SA-5 (4) : successor : SA-6, SA-7, SA-9, SA-10, SA-11
+SA-5 (5) : precursor : CM-9, SA-2, PM-3, PM-7, SA-4, SA-8, SA-13, SC-2, SC-3
+SA-5 (5) : concurrent : CM-2, CM-6
+SA-5 (5) : successor : SA-6, SA-7, SA-9, SA-10, SA-11
+SA-6 : precursor : SA-4, SA-5
+SA-6 : concurrent : AC-17, AC-18, AC-19, AU-6, CM-3, IR-5, IR-6, PL-4, SA-7
+SA-6 : successor : None
+SA-6 (1) : precursor : SA-4, SA-5
+SA-6 (1) : concurrent : SA-7
+SA-6 (1) : successor : None
+SA-7 : precursor : SA-4, SA-5
+SA-7 : concurrent : CM-2, CM-5, CM-6, CM-7, SA-6
+SA-7 : successor : None
+SA-8 : precursor : None
+SA-8 : concurrent : PM-3, PM-7, PM-9, PM-11, SI-3
+SA-8 : successor : SA-2, SA-3, SA-4, SA-5, SA-10, SA-11, SA-12, SA-13
+SA-9 : precursor : SA-4, SA-5, SA-12
+SA-9 : concurrent : CA-2, CA-3, CA-7, PS-7 
+SA-9 : successor : None
+SA-9 (1) : precursor : SA-4, SA-5, SA-12
+SA-9 (1) : concurrent : CA-6, PS-7, RA-3
+SA-9 (1) : successor : None
+SA-10 : precursor : CM-9, SA-4, SA-5, SA-8
+SA-10 : concurrent : CM-2, CM-3, CM-4, SA-3, SI-2
+SA-10 : successor : SA-11
+SA-10 (1) : precursor : CM-9, SA-4, SA-5, SA-8
+SA-10 (1) : concurrent : CM-2, CM-3, SI-7
+SA-10 (1) : successor : SA-11
+SA-10 (2) : precursor : None
+SA-10 (2) : concurrent : CM-2, CM-3, CM-4
+SA-10 (2) : successor : None
+SA-11 : precursor : SA-4, SA-5, SA-8
+SA-11 : concurrent : CA-2, CM-4, SA-3, SA-10, SI-2
+SA-11 : successor : CA-5, CA-6, CA-7
+SA-11 (1) : precursor : SA-4, SA-5, SA-8
+SA-11 (1) : concurrent : CA-2, CM-4, SA-3, SA-10, SI-2
+SA-11 (1) : successor : CA-5, CA-6, CA-7
+SA-11 (2) : precursor : SA-4, SA-5, SA-8
+SA-11 (2) : concurrent : CA-2, CM-4, SA-3, SA-10, SI-2
+SA-11 (2) : successor : CA-5, CA-6, CA-7
+SA-11 (3) : precursor : SA-4, SA-5, SA-8
+SA-11 (3) : concurrent : CA-2, CM-4, SA-3, SA-10, SI-2
+SA-11 (3) : successor : CA-5, CA-6, CA-7
+SA-12 : precursor : RA-3, SA-8
+SA-12 : concurrent : CA-2, CM-2, CM-6, SC-34, SI-3, PE-16
+SA-12 : successor : SA-4, SA-9, SA-13, SA-14
+SA-12 (1) : precursor : None
+SA-12 (1) : concurrent : None
+SA-12 (1) : successor : MA-6, SA-4, SA-13, SA-14
+SA-12 (2) : precursor : RA-3
+SA-12 (2) : concurrent : CA-2
+SA-12 (2) : successor : SA-4, SA-9, SA-13, SA-14
+SA-12 (3) : precursor : None
+SA-12 (3) : concurrent : None
+SA-12 (3) : successor : SA-4, SA-9, SA-13, SA-14
+SA-12 (4) : precursor : None
+SA-12 (4) : concurrent : None
+SA-12 (4) : successor : SA-4, SA-9, SA-13, SA-14
+SA-12 (5) : precursor : CM-9, PM-7, SA-8
+SA-12 (5) : concurrent : CA-2, CM-2, CM-6, SC-34, SI-3
+SA-12 (5) : successor : SA-4, SA-9, SA-13, SA-14
+SA-12 (6) : precursor : None
+SA-12 (6) : concurrent : None
+SA-12 (6) : successor : None
+SA-12 (7) : precursor : None
+SA-12 (7) : concurrent : CA-2, RA-5
+SA-12 (7) : successor : CA-7
+SA-13 : precursor : SA-8, SA-12
+SA-13 : concurrent : SA-4, SA-5, SA-14, SI-3
+SA-13 : successor : SA-4, SA-14
+SA-14 : precursor : SA-12, SA-13
+SA-14 : concurrent : None 
+SA-14 : successor : None
+SA-14 (1) : precursor : RA-3, SA-12, SA-13
+SA-14 (1) : concurrent : CA-2
+SA-14 (1) : successor : None

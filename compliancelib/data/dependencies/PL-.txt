@@ -1,0 +1,24 @@
+PL-1 : precursor : PM-9
+PL-1 : concurrent : None 
+PL-1 : successor : All other controls in this family
+PL-2 : precursor : PM-1, PM-7, PM-9, PM-11
+PL-2 : pconcurrent : CA-2, CA-3, CA-6, CA-7, CM-4, PL-PL-2 : p4, PL-5, PL-6, PM-10, RA-2, RA-3
+PL-2 : psuccessor : CA-5, PM-4
+PL-2 (1) : precursor : PM-1, PM-7, PM-9
+PL-2 (1) : concurrent : CA-2, CA-3, CA-6, CA-7, CM-4, PL-4, PL-5, PL-6, RA-2, RA-3, PM-10
+PL-2 (1) :  successor : CA-5, PM-4
+PL-2 (2) : precursor : PM-1, PM-7, PM-9
+PL-2 (2) : concurrent : AC-2, AC-20, CA-3, PE-2, PL-4, PL-5, PL-6, RA-2, RA-3, CP-2, CP-10
+PL-2 (2) :  successor : None
+PL-4 : precursor : None
+PL-4 : concurrent : AC-8, AC-20, CA-3, IA-4, PL-2, PS-6, PS-8, SA-5, SA-7, SA-9
+PL-4 : successor : None
+PL-4 (1) : precursor : None
+PL-4 (1) : concurrent : AC-8, AC-20, CA-3, IA-4, PL-2, PS-6, PS-8, SA-5, SA-7, SA-9
+PL-4 (1) :  successor : None
+PL-5 : precursor : None
+PL-5 : concurrent : PL-2, RA-2, RA-3
+PL-5 : successor : None
+PL-6 : precursor : PM-9, RA-2, RA-3
+PL-6 : concurrent : AU-2, CA-2, CA-6, CM-3, CM-4, CP-2, CP-4, IR-4, MA-2, PL-2, PM-10
+PL-6 : successor : CA-5, PM-4

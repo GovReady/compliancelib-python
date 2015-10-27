@@ -1,0 +1,132 @@
+AU-1 : precursor : PM-9
+AU-1 : concurrent : None 
+AU-1 : successor : All other in this family
+AU-2 : precursor : RA-3
+AU-2 : concurrent : CM-6, SI-4
+AU-2 : successor : AU-3, AU-4, AU-5, AU-6, AU-7, AU-8, AU-10, AU-11, AU-12, AU-14
+AU-2 (2) : precursor : None
+AU-2 (2) : concurrent : CM-6, SI-4
+AU-2 (2) : successor : None
+AU-2 (4) : precursor : None
+AU-2 (4) : concurrent : CM-6, SI-4
+AU-2 (4) : successor : None
+AU-3 : precursor : AU-2
+AU-3 : concurrent : AU-8, AU-14, CM-6, SI-4 
+AU-3 : successor : AU-4, AU-5, AU-6, AU-7, AU-10, AU-11, AU-12
+AU-3 (1) : precursor : AU-2
+AU-3 (1) : concurrent : AU-8, AU-14, CM-6, SI-4
+AU-3 (1) : successor : AU-4, AU-5, AU-6, AU-7, AU-10, AU-11, AU-12
+AU-3 (2) : precursor : AU-2
+AU-3 (2) : concurrent : AU-8, AU-14, CM-6, SI-4
+AU-3 (2) : successor : AU-4, AU-5, AU-6, AU-7, AU-10, AU-11, AU-12
+AU-4 : precursor : AU-2, AU-3, AU-8, AU-14
+AU-4 : concurrent : AU-5, AU-6, AU-7, AU-11, AU-12, CM-6, SI-4 
+AU-4 : successor : None
+AU-5 : precursor : AU-2, AU-3, AU-8, AU-14
+AU-5 : concurrent : AU-4, AU-6, AU-7, AU-11, AU-12, CM-6, SI-4 
+AU-5 : successor : None
+AU-5 (1) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-5 (1) : concurrent : AU-4, AU-6, AU-7, AU-11, AU-12, CM-6, SI-4
+AU-5 (1) : successor : None
+AU-5 (2) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-5 (2) : concurrent : AU-4, AU-6, AU-7, AU-11, AU-12, CM-6, SI-4
+AU-5 (2) : successor : None
+AU-5 (3) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-5 (3) : concurrent : AU-4, AU-6, AU-7, AU-11, AU-12, CM-6, SI-4
+AU-5 (3) : successor : None
+AU-5 (4) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-5 (4) : concurrent : AU-4, AU-6, AU-7, AU-11, AU-12, CM-6, SI-4
+AU-5 (4) : successor : None
+AU-6 : PRECURSOR : AU-2, AU-3, AU-8, AU-14
+AU-6 : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, IR-4, IR-5, IR-6, SI-4 
+AU-6 : SUCCESSOR : NONE
+AU-6 : PRECURSOR : AU-2, AU-3, AU-8, AU-14, CA-2, RA-3
+AU-6 : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, CA-7, IR-4, IR-5, IR-6, SI-4 
+AU-6 : SUCCESSOR : NONE
+AU-6 (1) : PRECURSOR : AU-2, AU-3, AU-8, AU-14
+AU-6 (1) : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, CM-6, IR-4, IR-5, IR-6, SI-4
+AU-6 (1) : SUCCESSOR : NONE
+AU-6 (2) : PRECURSOR : WITHDRAWN
+AU-6 (2) : CONCURRENT : WITHDRAWN
+AU-6 (2) : SUCCESSOR : WITHDRAWN
+AU-6 (3) : PRECURSOR : AU-2, AU-3, AU-8, AU-14
+AU-6 (3) : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, CM-6, IR-4, IR-5, IR-6, SI-4
+AU-6 (3) : SUCCESSOR : NONE
+AU-6 (4) : PRECURSOR : AU-2, AU-3, AU-8, AU-14
+AU-6 (4) : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, CM-6, IR-4, IR-5, SI-4
+AU-6 (4) : SUCCESSOR : NONE
+AU-6 (5) : PRECURSOR : AU-2, AU-3, AU-8, AU-14
+AU-6 (5) : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, CM-6, IR-4, IR-5, IR-6, RA-5, SI-4
+AU-6 (5) : SUCCESSOR : NONE
+AU-6 (6) : PRECURSOR : AU-2, AU-3, AU-8, AU-14
+AU-6 (6) : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, CM-6, IR-4, IR-5, IR-6, PE-6, SI-4
+AU-6 (6) : SUCCESSOR : NONE
+AU-6 (7) : PRECURSOR : AC-6
+AU-6 (7) : CONCURRENT : NONE
+AU-6 (7) : SUCCESSOR : NONE
+AU-6 (8) : PRECURSOR : WITHDRAWN
+AU-6 (8) : CONCURRENT : WITHDRAWN
+AU-6 (8) : SUCCESSOR : WITHDRAWN
+AU-6 (9) : PRECURSOR : AU-2, AU-3, AU-8, AU-14
+AU-6 (9) : CONCURRENT : AU-4, AU-5, AU-7, AU-11, AU-12, CM-6, SI-4 
+AU-6 (9) : SUCCESSOR : NONE
+AU-7 : precursor : AU-2, AU-3, AU-8, AU-14
+AU-7 : concurrent : AU-4, AU-5, AU-6, AU-11, AU-12, CM-6, IR-4, IR-5, IR-6, SI-4 
+AU-7 : successor : None
+AU-7 (1) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-7 (1) : concurrent : AU-4, AU-5, AU-6, AU-11, AU-12, CM-6, IR-4, IR-5, IR-6, SI-4
+AU-7 (1) : successor : None
+AU-8 : precursor : AU-2
+AU-8 : concurrent : AU-3, AU-14, CM-6, SI-4 
+AU-8 : successor : AU-4, AU-5, AU-6, AU-7, AU-10, AU-11, AU-12
+AU-8 (1) : precursor : AU-2
+AU-8 (1) : concurrent : AU-3, AU-14, CM-6, SI-4
+AU-8 (1) : successor : AU-4, AU-5, AU-6, AU-7, AU-10, AU-11, AU-12
+AU-9 : precursor : None
+AU-9 : concurrent : AC-3, AC-6, AU-11, CM-6 
+AU-9 : successor : None
+AU-9 (1) : precursor : None
+AU-9 (1) : concurrent : AC-3, AC-6, AU-11, CM-6
+AU-9 (1) : successor : None
+AU-9 (2) : precursor : None
+AU-9 (2) : concurrent : AU-11, CM-6, CP-9, CP-10
+AU-9 (2) : successor : Non
+AU-10 : precursor : AU-2, AU-3, AU-8, AU-14
+AU-10 : concurrent : CM-6, SC-8, SC-12, SC-13
+AU-10 : successor : None
+AU-10 (1) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-10 (1) : concurrent : CM-6, SC-8, SC-12, SC-13 
+AU-10 (1) : successor : None
+AU-10 (2) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-10 (2) : concurrent : CM-6, SC-8, SC-12, SC-13
+AU-10 (2) : successor : None
+AU-10 (3) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-10 (3) : concurrent : CM-6, SC-8, SC-12, SC-13
+AU-10 (3) : successor : None
+AU-10 (4) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-10 (4) : concurrent : CM-6, SC-8, SC-12, SC-13
+AU-10 (4) : successor : None
+AU-10 (5) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-10 (5) : concurrent : CM-6, SC-8, SC-12, SC-13
+AU-10 (5) : successor : None
+AU-11 : precursor : AU-2, AU-3, AU-8, AU-14
+AU-11 : concurrent : AU-4, AU-5, AU-6, AU-7, AU-9, AU-12, CM-6, IR-4, IR-5, IR-6, SI-4 
+AU-11 : successor : None
+AU-12 : precursor : AU-2, AU-3, AU-8, AU-14
+AU-12 : concurrent : AU-4, AU-5, AU-6, AU-7, AU-11, CM-6, SI-4
+AU-12 : successor : None
+AU-12 (1) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-12 (1) : concurrent : AU-4, AU-5, AU-6, AU-7, AU-11, CM-6, SI-4
+AU-12 (1) : successor : None
+AU-12 (2) : precursor : AU-2, AU-3, AU-8, AU-14
+AU-12 (2) : concurrent : AU-4, AU-5, AU-6, AU-7, AU-11, CM-6, SI-4
+AU-12 (2) : successor : None
+AU-13 : precursor : None
+AU-13 : concurrent : CM-6, SI-4
+AU-13 : successor : None
+AU-14 : precursor : AU-2
+AU-14 : concurrent : AU-3, AU-8, CM-6, SI-4
+AU-14 : successor : AU-4, AU-5, AU-6, AU-7, AU-10, AU-11, AU-12
+AU-14 (1) : precursor : AU-2
+AU-14 (1) : concurrent : AU-3, AU-8, CM-6, SI-4
+AU-14 (1) : successor : AU-4, AU-5, AU-6, AU-7, AU-10, AU-11, AU-12
