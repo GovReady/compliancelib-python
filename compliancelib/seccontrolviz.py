@@ -9,8 +9,8 @@ usage: python lib/viz_control_precursor.py
 """
 
 __author__ = "Greg Elin (gregelin@gitmachines.com)"
-__version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2015/08/05 6:02:00 $"
+__version__ = "$Revision: 0.2 $"
+__date__ = "$Date: 2015/10/26 22:02:00 $"
 __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "GPL 3.0"
 

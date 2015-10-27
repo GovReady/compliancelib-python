@@ -20,6 +20,7 @@ Requirements
 ------------
 - Python 2.7 or 3.4+
 - PyYAML - to generate YAML
+- graphviz
 
 Installation
 ------------
@@ -114,6 +115,14 @@ To use, simply do in python shell::
 	organizations.\n'
 	>>> c.related_controls
 	'AT-2,AT-4,PL-4,PS-7,SA-3,SA-12,SA-16'
+
+To see control dependencies, simply do in python shell::
+
+	>>> import compliancelib
+	>>> cv = compliancelib.SecControlViz("AU-3")
+	>>> cv.precursor_controls
+	['AU-3', 'AU-2', 'RA-3', 'PM-9']
+
 
 Running tests
 -------------
