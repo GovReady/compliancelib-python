@@ -1,0 +1,33 @@
+PM-1 : precursor : PM-9
+PM-1 : concurrent : PM-7, PM-11 
+PM-1 : successor : PL-2, PM-2, PM-3, PM-4, PM-5, PM-6, PM-8, PM-10
+PM-2 : precursor : PM-1, PM-9
+PM-2 : concurrent : None 
+PM-2 : successor : CA-6
+PM-3 : precursor : PM-1, PM-9
+PM-3 : concurrent : PM-4 
+PM-3 : successor : SA-2, SA-4
+PM-4 : precursor : CA-2, CA-7, CM-4, PL-2, PL-6, PM-1, PM-9, RA-5
+PM-4 : concurrent : PM-3, CA-5 
+PM-4 : successor : CA-6, PM-10
+PM-5 : precursor : PM-1, PM-9
+PM-5 : concurrent : RA-2, PM-7
+PM-5 : successor : CM-8, CM-9
+PM-6 : precursor : PM-1, PM-9
+PM-6 : concurrent : None 
+PM-6 : successor : None
+PM-7 : precursor : PM-9
+PM-7 : concurrent : PM-1, RA-2, PM-5, PM-11 
+PM-7 : successor : CM-2, CM-3, CM-6, CM-7, PL-2, SA-3
+PM-8 : precursor :  PM-1, PM-9, PM-11
+PM-8 : concurrent : CP-2, RA-3 
+PM-8 : successor : None
+PM-9 : precursor :  None
+PM-9 : concurrent : None 
+PM-9 : successor :  AC-1, AT-1, AU-1, CA-1, CA-7, CM-1, CP-1, IA-1, IR-1, MA-1, MP-1, PE-1, PL-1, PL-2, PL-6, PM-1, PS-1, RA-1, RA-2, RA-3, SA-1, SC-1, SI-1
+PM-10 : precursor : CA-5, PM-4, PM-9
+PM-10 : concurrent : CA-2, CA-6, CA-7, CM-4, PL-2, PL-6 
+PM-10 : successor : None
+PM-11 : precursor :  PM-9
+PM-11 : concurrent : PM-1, PM-7, RA-2
+PM-11 : successor : PL-2, PM-8

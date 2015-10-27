@@ -1,0 +1,69 @@
+MA-1 : precursor : PM-9
+MA-1 : concurrent : None 
+MA-1 : successor : All other controls in this family"
+MA-2 : precursor : AU-2, AU-3, AU-14, CM-2, CM-5, SA-5
+MA-2 : concurrent : AC-2, AC-3, AC-17, CM-3, CM-4, CM-6, MP-6, PE-2, PE-3, PE-6, PE-7, PE-8, PE-16, PL-4, PS-2, PS-3, PS-6, PS-7, SI-2, SI-4, SI-6
+MA-2 : successor : MA-3, MA-4, MA-5, MA-6"
+MA-2 (1) : precursor : AU-2, AU-3
+MA-2 (1) : concurrent : CM-8, MP-6, PE-2, PE-3, PE-6, PE-7, PE-8, PE-16, PS-7
+MA-2 (1) : successor : MA-4, MA-5"
+MA-2 (2) : precursor : None
+MA-2 (2) : concurrent : CM-6, PE-8
+MA-2 (2) : successor : MA-4"
+MA-3 : precursor : MA-2
+MA-3 : concurrent : AC-2, AC-3, AU-3, CM-5, CM-6, PE-2, PE-3, PE-6, PE-7, PE-8,SI-4 
+MA-3 : successor : None"
+MA-3 (1) : precursor : MA-2
+MA-3 (1) : concurrent : PE-16
+MA-3 (1) : successor : None"
+MA-3 (2) : precursor : MA-2
+MA-3 (2) : pconcurrent : RA-5, SI-3
+MA-3 (2) : psuccessor : None"
+MA-3 (3) : precursor : MA-2
+MA-3 (3) : concurrent : MP-5, MP-6, PE-16
+MA-3 (3) : successor : None"
+MA-3 (4) : precursor : MA-2
+MA-3 (4) : concurrent : CM-6
+MA-3 (4) : successor : None"
+MA-4 : precursor : AU-2, AU-3, AU-14, CM-2, MA-2
+MA-4 : concurrent : AC-2, AC-3, AC-17, AC-18, AC-19, CM-3, CM-6, IA-2, IA-8, MA-3, MA-5, MP-6, PL-4, PS-2, PS-3, PS-6, PS-7, SC-7, SC-10, SI-4 
+MA-4 : successor : None"
+MA-4 (1) : precursor : AU-2, AU-3, MA-2
+MA-4 (1) : concurrent : AC-17, AC-18, AU-6, AU-14, MA-3, MA-5, PS-2, PS-3, PS-7, SC-7
+MA-4 (1) : successor : None"
+MA-4 (2) : precursor : MA-2
+MA-4 (2) : concurrent : AC-4, AC-17, AC-18, CA-3, IA-3, SC-7
+MA-4 (2) : successor : None"
+MA-4 (3) : precursor : MA-2
+MA-4 (3) : concurrent : MA-3, MA-5, MP-6, SI-3
+MA-4 (3) : successor : None"
+MA-4 (4) : precursor : MA-2, CM-5
+MA-4 (4) : concurrent : AC-2, AC-3, AC-4, AC-17, AC-18, CM-6, IA-2, IA-3, IA-4, IA-5, IA-8, PE-2, PE-3, SC-7, SC-13
+MA-4 (4) : successor : None"
+MA-4 (5) : precursor : CM-3, MA-2
+MA-4 (5) : concurrent : MA-5, PS-7
+MA-4 (5) : successor : None"
+MA-4 (6) : precursor : MA-2
+MA-4 (6) : concurrent : AC-3, AC-4, AC-17, AC-18, CM-6, SC-7, SC-8, SC-9, SC-13
+MA-4 (6) : successor : None"
+MA-4 (7) : precursor : AU-2, AU-3, AU-14, MA-2
+MA-4 (7) : concurrent : AC-2, AC-3, AC-4, AC-10, AC-17, AC-18, CM-6, SC-10
+MA-4 (7) : successor : None"
+MA-5 : precursor : MA-2
+MA-5 : concurrent : AC-2, AC-3, CM-5, IA-8, MA-4, PE-2, PE-3, PL-4, PS-2, PS-3, PS-6, PS-7
+MA-5 : successor : None"
+MA-5 (1) : precursor : MA-2
+MA-5 (1) : concurrent : AC-2, AC-3, MP-2, MP-6, PE-2, PE-3, PL-4, PS-2, PS-3, PS-6, PS-7
+MA-5 (1) : successor : None"
+MA-5 (2) : precursor : MA-2
+MA-5 (2) : concurrent : AC-2, AC-3, PE-2, PE-3, PL-4, PS-2, PS-3, PS-6, PS-7
+MA-5 (2) : successor : None"
+MA-5 (3) : precursor : MA-2
+MA-5 (3) : concurrent : AC-2, AC-3, PE-2, PE-3, PL-4, PS-2, PS-3, PS-6, PS-7
+MA-5 (3) : successor : None"
+MA-5 (4) : precursor : MA-2
+MA-5 (4) : concurrent : AC-2, AC-3, PE-2, PE-3, PL-4, PS-2, PS-3, PS-6, PS-7
+MA-5 (4) : successor : None"
+MA-6 : precursor : MA-2
+MA-6 : concurrent : CP-2
+MA-6 : successor : None"

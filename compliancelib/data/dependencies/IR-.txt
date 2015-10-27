@@ -1,0 +1,60 @@
+IR-1 : precursor : PM-9
+IR-1 : concurrent : None 
+IR-1 : successor : All other in this family
+IR-2 : precursor : IR-8
+IR-2 : concurrent : IR-3, IR-4
+IR-2 : successor : None
+IR-2 (1) : precursor : IR-8
+IR-2 (1) : concurrent : IR-3, IR-4
+IR-2 (1) : successor : None
+IR-2 (2) : precursor : IR-8
+IR-2 (2) : concurrent : CM-6, IR-3, IR-4
+IR-2 (2) : successor : None
+IR-3 : precursor : IR-8
+IR-3 : concurrent : IR-2, IR-4
+IR-3 : successor : None
+IR-3 (1) : precursor : IR-8
+IR-3 (1) : concurrent : CM-6, IR-2, IR-4
+IR-3 (1) : successor : None
+IR-4 : precursor : IR-8, SC-7
+IR-4 : concurrent : AU-6, AU-7, AU-11, CP-2, CP-4, IR-2, IR-3, IR-5, IR-6, IR-7, PE-6, SI-4
+IR-4 : successor : None
+IR-4 (1) : precursor : IR-8, SC-7
+IR-4 (1) : concurrent : AU-6, AU-7, AU-11, CM-6, CP-2, IR-2, IR-3, IR-5, IR-6, IR-7, PE-6, SI-4
+IR-4 (1) : successor : None
+IR-4 (2) : precursor : IR-8, SC-7 
+IR-4 (2) : concurrent : CM-6, IR-2, IR-3, IR-5, IR-6, IR-7, PE-6, SI-4
+IR-4 (2) : successor : None
+IR-4 (3) : precursor : IR-8, SC-7
+IR-4 (3) : concurrent : AU-6, AU-7, AU-11, CM-6, CP-2, IR-2, IR-3, IR-5, IR-6, IR-7, PE-6, SI-4
+IR-4 (3) : successor : None
+IR-4 (4) : precursor : IR-8, SC-7
+IR-4 (4) : concurrent : AU-6, AU-7, AU-11, CM-6, CP-2, IR-2, IR-3, IR-5, IR-6, IR-7, PE-6, SI-4
+IR-4 (4) : successor : None
+IR-4 (5) : precursor : IR-8, SC-7
+IR-4 (5) : concurrent : AU-2, AU-6, CM-6, CP-2, IR-2, IR-3, IR-5, IR-6, IR-7, PE-6, SI-4
+IR-4 (5) : successor : None
+IR-5 : precursor : IR-8
+IR-5 : concurrent : AU-6, AU-7, AU-11, IR-4, IR-6, PE-6, SC-7, SI-4
+IR-5 : successor : None
+IR-5 (1) : precursor : IR-8
+IR-5 (1) : concurrent : AU-6, AU-7, AU-11, CM-6, IR-4, IR-6, PE-6, SC-7, SI-4
+IR-5 (1) : successor : None
+IR-6 : precursor controls: IR-8, SI-4
+IR-6 : concurrent controls: AU-6, AU-7, AU-11, IR-4, IR-5, IR-7, SI-5 
+IR-6 : successor controls: None
+IR-6 (1) : precursor : IR-8, SI-4
+IR-6 (1) : concurrent : AU-6, AU-7, AU-11, CM-6, IR-4, IR-5, IR-7, SI-5
+IR-6 (1) : successor : None
+IR-7 : precursor : IR-8
+IR-7 : concurrent : IR-4, IR-6
+IR-7 : successor : None
+IR-7 (1) : precursor : IR-8
+IR-7 (1) : concurrent : CM-6, IR-4, IR-6
+IR-7 (1) : successor : None
+IR-7 (2) : precursor : IR-8
+IR-7 (2) : concurrent : IR-4, IR-6
+IR-7 (2) : successor : None
+IR-8 : precursor : None
+IR-8 : concurrent : None
+IR-8 : successor : IR-2, IR-3, IR-4, IR-5, IR-6, IR-7"

@@ -1,0 +1,111 @@
+SI-1 : precursor : PM-9
+SI-1 : concurrent : None 
+SI-1 : successor : All other in this family
+SI-2 : precursor : RA-5
+SI-2 : concurrent : CA-2, CA-7, CM-3, CM-4, IR-4, MA-2, SA-4, SA-11, SI-4, SI-11
+SI-2 : successor : None
+SI-2 (1) : precursor : RA-5
+SI-2 (1) : concurrent : CA-2, CA-7, CM-3, CM-4, CM-6, IR-4, MA-2, SA-11, SI-11
+SI-2 (1) : successor : None
+SI-2 (2) : precursor : RA-5
+SI-2 (2) : concurrent : CA-2, CA-7, CM-3, CM-4, CM-6, IR-4, MA-2, SA-11, SI-11
+SI-2 (2) : successor : None
+SI-2 (3) : precursor : RA-5
+SI-2 (3) : concurrent : CA-2, CA-7, CM-3, CM-4, CM-6, IR-4, SA-11, SI-11
+SI-2 (3) : successor : None
+SI-2 (4) : precursor : RA-5
+SI-2 (4) : concurrent : CA-2, CA-7, CM-3, CM-4, CM-6, IR-4, MA-2, SA-11, SI-11
+SI-2 (4) : successor : None
+SI-3 : precursor : CM-1, RA-5
+SI-3 : concurrent : CM-6, SA-4, SA-8, SA-12, SA-13, SI-4, SI-7, SI-8 
+SI-3 : successor : None
+SI-3 (1) : precursor : CM-1, RA-5
+SI-3 (1) : concurrent : CM-6, SA-4, SA-8, SA-12, SA-13, SI-4, SI-7, SI-8 
+SI-3 (1) : successor : None
+SI-3 (2) : precursor : None
+SI-3 (2) : concurrent : CM-3, CM-6, SI-8
+SI-3 (2) : successor : None
+SI-3 (3) : precursor : None
+SI-3 (3) : concurrent : AC-3, AC-5, AC-6, CM-6, SI-8
+SI-3 (3) : successor : None
+SI-3 (4) : precursor : None
+SI-3 (4) : concurrent : AC-3, AC-5, AC-6, CM-6, SI-8
+SI-3 (4) : successor : None
+SI-3 (5) : precursor : None
+SI-3 (5) : concurrent : AC-6, AC-19
+SI-3 (5) : successor : None
+SI-3 (6) : precursor : None
+SI-3 (6) : concurrent : None
+SI-3 (6) : successor : None
+SI-4 : precursor : None
+SI-4 : concurrent : AC-4, AC-8, AC-17, AU-2, AU-6, CA-2, CA-7, CM-4, RA-3, SI-3, SI-7, SI-8
+SI-4 : successor : None
+SI-5 : precursor : None
+SI-5 : concurrent : AT-5
+SI-5 : successor : RA-5, SI-2
+SI-5 (1) : precursor : None
+SI-5 (1) : concurrent : AT-5, CM-6
+SI-5 (1) : successor : RA-5, SI-2
+SI-6 : precursor : None
+SI-6 : concurrent : CM-3, CM-4, CM-6, RA-5, SA-4, SA-5, SA-11
+SI-6 : successor : None
+SI-6 (1) : precursor : None
+SI-6 (1) : concurrent : CM-3, CM-4, CM-6, IR-4, IR-6, SA-11
+SI-6 (1) : successor : None
+SI-6 (2) : precursor : None
+SI-6 (2) : concurrent : CM-3, CM-4, CM-6, SA-11
+SI-6 (2) : successor : None
+SI-6 (3) : precursor : None
+SI-6 (3) : concurrent : CM-3, CM-4, CM-6, SA-11
+SI-6 (3) : successor : None
+SI-7 : precursor : None
+SI-7 : concurrent : CM-2, CM-3, CM-5, CM-6, SA-4, SA-10, SA-11, SA-13, SI-3, SI-4
+SI-7 : successor : None
+SI-7 (1) : precursor : None
+SI-7 (1) : concurrent : CM-2, CM-3, CM-5, CM-6, RA-5, SA-4, SA-10, SA-11, SA-13, SI-3, SI-4
+SI-7 (1) : successor : None
+SI-7 (2) : precursor : None
+SI-7 (2) : concurrent : CM-6, IR-4, IR-6
+SI-7 (2) : successor : None
+SI-7 (3) : precursor : None
+SI-7 (3) : concurrent : CM-6, IR-4, IR-6
+SI-7 (3) : successor : None
+SI-7 (4) : precursor : None
+SI-7 (4) : precursor : None
+SI-7 (4) : concurrent : CM-6, IR-4, IR-6
+SI-8 : precursor : CM-1
+SI-8 : concurrent : CM-3, CM-6, SI-3, SI-4, SC-5
+SI-8 : successor : None
+SI-8 (1) : precursor : None
+SI-8 (1) : concurrent : CM-3, CM-6, SI-3, SI-4
+SI-8 (1) : successor : None
+SI-8 (2) : precursor : None
+SI-8 (2) : concurrent : CM-3, CM-6, SI-3, SI-4
+SI-8 (2) : successor : None
+SI-9 : precursor : None
+SI-9  : concurrent : AC-3, AC-5, AC-6, CM-5, MA-5, MP-2, PE-2, PE-3
+SI-9  : successor : None
+SI-10 : precursor : None
+SI-10 : concurrent : CM-6, IA-4, IA-5
+SI-10 : successor : None
+SI-11 : precursor : None
+SI-11 : concurrent : AU-2, AU-3, AU-9, AC-5, AC-6, CM-6 
+SI-11 : successor : None
+SI-12 : precursor : None
+SI-12 : concurrent : MP-2,MP-3, MP-4
+SI-12 : successor : None
+SI-13 : precursor : CP-2
+SI-13 : concurrent : AU-5, CM-2, CP-10, SC-24
+SI-13 : successor : None
+SI-13 (1) : precursor : CP-2
+SI-13 (1) : concurrent : AU-5, CM-2, CP-10, SC-24
+SI-13 (1) : successor : None
+SI-13 (2) : precursor : None
+SI-13 (2) : concurrent : None
+SI-13 (2) : successor : None
+SI-13 (3) : precursor : CP-2
+SI-13 (3) : concurrent : AU-5, CM-2, CP-10, SC-24
+SI-13 (3) : successor : None
+SI-13 (4) : precursor : CP-2
+SI-13 (4) : concurrent : AU-5, CM-2, CM-6, CP-10, SC-24
+SI-13 (4) : successor : None

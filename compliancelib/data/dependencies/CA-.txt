@@ -1,0 +1,39 @@
+CA-1 : precursor : PM-9
+CA-1 : concurrent : None 
+CA-1 : successor : All other controls in this family
+CA-2 : precursor : None
+CA-2 : concurrent : CA-6, CA-7, CM-4, PM-10, RA-3, RA-5, SA-11, SI-2
+CA-2 : successor : CA-5, PM-4
+CA-2 (1) : precursor : None
+CA-2 (1) : concurrent : CA-6, CA-7, CM-4, PM-10, RA-3, RA-5, SA-11, SI-2
+CA-2 (1) : successor : None
+CA-2 (2) : precursor : None
+CA-2 (2) : concurrent : CA-6, CA-7, CM-4, PM-10, RA-3, RA-5, SA-11, SI-2
+CA-2 (2) : successor : CA-5, PM-4"
+CA-3 : precursor : SC-7
+CA-3 : concurrent : AC-4, CA-7, SA-9
+CA-3 : successor : None
+CA-3 (1) : precursor : SC-7
+CA-3 (1) : concurrent : AC-4, CA-7, CM-6, SA-9
+CA-3 (1) : successor : None
+CA-3 (2) : precursor : SC-7
+CA-3 (2) : concurrent : AC-4, CA-7, CM-6, SA-9
+CA-3 (2) : successor : None
+CA-5 : precursor : CA-2, CA-7, CM-4, RA-3, RA-5, SA-11, SI-2
+CA-5 : concurrent : PM-4
+CA-5 : successor : CA-6, PM-10"
+CA-5 (1) : precursor : CA-2, CA-7, CM-4, RA-3, RA-5, SA-11, SI-2
+CA-5 (1) : concurrent : CM-6, PM-4
+CA-5 (1) : successor : CA-6, PM-10
+CA-6 : precursor : CA-5, PM-4
+CA-6 : concurrent : CA-2, CA-7, CM-3, CM-4, PM-10, RA-3, RA-5, SA-11, SI-2
+CA-6 : successor : None
+CA-7 : precursor : PM-9
+CA-7 : concurrent : CA-2, CA-3, CA-6, CM-3, CM-4, PM-10, RA-3, RA-5, SA-11, SI-2
+CA-7 : successor : CA-5, PM-4
+CA-7 (1) : precursor : None
+CA-7 (1) : concurrent : CA-2, CA-3, CA-6, CM-4, PM-10, RA-3, RA-5, SA-11, SI-2
+CA-7 (1) : successor : None
+CA-7 (2) : precursor : None
+CA-7 (2) : concurrent : CA-2, , CA-6, CM-4, PM-10, RA-3, RA-5, SA-11, SI-2
+CA-7 (2) : successor : CA-5, PM-4

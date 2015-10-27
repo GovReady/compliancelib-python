@@ -1,0 +1,144 @@
+PE-1 : precursor : PM-9
+PE-1 : concurrent : None 
+PE-1 : successor : All other controls in this family
+PE-2 : precursor : None
+PE-2 : concurrent : CM-5, MA-2, MA-3, MA-4, MA-5, MP-2, MP-4, PE-3, PE-4, PE-5, PE-7, PE-8, PS-4, PS-5
+PE-2 : successor : None
+PE-2 (1) : precursor : None
+PE-2 (1) : concurrent : CM-5, MA-5, MP-2, MP-4, PE-3, PE-4, PE-5, PE-7, PE-8, PS-7
+PE-2 (1) : successor : None
+PE-2 (2) : precursor : None
+PE-2 (2) : concurrent : CM-5, MA-5, MP-2, MP-4, PE-3, PE-4, PE-5, PE-7, PE-8, PS-7
+PE-2 (2) : successor : None
+PE-2 (3) : precursor : None
+PE-2 (3) : concurrent : CM-5, MA-5, MP-2, MP-6, PE-3, PE-4, PE-7, PE-8, MA-5, PS-2, PS-3, PS-6 
+PE-2 (3) : successor : None
+PE-3 : precursor : None
+PE-3 : concurrent : CM-5, MA-2, MA-3, MA-4, MA-5, MP-2, MP-4, PE-2, PE-4, PE-5, PE-6, PE-7, PE-8, PE-10, PE-16, PE-18, PS-4, PS-5
+PE-3 : successor : None
+PE-3 (1) : precursor : None
+concurrent : CM-5, MA-2, MA-4, MA-5, MP-2, MP-4, PE-2, PE-4, PE-5, PE-6, PE-7, PE-8, PE-10, PE-16, PE-18, PS-4, PS-5
+successor : None
+PE-3 (2) : precursor : None
+PE-3 (2) : concurrent : MA-2, MA-4, MA-5, MP-2, MP-4, PE-2, PE-4, PE-5, PE-6, PE-7, PE-8, PE-10, PE-16, PE-18, PS-4, PS-5
+PE-3 (2) : successor : None
+PE-3 (3) : precursor : None
+PE-3 (3) : concurrent : MP-2, MP-4, PE-2, PE-6, PE-7, PE-8, PE-16, PE-18
+PE-3 (3) : successor : None
+PE-3 (4) : precursor : None
+PE-3 (4) : concurrent : MP-2, MP-4, PE-2, PE-4, PE-5, PE-6, PE-8, PE-10, PE-16, PE-18
+PE-3 (4) : successor : None
+PE-3 (5) : precursor : None
+PE-3 (5) : concurrent : CM-5, CM-6, PE-6
+PE-3 (5) : successor : None
+PE-3 (6) : precursor : None
+PE-3 (6) : concurrent : CA-2,CA-7, RA-5
+PE-3 (6) : successor : None
+PE-4 : precursor : None
+PE-4 : concurrent : MA-5, PE-2, PE-3, PE-6, PE-7, PE-8, PE-18, SC-7
+PE-4 : successor : None
+PE-5 : precursor : None
+PE-5 : concurrent : MA-5, PE-2, PE-3, PE-6, PE-7, PE-8
+PE-5 : successor : None
+PE-6 : precursor : AU-2, AU-3, AU-12
+PE-6 : concurrent : AU-6, AU-7, MA-2, IR-4, IR-5, PE-2, PE-3, PE-4, PE-5, PE-6, PE-7, PE-8, SC-7, SI-4
+PE-6 : successor : None
+PE-6 (1) : precursor : AU-2, AU-3, AU-12
+PE-6 (1) : concurrent : AU-6, AU-7, IR-4, IR-5, PE-2, PE-3, PE-4, PE-5, PE-6, PE-7, PE-8, SC-7, SI-4
+PE-6 (1) : successor : None
+PE-6 (2) : precursor : AU-2, AU-3, AU-12
+PE-6 (2) : concurrent : AU-6, AU-7, CM-6, IR-4, IR-5, PE-2, PE-3, PE-4, PE-5, PE-6, PE-7, PE-8, SC-7, SI-4
+PE-6 (2) : successor : None
+PE-7 : precursor : None
+PE-7 : concurrent : MA-2, PE-2, PE-3, PE-4, PE-5, PE-6, PE-8, PE-16, PE-18
+PE-7 : successor : None
+PE-7 (1) : precursor : None
+PE-7 (1) : concurrent : MA-2, PE-2, PE-3, PE-4, PE-5, PE-6, PE-8, PE-16, PE-18
+PE-7 (1) : successor : None
+PE-7 (2) : precursor : None
+PE-7 (2) : concurrent : MA-2, PE-2, PE-3, PE-4, PE-5, PE-6, PE-8, PE-16, PE-18
+PE-7 (2) : successor : None
+PE-8 : precursor : None
+PE-8 : concurrent : MA-2, PE-2, PE-3, PE-4, PE-5, PE-6, PE-7, PE-16
+PE-8 : successor : None
+PE-8 (1) : precursor : None
+PE-8 (1) : concurrent : CM-6, MA-2, PE-2, PE-3, PE-4, PE-5, PE-6, PE-7, PE-16
+PE-8 (1) : successor : None
+PE-8 (2) : precursor : None
+PE-8 (2) : concurrent : MA-2, PE-2, PE-3, PE-4, PE-5, PE-6, PE-7, PE-16
+PE-8 (2) : successor : None
+PE-9 : precursor : None
+PE-9 : concurrent : PE-10, PE-11, PE-18
+PE-9 : successor : None
+PE-9 (1) : precursor : None
+PE-9 (1) : concurrent : PE-10, PE-11, PE-18
+PE-9 (1) : successor : None
+PE-9 (2) : precursor : None
+PE-9 (2) : concurrent : PE-10, PE-11, PE-18
+PE-9 (2) : successor : None
+PE-10 : precursor : None
+PE-10 : concurrent : CP-2, PE-2, PE-3, PE-7, PE-8, PE-9, PE-18 
+PE-10 : successor : None
+PE-11 : precursor : None
+PE-11 : concurrent : CP-2, CP-4, PE-9, PE-18
+PE-11 : successor : None
+PE-11 (1) : precursor : None
+PE-11 (1) : concurrent : CP-2, CP-4, PE-9, PE-18
+PE-11 (1) : successor : None
+PE-11 (2) : precursor : None
+PE-11 (2) : concurrent : CP-2, CP-4, PE-9, PE-18
+PE-11 (2) : successor : None
+PE-12 : precursor : None
+PE-12 : concurrent : CP-2, MA-2 
+PE-12 : successor : None
+PE-12 (1) : precursor : None
+PE-12 (1) : concurrent : CP-2 
+PE-12 (1) : successor : None
+PE-13 : precursor : None
+PE-13 : concurrent : None 
+PE-13 : successor : None
+PE-13 (1) : precursor : None
+PE-13 (1) : concurrent : None 
+PE-13 (1) : successor : None
+PE-13 (2) : precursor : None
+PE-13 (2) : concurrent : None 
+PE-13 (2) : successor : None
+PE-13 (3) : precursor : None
+PE-13 (3) : concurrent : None 
+PE-13 (3) : successor : None
+PE-13 (4) : precursor : None
+PE-13 (4) : concurrent : None 
+PE-13 (4) : successor : None
+PE-14 : precursor : None
+PE-14 : concurrent : None
+PE-14 : successor : None
+PE-14 (1) : precursor : None
+PE-14 (1) : concurrent : None
+PE-14 (1) : successor : None
+PE-14 (2) : precursor : None
+PE-14 (2) : concurrent : None
+PE-14 (2) : successor : None
+PE-15 : precursor : None
+PE-15 : concurrent : None
+PE-15 : successor : None
+PE-15 (1) : precursor : None
+PE-15 (1) : concurrent : None
+PE-15 (1) : successor : None
+PE-16 : precursor : None
+PE-16 : concurrent : MA-2, MP-5, PE-3, PE-7, PE-8, SA-12 
+PE-16 : successor : None
+PE-17 : precursor : None
+PE-17 : concurrent : CP-7, PL-2, PS-7, SA-9
+PE-17 : successor : None
+PE-18 : precursor : None
+PE-18 : concurrent : MP-4, PE-3, PE-4, PE-5, PE-7, PE-9, PE-10, PE-11, PE-13
+PE-18 : successor : None
+PE-18 (1) : precursor : None
+PE-18 (1) : concurrent : PE-3, PE-4, PE-5, PE-7, PE-9, PE-10, PE-11, PE-13
+PE-18 (1) : successor : None
+PE-19 : precursor : None
+PE-19 : concurrent : None
+PE-19 : successor : None
+PE-19 (1) : precursor : None
+PE-19 (1) : concurrent : RA-2
+PE-19 (1) : successor : None

@@ -1,0 +1,36 @@
+PS-1 : precursor : PM-9
+PS-1 : concurrent : None 
+PS-1 : successor : All other controls in this family
+PS-2 : precursor : AC-5
+PS-2 : concurrent : MA-2, MA-4, MA-5
+PS-2 : successor : PS-3, PS-6, PS-7, SA-9
+PS-3 : precursor : PS-2
+PS-3 : concurrent : None
+PS-3 : successor : None
+PS-3 (1) : precursor : PS-2
+PS-3 (1) : concurrent : AC-2, AC-3, MA-2, MA-3, MA-5, PE-2, PE-3, PL-4, PS-6, PS-7, SA-9
+PS-3 (1) : successor : None
+PS-3 (2) : precursor : PS-2
+PS-3 (2) : concurrent : AC-2, AC-3, MA-2, MA-3, MA-5, PE-2, PE-3, PL-4, PS-6, PS-7, SA-9
+PS-3 (2) : successor : None
+PS-4 : precursor : None
+PS-4 : concurrent : AC-2, PE-2, PE-3, PS-5
+PS-4 : successor : None
+PS-5 : precursor : AC-5
+PS-5 : concurrent : AC-2, AC-3, AC-6, PE-2, PE-3, PS-4
+PS-5 : successor : None
+PS-6 : precursor : PS-2
+PS-6 : concurrent : AC-2, AC-3, AC-6, CA-3, IA-4, IA-5, MA-4, MA-5, PE-2, PE-3, PL-4, PS-3, PS-7, PS-8, SA-9
+PS-6 : successor : None
+PS-6 (1) : precursor : PS-2
+PS-6 (1) : concurrent : AC-2, AC-3, AC-6, CA-3, MA-4, MA-5, PE-2, PE-3, PL-4, PS-3, PS-7, PS-8, SA-9
+PS-6 (1) : successor : None
+PS-6 (2) : precursor : PS-2
+PS-6 (2) : concurrent : AC-2, AC-3, CA-3, MA-4, MA-5, PE-2, PE-3, PL-4, PS-3, PS-7, PS-8, SA-9
+PS-6 (2) : successor : None
+PS-7 : precursor : AC-5, PS-2
+PS-7 : concurrent : CA-3, MA-4, MA-5, PL-4, PS-3, PS-6, PS-8, SA-4, SA-9
+PS-7 : successor : None
+PS-8 : precursor : None
+PS-8 : concurrent : CA-3, PL-4, PS-6, PS-7, SA-9
+PS-8 : successor : None

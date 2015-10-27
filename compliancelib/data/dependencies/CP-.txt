@@ -1,0 +1,126 @@
+CP-1 : precursor : PM-9
+CP-1 : concurrent : None 
+CP-1 : successor : All other controls in this family
+CP-2 : precursor : None
+CP-2 : concurrent : CP-6, CP-7, CP-8, CP-10, SC-24, SI-13 
+CP-2 : successor : CP-3, CP-4, CP-9
+CP-2 (1) : precursor : None
+CP-2 (1) : concurrent : CP-6, CP-7, CP-8, CP-10, IR-4, PM-8, SC-24, SI-13
+CP-2 (1) : successor : CP-3, CP-4, CP-9
+CP-2 (1) : precursor : None
+CP-2 (1) : concurrent : CP-6, CP-7, CP-8, CP-10, IR-4, PM-8, SC-24, SI-13
+CP-2 (1) : successor : CP-3, CP-4, CP-9
+CP-2 (3) : precursor : None
+CP-2 (3) : concurrent : CP-6, CP-7, CP-8, CP-10, SC-24, SI-13 
+CP-2 (3) : successor : CP-3, CP-4, CP-9
+CP-2 (4) : precursor : None
+CP-2 (4) : concurrent : CP-6, CP-7, CP-8, CP-10, SC-24, SI-13
+CP-2 (4) : successor : CP-3, CP-4, CP-9
+CP-2 (5) : precursor : None
+CP-2 (5) : concurrent : CP-6, CP-7, CP-8, CP-10, SC-24, SI-13
+CP-2 (5) : successor : CP-3, CP-4, CP-9
+CP-2 (6) : precursor : None
+CP-2 (6) : concurrent : CP-6, CP-7, CP-8, CP-10, SC-24, SI-13
+CP-2 (6) : successor : CP-3, CP-4, CP-9
+CP-3 : precursor : CP-2
+CP-3 : concurrent : CP-4
+CP-3 : successor : None
+CP-3 (1) : precursor : CP-2
+CP-3 (1) : concurrent : CP-4
+CP-3 (1) : successor : None
+CP-3 (2) : precursor : CP-2
+CP-3 (2) : concurrent : CP-4
+CP-3 (2) : successor : None
+CP-4 : precursor : CP-2
+CP-4 : concurrent : CP-3, CP-9
+CP-4 : successor : CP-10, SC-24, SI-13
+CP-4 (1) : precursor : CP-2
+CP-4 (1) : concurrent : CP-3, CP-9, IR-4, PM-8
+CP-4 (1) : successor : CP-10, SC-24, SI-13
+CP-4 (2) : precursor : CP-2
+CP-4 (2) : concurrent : CP-3, CP-9
+CP-4 (2) : successor : CP-10, SC-24, SI-13
+CP-4 (3) : precursor : CP-2
+CP-4 (3) : concurrent : CP-3, CP-9
+CP-4 (3) : successor : CP-10, SC-24, SI-13
+CP-4 (4) : precursor : CP-2
+CP-4 (4) : concurrent : CP-3, CP-9
+CP-4 (4) : successor : CP-10, SC-24, SI-13
+CP-6 : precursor : None
+CP-6 : concurrent : CP-2, CP-9, CP-10, MP-4 
+CP-6 : successor : None
+CP-6 (1) : precursor : None
+CP-6 (1) : concurrent : CP-2, CP-9, CP-10, MP-4
+CP-6 (1) : successor : None
+CP-6 (2) : precursor : None
+CP-6 (2) : concurrent : CP-2, CP-9, CP-10, MP-4
+CP-6 (2) : successor : None
+CP-6 (3) : precursor : None
+CP-6 (3) : concurrent : CP-2, CP-9, CP-10, MP-4
+CP-6 (3) : successor : None
+CP-7 : precursor : None
+CP-7 : concurrent : CP-2 , CP-10
+CP-7 : successor : None
+CP-7 (1) : precursor : None
+CP-7 (1) : concurrent : CP-2, CP-10
+CP-7 (1) : successor : None
+CP-7 (2) : precursor : None
+CP-7 (2) : concurrent : CP-2, CP-10
+CP-7 (2) : successor : None
+CP-7 (3) : precursor : None
+CP-7 (3) : concurrent : CP-2, CP-8, CP-10
+CP-7 (3) : successor : None
+CP-7 (4) : precursor : None
+CP-7 (4) : concurrent : CP-2, CP-10
+CP-7 (4) : successor : None
+CP-8 : precursor : None
+CP-8 : concurrent : CP-2, CP-10 
+CP-8 : successor : None
+CP-8 (1) : precursor : None
+CP-8 (1) : concurrent : CP-7, CP-10
+CP-8 (1) : successor : None
+CP-8 (2) : precursor : None
+CP-8 (2) : concurrent : CP-2, CP-10
+CP-8 (2) : successor : None
+CP-8 (3) : precursor : None
+CP-8 (3) : concurrent : CP-2, CP-10
+CP-8 (3) : successor : None
+CP-8 (4) : precursor : None
+CP-8 (4) : concurrent : CP-2, CP-10
+CP-8 (4) : successor : None
+CP-9 : precursor : CP-2
+CP-9 : concurrent : CP-4, CP-6, CP-10, MP-4, MP-5, SC-24, SI-13 
+CP-9 : successor : None
+CP-9 (1) : precursor : CP-2
+CP-9 (1) : concurrent : CP-4, CP-6, CP-10, MP-4, MP-5, SC-24, SI-13
+CP-9 (1) : successor : None
+CP-9 (2) : precursor : CP-2
+CP-9 (2) : concurrent : CP-4, CP-6, CP-10, MP-4, MP-5, SC-24, SI-13
+CP-9 (2) : successor : None
+CP-9 (3) : precursor : CP-2
+CP-9 (3) : concurrent : CP-4, CP-6, CP-10, MP-4, MP-5, SC-24, SI-13
+CP-9 (3) : successor : None
+CP-9 (5) : precursor : CP-2
+CP-9 (5) : concurrent : CP-4, CP-6, CP-10, MP-4, MP-5, SC-24, SI-13
+CP-9 (5) : successor : NONE
+CP-9 (6) : precursor : CP-2
+CP-9 (6) : concurrent : CP-4, CP-6, CP-10, MP-4, MP-5, SC-24, SI-13
+CP-9 (6) : successor : None
+CP-10 : precursor : CP-4
+CP-10 : concurrent : CP-2, CP-6, CP-7, CP-8, CP-9, SC-24, SI-13 
+CP-10 : successor : None
+CP-10 (2) : precursor : CP-4
+CP-10 (2) : concurrent : CP-2, CP-6, CP-7, CP-8, CP-9, SC-24, SI-13
+CP-10 (2) : successor : None
+CP-10 (3) : precursor : CP-4
+CP-10 (3) : concurrent : CP-2, CP-6, CP-7, CP-8, CP-9, SC-24, SI-13
+CP-10 (3) : successor : None
+CP-10 (4) : precursor : CP-4
+CP-10 (4) : concurrent : CP-2, CP-6, CP-7, CP-8, CP-9, SC-24, SI-13
+CP-10 (4) : successor : None
+CP-10 (5) : precursor : CP-4
+CP-10 (5) : concurrent : CP-2, CP-6, CP-7, CP-8, CP-9, SC-24, SI-13
+CP-10 (5) : successor : None
+CP-10 (6) : precursor : CP-4
+CP-10 (6) : concurrent : CP-2, CP-6, CP-7, CP-8, CP-9, SC-24, SI-13
+CP-10 (6) : successor : None
