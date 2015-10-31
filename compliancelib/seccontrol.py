@@ -50,7 +50,7 @@ class SecControl(object):
             self._load_control_from_xml()
         # split description
         self.set_description_sections()
-        self._get_control_json()
+        self._get_control_json_dict()
 
     def _load_control_from_xml(self):
         "load control detail from 800-53 xml using a pure python process"
@@ -151,28 +151,32 @@ class SecControl(object):
         # control format is not defined
         return False
 
+    def _get_control_json_dict(self):
+        "produce json dict version of control detail"
+        self.json_dict = {}
+        self.json_dict['id'] = self.id
+        self.json_dict['title'] = self.title
+        self.json_dict['description'] = self.description
+        self.json_dict['description_intro'] = self.description_intro
+        self.json_dict['description_sections'] = self.description_sections
+        self.json_dict['responsible'] = self.responsible
+        self.json_dict['supplemental_guidance'] = self.supplemental_guidance
+        return self.json_dict
+        # To Do: needs test
+
     def _get_control_json(self):
         "produce json version of control detail"
-        self.json = {}
-        self.json['id'] = self.id
-        self.json['title'] = self.title
-        self.json['description'] = self.description
-        self.json['description_intro'] = self.description_intro
-        self.json['description_sections'] = self.description_sections
-        self.json['responsible'] = self.responsible
-        self.json['supplemental_guidance'] = self.supplemental_guidance
-        return self.json
-        # To Do: needs test
+        return json.dumps(self.json_dict)
 
     def _get_control_yaml(self):
         "produce yaml version of control detail"
-        return yaml.safe_dump(self.json, allow_unicode=True, default_flow_style=False, line_break="\n",
+        return yaml.safe_dump(self.json_dict, allow_unicode=True, default_flow_style=False, line_break="\n",
             indent=4, explicit_start=False, explicit_end=False,)
 
     def _get_control_control_masonry(self):
         "produce control masonry yaml version of control detail"
         # get json version
-        c = self._get_control_json()
+        c = self._get_control_json_dict()
         # replace ":" with "&colon;"
         description_sections = []
         for section in self.description_sections:

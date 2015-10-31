@@ -88,15 +88,7 @@ class SecControlTest(TestCase):
 		# To do - this test does not work
 		id = "AT-3"
 		c = SecControl(id)
-		self.assertTrue(c.format('yaml')[0:1] == "AT")
-
-		c_yaml = c.format('yaml')
-		print c_yaml
-		# self.assertTrue(c_yaml[c.id]["id"] == c.id)
-		self.assertTrue(c_yaml[c.id]["title"] == c.title)
-		self.assertTrue(c_yaml[c.id]["description"] == c.description)
-		self.assertTrue(c_yaml[c.id]["responsible"] == c.responsible)
-		self.assertTrue(c_yaml[c.id]["supplemental_guidance"] == c.supplemental_guidance)
+		self.assertTrue(c.format('yaml')) == "description: 'The organization provides role-based security training to personnel\n    with assigned security roles and responsibilities:\n\n    a. Before authorizing access to the information system or performing assigned\n    duties;\n\n    b. When required by information system changes; and\n\n    c. [Assignment: organization-defined frequency] thereafter.'\ndescription_intro: 'The organization provides role-based security training to personnel\n    with assigned security roles and responsibilities:'\ndescription_sections:\n- a. Before authorizing access to the information system or performing assigned duties;\n- b. When required by information system changes; and\n- 'c. [Assignment: organization-defined frequency] thereafter.'\nid: AT-3\nresponsible: organization\nsupplemental_guidance: Organizations determine the appropriate content of security\n    training based on the assigned roles and responsibilities of individuals and the\n    specific security requirements of organizations and the information systems to\n    which personnel have authorized access. In addition, organizations provide enterprise\n    architects, information system developers, software developers, acquisition/procurement\n    officials, information system managers, system/network administrators, personnel\n    conducting configuration management and auditing activities, personnel performing\n    independent verification and validation activities, security control assessors,\n    and other personnel having access to system-level software, adequate security-related\n    technical training specifically tailored for their assigned duties. Comprehensive\n    role-based training addresses management, operational, and technical roles and\n    responsibilities covering physical, personnel, and technical safeguards and countermeasures.\n    Such training can include for example, policies, procedures, tools, and artifacts\n    for the organizational security roles defined. Organizations also provide the\n    training necessary for individuals to carry out their responsibilities related\n    to operations and supply chain security within the context of organizational information\n    security programs. Role-based security training also applies to contractors providing\n    services to federal agencies.\ntitle: ROLE-BASED SECURITY TRAINING\n"
 
 		# test for other (not organization, information system, or [Withdrawn)
 
