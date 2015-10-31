@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='compliancelib',
-      version='0.6.1',
+      version='0.7.1',
       description='A python library of IT Compliance Standards',
       long_description=readme(),
       classifiers=[
@@ -31,5 +31,4 @@ setup(name='compliancelib',
       ],
       test_suite='nose.collector',
       tests_require=['nose'],
-      scripts=['bin/compliancelib-joke'],
       zip_safe=False)

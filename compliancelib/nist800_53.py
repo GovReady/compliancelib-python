@@ -13,8 +13,8 @@ Visit [tbd] for the latest version.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.7 $"
-__date__ = "$Date: 2015/10/30 21:40:00 $"
+__version__ = "$Revision: 0.8 $"
+__date__ = "$Date: 2015/10/31 06:07:00 $"
 __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -26,20 +26,8 @@ import re
 import xml.etree.ElementTree as ET
 import sys
 
-def getstatusoutput(cmd): 
-    """Return (status, output) of executing cmd in a shell."""
-    """This new implementation should work on all platforms."""
-    import subprocess
-    pipe = subprocess.Popen(cmd, shell=True, universal_newlines=True,
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output = str.join("", pipe.stdout.readlines()) 
-    sts = pipe.wait()
-    if sts is None:
-        sts = 0
-    return sts, output
 
-
-class SecControl(object):
+class NIST800_53(object):
     "represent 800-53 security controls"
     def __init__(self, id):
         self.xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')

@@ -9,8 +9,8 @@ usage: python lib/viz_control_precursor.py
 """
 
 __author__ = "Greg Elin (gregelin@gitmachines.com)"
-__version__ = "$Revision: 0.2 $"
-__date__ = "$Date: 2015/10/26 22:02:00 $"
+__version__ = "$Revision: 0.3 $"
+__date__ = "$Date: 2015/10/31 06:07:00 $"
 __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "GPL 3.0"
 
@@ -22,11 +22,11 @@ import graphviz as gv
 
 # sys.path.append(os.path.join('lib'))
 # sys.path.append(os.path.join('data'))
-from seccontrol import SecControl
+from nist800_53 import NIST800_53
 
 import functools
 
-class SecControlViz(object):
+class NIST800_53Viz(object):
 	"visualize 800-53 security controls"
 	def __init__(self, id, vizformat='svg'):
 		self.id = id
@@ -159,7 +159,7 @@ class SecControlViz(object):
 		""" return options for single node id """
 		# Pass in options to method
 		options = {}
-		sc = SecControl(node)
+		sc = NIST800_53(node)
 		sc_title = sc.title
 		options['label'] = "%s\n%s" % (node, sc_title.title())
 		options['shape'] = "egg"
@@ -189,7 +189,7 @@ class SecControlViz(object):
 		""" uncertain if this algorithm is accurate, appears to miss final dependency, see unittests """
 		if node in graph:
 			# print node 
-			sc = SecControl(node)
+			sc = NIST800_53(node)
 			# print "%s - %s (%s)" % (node, sc.title, sc.responsible)
 			# print "      edgees: %s" % (graph[node])
 			for edge in graph[node]:

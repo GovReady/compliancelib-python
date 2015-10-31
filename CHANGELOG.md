@@ -1,5 +1,10 @@
 # Change Log
 
+## compliancelib v0.7.0
+ALERT: Renaming of SecControl to NIST800_53
+- Rename compliancelib.SecControl to compliancelib.NIST800_53
+- Rename compliancelib.SecControlViz to compliancelib.NIST800_53Viz
+
 ## compliancelib v0.6.1
 - Correct changelog of compliancelib v0.6.0
 
