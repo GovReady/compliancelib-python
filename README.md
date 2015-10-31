@@ -31,7 +31,7 @@ pip install compliancelib
 
 To use, simply do in python shell::
 
-```
+```python
 Python 2.7.10 (default, Jul 14 2015, 19:46:27) 
 [GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
@@ -208,7 +208,7 @@ print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicod
 
 To see control dependencies, simply do in python shell::
 
-```
+```python
 >>> import compliancelib
 >>> cv = compliancelib.SecControlViz("AU-3")
 >>> cv.precursor_controls
