@@ -51,6 +51,7 @@ responsibilities:\na. Before authorizing access to the information system or per
 When required by information system changes; and\nc. [Assignment: organization-defined frequency] thereafter.'
 >>> c.responsible
 'organization'
+
 >>> c.supplemental_guidance
 'Organizations determine the appropriate content of security training based on the assigned roles and 
 responsibilities of individuals and the specific security requirements of organizations and the information 
@@ -66,6 +67,7 @@ tools, and artifacts for the organizational security roles defined. Organization
 necessary for individuals to carry out their responsibilities related to operations and supply chain 
 security within the context of organizational information security programs. Role-based security training 
 also applies to contractors providing services to federal agencies.'
+
 >>> c.control_enhancements
 '\nAT-3 (1)\nENVIRONMENTAL CONTROLS\nThe organization provides [Assignment: organization-defined personnel or
 roles] with initial and [Assignment: organization-defined frequency] training in the employment and 
@@ -104,7 +106,25 @@ organizations.\n'
 'AT-2,AT-4,PL-4,PS-7,SA-3,SA-12,SA-16'
 
 >>> print(c.format('json'))
-{"description": "The organization provides role-based security training to personnel with assigned security roles and responsibilities:\na. Before authorizing access to the information system or performing assigned duties;\nb. When required by information system changes; and\nc. [Assignment: organization-defined frequency] thereafter.", "title": "ROLE-BASED SECURITY TRAINING", "responsible": "organization", "supplemental_guidance": "Organizations determine the appropriate content of security training based on the assigned roles and responsibilities of individuals and the specific security requirements of organizations and the information systems to which personnel have authorized access. In addition, organizations provide enterprise architects, information system developers, software developers, acquisition/procurement officials, information system managers, system/network administrators, personnel conducting configuration management and auditing activities, personnel performing independent verification and validation activities, security control assessors, and other personnel having access to system-level software, adequate security-related technical training specifically tailored for their assigned duties. Comprehensive role-based training addresses management, operational, and technical roles and responsibilities covering physical, personnel, and technical safeguards and countermeasures. Such training can include for example, policies, procedures, tools, and artifacts for the organizational security roles defined. Organizations also provide the training necessary for individuals to carry out their responsibilities related to operations and supply chain security within the context of organizational information security programs. Role-based security training also applies to contractors providing services to federal agencies.", "id": "AT-3", "description_intro": "The organization provides role-based security training to personnel with assigned security roles and responsibilities:", "description_sections": ["a. Before authorizing access to the information system or performing assigned duties;", "b. When required by information system changes; and", "c. [Assignment: organization-defined frequency] thereafter."]}
+{"description": "The organization provides role-based security training to personnel with assigned security roles and 
+responsibilities:\na. Before authorizing access to the information system or performing assigned duties;\nb. When required by 
+information system changes; and\nc. [Assignment: organization-defined frequency] thereafter.", "title": "ROLE-BASED SECURITY 
+TRAINING", "responsible": "organization", "supplemental_guidance": "Organizations determine the appropriate content of security 
+training based on the assigned roles and responsibilities of individuals and the specific security requirements of organizations 
+and the information systems to which personnel have authorized access. In addition, organizations provide enterprise architects, 
+information system developers, software developers, acquisition/procurement officials, information system managers, 
+system/network administrators, personnel conducting configuration management and auditing activities, personnel performing 
+independent verification and validation activities, security control assessors, and other personnel having access to system-level 
+software, adequate security-related technical training specifically tailored for their assigned duties. Comprehensive role-based 
+training addresses management, operational, and technical roles and responsibilities covering physical, personnel, and technical 
+safeguards and countermeasures. Such training can include for example, policies, procedures, tools, and artifacts for the 
+organizational security roles defined. Organizations also provide the training necessary for individuals to carry out their 
+responsibilities related to operations and supply chain security within the context of organizational information security 
+programs. Role-based security training also applies to contractors providing services to federal agencies.", "id": "AT-3", 
+"description_intro": "The organization provides role-based security training to personnel with assigned security roles and 
+responsibilities:", "description_sections": ["a. Before authorizing access to the information system or performing assigned 
+duties;", "b. When required by information system changes; and", "c. [Assignment: organization-defined frequency] thereafter."]}
+
 >>> print(c.format('yaml'))
 description: 'The organization provides role-based security training to personnel
     with assigned security roles and responsibilities:
