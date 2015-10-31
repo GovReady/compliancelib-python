@@ -48,7 +48,7 @@ To use, simply do in python shell::
 	[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
 	Type "help", "copyright", "credits" or "license" for more information.
 	>>> import compliancelib
-	>>> c=compliancelib.SecControl("AT-3")
+	>>> c=compliancelib.NIST800_53("AT-3")
 	>>> c.id
 	'AT-3'
 	>>> c.number
@@ -194,7 +194,7 @@ Example code for generating list of controls in `YAML` format::
 	controllist = ["AT-3", "AU-1", "IR-2"]
 	d = dict()
 	for id in controllist:
-	    c = compliancelib.SecControl(id)
+	    c = compliancelib.NIST800_53(id)
 	    d[id] = yaml.load(c.format('yaml'))
 
 	print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicode=True,
@@ -205,7 +205,7 @@ Example code for generating list of controls in `control-masonry` format::
 	controllist = ["AT-3", "AU-1", "IR-2"]
 	d = dict()
 	for id in controllist:
-	    c = compliancelib.SecControl(id)
+	    c = compliancelib.NIST800_53(id)
 	    d[id] = yaml.load(c.format('control-masonry'))
 
 	print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicode=True,
@@ -214,7 +214,7 @@ Example code for generating list of controls in `control-masonry` format::
 To see control dependencies, simply do in python shell::
 
 	>>> import compliancelib
-	>>> cv = compliancelib.SecControlViz("AU-3")
+	>>> cv = compliancelib.NIST800_53Viz("AU-3")
 	>>> cv.precursor_controls
 	['AU-3', 'AU-2', 'RA-3', 'PM-9']
 

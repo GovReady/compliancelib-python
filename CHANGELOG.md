@@ -1,5 +1,19 @@
 # Change Log
 
+## compliancelib v0.7.0
+ALERT: Renaming of SecControl to NIST800_53
+- Rename compliancelib.SecControl to compliancelib.NIST800_53
+- Rename compliancelib.SecControlViz to compliancelib.NIST800_53Viz
+
+## compliancelib v0.6.1
+- Correct changelog of compliancelib v0.6.0
+
+## compliancelib v0.6.0
+- compliancelib.SecControl v0.7.0
+	- Add `format` method to produce `JSON`, `YAML`, `Control-Masonry` format
+- compliancelib.SecControlViz v0.2.0
+	- no changes
+
 ## compliancelib v0.5.0
 - compliancelib.SecControl v0.6.0
 	- no changes

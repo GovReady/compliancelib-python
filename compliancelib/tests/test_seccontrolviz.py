@@ -6,36 +6,36 @@ import json
 
 # sys.path.append(os.path.join('lib'))
 # sys.path.append(os.path.join('data'))
-from compliancelib import SecControl
-from compliancelib import SecControlViz
+from compliancelib import NIST800_53
+from compliancelib import NIST800_53Viz
 
-class SecControlVizTest(unittest.TestCase):
+class NIST800_53VizTest(unittest.TestCase):
 	
 	def test(self):
 		self.assertTrue(True)
 
 	def test_id(self):
 		id = "AT-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		self.assertTrue(id == cv.id)
 
 	def test_loading_graph(self):
 		id = "AT-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		self.assertTrue(id == cv.id)
 		dict = cv._load_graph_from_dependency_files()
 		self.assertTrue(dict['AT-4'] == ['AT-2', 'AT-3'])
 
 	def test_get_title(self):
 		id = "CA-5"
-		c = SecControl(id)
-		cv = SecControlViz(id)
+		c = NIST800_53(id)
+		cv = NIST800_53Viz(id)
 		self.assertTrue("PLAN OF ACTION AND MILESTONES" == c.title)
 
 	def test_resolve_control_to_list(self):
 		id = "AU-3"
-		c = SecControl(id)
-		cv = SecControlViz(id)
+		c = NIST800_53(id)
+		cv = NIST800_53Viz(id)
 		# cv.resolved = []
 		cv.dep_resolve(cv.dep_dict, id, cv.resolved)
 		# print "precursors: ", cv.resolved
@@ -43,22 +43,22 @@ class SecControlVizTest(unittest.TestCase):
 
 	def test_precursor_list(self):
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		cv.precursor_list(cv.dep_dict, id, cv.nodes)
 		# print "nodes: ", cv.nodes
 		self.assertTrue(cv.nodes == ['AU-3', 'AU-2', 'RA-3', 'PM-9'])
 
 	def test_precursor_controls(self):
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		self.assertTrue(cv.precursor_controls == ['AU-3', 'AU-2', 'RA-3', 'PM-9'])
 		id = "AU-5"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		self.assertTrue(cv.precursor_controls == ['AU-5', 'AU-2', 'RA-3', 'PM-9', 'AU-3', 'AU-8', 'AU-14'])
 		
 	def test_node_options_by_id(self):
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		node_options = cv.node_options_by_id(id)
 		# print "node_options: ", node_options
 		self.assertTrue(node_options == {'fontname': 'arial', 'URL': '/control?id=AU-3', 'tooltip': u'(AU-3) Content Of Audit Records', 'label': u'AU-3\nContent Of Audit Records', 'color': 'palevioletred', 'shape': 'egg', 'fontsize': '12', 'fontcolor': 'palevioletred'})
@@ -66,7 +66,7 @@ class SecControlVizTest(unittest.TestCase):
 	def test_create_node_options_tuples(self):
 		# To Do: Make shape and attributes passed in variables
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		# Find precursor nodes
 		cv.precursor_list(cv.dep_dict, id, cv.nodes)
 		# print "cv.nodes: ", cv.nodes
@@ -75,7 +75,7 @@ class SecControlVizTest(unittest.TestCase):
 
 	def test_edges(self):
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		cv.precursor_list(cv.dep_dict, id, cv.nodes)
 		for node in cv.nodes:
 			cv.precursor_edges(cv.dep_dict, node, cv.edges)
@@ -85,7 +85,7 @@ class SecControlVizTest(unittest.TestCase):
 	def test_add_nodes(self):
 		# To Do: Make shape and attributes passed in variables
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		cv.precursor_list(cv.dep_dict, id, cv.nodes)
 		digraph = cv.add_nodes(cv.digraph(), cv.node_options_tuples(cv.nodes))
 		# print "<%s>" % digraph
@@ -104,7 +104,7 @@ Risk Management Strategy" URL="/control?id=PM-9" color=cornflowerblue fontcolor=
 
 	def test_add_edges(self):
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		cv.precursor_list(cv.dep_dict, id, cv.nodes)
 		# create edges
 		for node in cv.nodes:
@@ -128,14 +128,14 @@ Risk Management Strategy" URL="/control?id=PM-9" color=cornflowerblue fontcolor=
 
 	def test_node_count_in_dependency_graph(self):
 		id = "AU-3"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		pl = cv.precursor_list(cv.dep_dict, id, cv.nodes)
 		# print "precursor list: ", len(cv.nodes)
 		self.assertTrue(len(cv.nodes) == 4)
 
 	def test_set_graph_size(self):
 		id = "SA-2"
-		cv = SecControlViz(id)
+		cv = NIST800_53Viz(id)
 		self.assertTrue(cv.width == 2.5)
 		self.assertTrue(cv.height == 2.5)
 		pl = cv.precursor_list(cv.dep_dict, id, cv.nodes)
