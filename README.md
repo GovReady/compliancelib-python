@@ -187,7 +187,8 @@ for id in controllist:
     c = compliancelib.SecControl(id)
     d[id] = yaml.load(c.format('yaml'))
 
-print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicode=True, explicit_start=True, explicit_end=True))
+print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicode=True,
+    explicit_start=True, explicit_end=True))
 ```
 
 Example code for generating list of controls in `control-masonry` format
@@ -199,7 +200,8 @@ for id in controllist:
     c = compliancelib.SecControl(id)
     d[id] = yaml.load(c.format('control-masonry'))
 
-print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicode=True, explicit_start=True, explicit_end=True))
+print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicode=True,
+    explicit_start=True, explicit_end=True))
 
 ```
 
