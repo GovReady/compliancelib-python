@@ -117,7 +117,6 @@ To use, simply do in python shell::
 	'AT-2,AT-4,PL-4,PS-7,SA-3,SA-12,SA-16'
 
 	>>> print(c.format('json'))
-	>>> print(c.format('json'))
 	{"description": "The organization provides role-based security training to personnel with assigned security roles and 
 	responsibilities:\na. Before authorizing access to the information system or performing assigned duties;\nb. When required by 
 	information system changes; and\nc. [Assignment: organization-defined frequency] thereafter.", "title": "ROLE-BASED SECURITY 
