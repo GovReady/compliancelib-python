@@ -65,32 +65,35 @@ class NIST800_53Test(TestCase):
 		c = NIST800_53(id)
 		self.assertTrue(c.responsible == "information system")
 
-		# test "[Withdrawn"
+		# test "[Withdrawn]"
 		id = "SA-7"
 		c = NIST800_53("SA-7")
 		self.assertTrue(c.responsible == "withdrawn")
 
 	def test_generate_json(self):
-		# To do - this test does not work
 		id = "AT-3"
 		c = NIST800_53(id)
-		self.assertTrue(c.format('json') == '{"description": "The organization provides role-based security training to personnel with assigned security roles and responsibilities:\\na. Before authorizing access to the information system or performing assigned duties;\\nb. When required by information system changes; and\\nc. [Assignment: organization-defined frequency] thereafter.", "title": "ROLE-BASED SECURITY TRAINING", "responsible": "organization", "supplemental_guidance": "Organizations determine the appropriate content of security training based on the assigned roles and responsibilities of individuals and the specific security requirements of organizations and the information systems to which personnel have authorized access. In addition, organizations provide enterprise architects, information system developers, software developers, acquisition/procurement officials, information system managers, system/network administrators, personnel conducting configuration management and auditing activities, personnel performing independent verification and validation activities, security control assessors, and other personnel having access to system-level software, adequate security-related technical training specifically tailored for their assigned duties. Comprehensive role-based training addresses management, operational, and technical roles and responsibilities covering physical, personnel, and technical safeguards and countermeasures. Such training can include for example, policies, procedures, tools, and artifacts for the organizational security roles defined. Organizations also provide the training necessary for individuals to carry out their responsibilities related to operations and supply chain security within the context of organizational information security programs. Role-based security training also applies to contractors providing services to federal agencies.", "id": "AT-3", "description_intro": "The organization provides role-based security training to personnel with assigned security roles and responsibilities:", "description_sections": ["a. Before authorizing access to the information system or performing assigned duties;", "b. When required by information system changes; and", "c. [Assignment: organization-defined frequency] thereafter."]}') 
-
-		# test for other (not organization, information system, or [Withdrawn)
+		j = json.loads(c.format('json'))
+		self.assertTrue(j["id"] == c.id)
+		self.assertTrue(j["title"] == c.title)
+		self.assertTrue(j["description"] == c.description)
+		self.assertTrue(j["description_intro"] == c.description_intro)
+		self.assertTrue(j["responsible"] == c.responsible)
+		self.assertTrue(j["supplemental_guidance"] == c.supplemental_guidance)
+		# test for other (not organization, information system, or [Withdrawn])
 
 	def test_generate_yaml(self):
-		# To do - this test does not work
 		id = "AT-3"
 		c = NIST800_53(id)
 		self.assertTrue(c.format('yaml')) == "description: 'The organization provides role-based security training to personnel\n    with assigned security roles and responsibilities:\n\n    a. Before authorizing access to the information system or performing assigned\n    duties;\n\n    b. When required by information system changes; and\n\n    c. [Assignment: organization-defined frequency] thereafter.'\ndescription_intro: 'The organization provides role-based security training to personnel\n    with assigned security roles and responsibilities:'\ndescription_sections:\n- a. Before authorizing access to the information system or performing assigned duties;\n- b. When required by information system changes; and\n- 'c. [Assignment: organization-defined frequency] thereafter.'\nid: AT-3\nresponsible: organization\nsupplemental_guidance: Organizations determine the appropriate content of security\n    training based on the assigned roles and responsibilities of individuals and the\n    specific security requirements of organizations and the information systems to\n    which personnel have authorized access. In addition, organizations provide enterprise\n    architects, information system developers, software developers, acquisition/procurement\n    officials, information system managers, system/network administrators, personnel\n    conducting configuration management and auditing activities, personnel performing\n    independent verification and validation activities, security control assessors,\n    and other personnel having access to system-level software, adequate security-related\n    technical training specifically tailored for their assigned duties. Comprehensive\n    role-based training addresses management, operational, and technical roles and\n    responsibilities covering physical, personnel, and technical safeguards and countermeasures.\n    Such training can include for example, policies, procedures, tools, and artifacts\n    for the organizational security roles defined. Organizations also provide the\n    training necessary for individuals to carry out their responsibilities related\n    to operations and supply chain security within the context of organizational information\n    security programs. Role-based security training also applies to contractors providing\n    services to federal agencies.\ntitle: ROLE-BASED SECURITY TRAINING\n"
-
-		# test for other (not organization, information system, or [Withdrawn)
+		# test for other (not organization, information system, or [Withdrawn])
 
 	def test_generate_control_masonry(self):
 		id =  "AT-3"
 		c = NIST800_53(id)
 		self.assertTrue(c.format('control-masonry') == 'description: The organization provides role-based security training to personnel with\n    assigned security roles and responsibilities&colon; a. Before authorizing access\n    to the information system or performing assigned duties; b. When required by information\n    system changes; and c. [Assignment&colon; organization-defined frequency] thereafter.\ndescription_intro: The organization provides role-based security training to personnel\n    with assigned security roles and responsibilities&colon;\ndescription_sections:\n- a. Before authorizing access to the information system or performing assigned duties;\n- b. When required by information system changes; and\n- c. [Assignment&colon; organization-defined frequency] thereafter.\nid: AT-3\nname: ROLE-BASED SECURITY TRAINING\n')
-		
+		# test for other (not organization, information system, or [Withdrawn])
+
 
 if __name__ == "__main__":
 	unittest.main()

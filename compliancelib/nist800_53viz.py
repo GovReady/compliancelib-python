@@ -9,8 +9,8 @@ usage: python lib/viz_control_precursor.py
 """
 
 __author__ = "Greg Elin (gregelin@gitmachines.com)"
-__version__ = "$Revision: 0.3 $"
-__date__ = "$Date: 2015/10/31 06:07:00 $"
+__version__ = "$Revision: 0.3.1 $"
+__date__ = "$Date: 2015/10/31 09:16:00 $"
 __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "GPL 3.0"
 
@@ -22,7 +22,7 @@ import graphviz as gv
 
 # sys.path.append(os.path.join('lib'))
 # sys.path.append(os.path.join('data'))
-from nist800_53 import NIST800_53
+from .nist800_53 import NIST800_53
 
 import functools
 
@@ -89,14 +89,14 @@ class NIST800_53Viz(object):
 							u = control.strip()
 							# print '"%s", "%s", "%s"' % (u, r, d)
 
-							if u not in dep_dict.keys():
+							if u not in list(dep_dict.keys()):
 								dep_dict[u] = []
 							
 							if u == "None":
 								continue
 							# print '"%s" -> "%s"' % (u, d)
 
-							if d in dep_dict.keys():
+							if d in list(dep_dict.keys()):
 								dep_dict[d].append(u)
 							else:
 								dep_dict[d] = []
@@ -116,10 +116,11 @@ class NIST800_53Viz(object):
 			f.close()
 			lines = t.split(delimiter)
 			return lines
-		except IOError as (errno, strerror):
-			print "I/O error({0}): {1}".format(errno, strerror)
+		except IOError as ioerrors:
+			(errno, strerror) = ioerrors.args
+			print("I/O error({0}): {1}".format(errno, strerror))
 		except:
-			print "Unexpected error:", sys.exc_info()[0]
+			print("Unexpected error:", sys.exc_info()[0])
 			raise
 		else:
 			return False
@@ -147,10 +148,11 @@ class NIST800_53Viz(object):
 			f.write(delimiter.join(text_array))
 			f.close()
 			return file
-		except IOError as (errno, strerror):
-			print "I/O error({0}): {1}".format(errno, strerror)
+		except IOError as ioerrors:
+			(errno, strerror) = ioerrors.args
+			print("I/O error({0}): {1}".format(errno, strerror))
 		except:
-			print "Unexpected error:", sys.exc_info()[0]
+			print("Unexpected error:", sys.exc_info()[0])
 			raise
 		else:
 			return False
@@ -181,9 +183,9 @@ class NIST800_53Viz(object):
 
 	def showEdges(self, graph, node):
 		if node in graph:
-			print "%s edges: %s" % (node, graph[node])
+			print("%s edges: %s" % (node, graph[node]))
 		else:
-			print "%s not found in graph" % (node)
+			print("%s not found in graph" % (node))
 
 	def dep_resolve(self, graph, node, resolved):
 		""" uncertain if this algorithm is accurate, appears to miss final dependency, see unittests """
@@ -197,7 +199,7 @@ class NIST800_53Viz(object):
 					self.dep_resolve(graph, edge, resolved)
 				self.resolved.append(node)
 		else:
-			print "%s not found in graph" % (node)
+			print("%s not found in graph" % (node))
 
 	def precursor_graph(self, graph, node, resolved):
 		# print node
@@ -206,7 +208,7 @@ class NIST800_53Viz(object):
 		tup = tuple((precursor, node) for precursor in graph[node])
 		resolved.append(node)
 		if len(list(tup)) > 0:
-			print list(tup)
+			print(list(tup))
 		for precursor in graph[node]:
 			if precursor not in resolved:
 				precursor_graph(graph, precursor, resolved)

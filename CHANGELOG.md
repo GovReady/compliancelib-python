@@ -1,5 +1,11 @@
 # Change Log
 
+## compliancelib v0.7.2
+- Improve json nosetest
+- rename test files to nist800_53 convention
+- compliancelib.NIST800_53Viz v0.3.1
+	- Use 2to3 to upgrade nist800_53.py to Python3
+
 ## compliancelib v0.7.0
 ALERT: Renaming of SecControl to NIST800_53
 - Rename compliancelib.SecControl to compliancelib.NIST800_53
