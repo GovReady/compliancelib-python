@@ -74,13 +74,7 @@ class SecControlTest(TestCase):
 		# To do - this test does not work
 		id = "AT-3"
 		c = SecControl(id)
-		c_json = c.format('json')
-		# print c_json
-		self.assertTrue(c_json["id"] == c.id)
-		self.assertTrue(c_json["title"] == c.title)
-		self.assertTrue(c_json["description"] == c.description)
-		self.assertTrue(c_json["responsible"] == c.responsible)
-		self.assertTrue(c_json["supplemental_guidance"] == c.supplemental_guidance)
+		self.assertTrue(c.format('json') == '{"description": "The organization provides role-based security training to personnel with assigned security roles and responsibilities:\\na. Before authorizing access to the information system or performing assigned duties;\\nb. When required by information system changes; and\\nc. [Assignment: organization-defined frequency] thereafter.", "title": "ROLE-BASED SECURITY TRAINING", "responsible": "organization", "supplemental_guidance": "Organizations determine the appropriate content of security training based on the assigned roles and responsibilities of individuals and the specific security requirements of organizations and the information systems to which personnel have authorized access. In addition, organizations provide enterprise architects, information system developers, software developers, acquisition/procurement officials, information system managers, system/network administrators, personnel conducting configuration management and auditing activities, personnel performing independent verification and validation activities, security control assessors, and other personnel having access to system-level software, adequate security-related technical training specifically tailored for their assigned duties. Comprehensive role-based training addresses management, operational, and technical roles and responsibilities covering physical, personnel, and technical safeguards and countermeasures. Such training can include for example, policies, procedures, tools, and artifacts for the organizational security roles defined. Organizations also provide the training necessary for individuals to carry out their responsibilities related to operations and supply chain security within the context of organizational information security programs. Role-based security training also applies to contractors providing services to federal agencies.", "id": "AT-3", "description_intro": "The organization provides role-based security training to personnel with assigned security roles and responsibilities:", "description_sections": ["a. Before authorizing access to the information system or performing assigned duties;", "b. When required by information system changes; and", "c. [Assignment: organization-defined frequency] thereafter."]}') 
 
 		# test for other (not organization, information system, or [Withdrawn)
 
@@ -95,10 +89,8 @@ class SecControlTest(TestCase):
 	def test_generate_control_masonry(self):
 		id =  "AT-3"
 		c = SecControl(id)
-		c_cm = c.format('control-masonry')
-		self.assertTrue(c_cm["name"] == "ROLE-BASED SECURITY TRAINING")
-		self.assertTrue(c_cm["description"] == "The organization provides role-based security training to personnel with assigned security roles and responsibilities&colon; a. Before authorizing access to the information system or performing assigned duties; b. When required by information system changes; and c. [Assignment&colon; organization-defined frequency] thereafter.")
-	
+		self.assertTrue(c.format('control-masonry') == 'description: The organization provides role-based security training to personnel with\n    assigned security roles and responsibilities&colon; a. Before authorizing access\n    to the information system or performing assigned duties; b. When required by information\n    system changes; and c. [Assignment&colon; organization-defined frequency] thereafter.\ndescription_intro: The organization provides role-based security training to personnel\n    with assigned security roles and responsibilities&colon;\ndescription_sections:\n- a. Before authorizing access to the information system or performing assigned duties;\n- b. When required by information system changes; and\n- c. [Assignment&colon; organization-defined frequency] thereafter.\nid: AT-3\nname: ROLE-BASED SECURITY TRAINING\n')
+		
 
 if __name__ == "__main__":
 	unittest.main()

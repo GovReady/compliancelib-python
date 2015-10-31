@@ -123,7 +123,7 @@ class SecControl(object):
             for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
                 related_controls.append(related.text.strip())
             self.related_controls = ','.join(related_controls)
-            # self.responsible = self._get_responsible()
+            self.responsible = None
         else:
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
             self.title = self.description = self.supplemental_guidance = self.control_enhancements = self.responsible = None
