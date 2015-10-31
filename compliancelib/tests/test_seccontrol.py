@@ -74,7 +74,7 @@ class SecControlTest(TestCase):
 		# To do - this test does not work
 		id = "AT-3"
 		c = SecControl(id)
-		c_json = c.get_control_json()
+		c_json = c.format('json')
 		# print c_json
 		self.assertTrue(c_json["id"] == c.id)
 		self.assertTrue(c_json["title"] == c.title)
@@ -88,16 +88,25 @@ class SecControlTest(TestCase):
 		# To do - this test does not work
 		id = "AT-3"
 		c = SecControl(id)
-		c_yaml = yaml.load(c.get_control_yaml())
-		# print c_yaml
-		self.assertTrue(c_yaml["id"] == c.id)
-		self.assertTrue(c_yaml["title"] == c.title)
-		self.assertTrue(c_yaml["description"] == c.description)
-		self.assertTrue(c_yaml["responsible"] == c.responsible)
-		self.assertTrue(c_yaml["supplemental_guidance"] == c.supplemental_guidance)
+		self.assertTrue(c.format('yaml')[0:1] == "AT")
+
+		c_yaml = c.format('yaml')
+		print c_yaml
+		# self.assertTrue(c_yaml[c.id]["id"] == c.id)
+		self.assertTrue(c_yaml[c.id]["title"] == c.title)
+		self.assertTrue(c_yaml[c.id]["description"] == c.description)
+		self.assertTrue(c_yaml[c.id]["responsible"] == c.responsible)
+		self.assertTrue(c_yaml[c.id]["supplemental_guidance"] == c.supplemental_guidance)
 
 		# test for other (not organization, information system, or [Withdrawn)
 
+	def test_generate_control_masonry(self):
+		id =  "AT-3"
+		c = SecControl(id)
+		c_cm = c.format('control-masonry')
+		self.assertTrue(c_cm["name"] == "ROLE-BASED SECURITY TRAINING")
+		self.assertTrue(c_cm["description"] == "The organization provides role-based security training to personnel with assigned security roles and responsibilities&colon; a. Before authorizing access to the information system or performing assigned duties; b. When required by information system changes; and c. [Assignment&colon; organization-defined frequency] thereafter.")
+	
 
 if __name__ == "__main__":
 	unittest.main()

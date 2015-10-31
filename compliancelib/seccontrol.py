@@ -24,6 +24,7 @@ import yaml
 import subprocess
 import re
 import xml.etree.ElementTree as ET
+import sys
 
 def getstatusoutput(cmd): 
     """Return (status, output) of executing cmd in a shell."""
@@ -49,6 +50,7 @@ class SecControl(object):
             self._load_control_from_xml()
         # split description
         self.set_description_sections()
+        self._get_control_json()
 
     def _load_control_from_xml(self):
         "load control detail from 800-53 xml using a pure python process"
@@ -139,7 +141,17 @@ class SecControl(object):
         else:
             return "other"
 
-    def get_control_json(self):
+    def format(self, format):
+        if (format.lower() == "json"):
+            return self._get_control_json()
+        if (format.lower() == "yaml"):
+            return self._get_control_yaml()
+        if (format.lower() == "control-masonry" or format.lower() == "control_masonry"):
+            return self._get_control_control_masonry()
+        # control format is not defined
+        return False
+
+    def _get_control_json(self):
         "produce json version of control detail"
         self.json = {}
         self.json['id'] = self.id
@@ -152,18 +164,31 @@ class SecControl(object):
         return self.json
         # To Do: needs test
 
-    def get_control_yaml(self):
+    def _get_control_yaml(self):
         "produce yaml version of control detail"
-        sc_yaml = dict(
-            id = self.id,
-            title = self.title,
-            description = self.description,
-            description_intro = self.description_intro,
-            description_sections = self.description_sections,
-            responsible = self.responsible,
-            supplemental_guidance = self.supplemental_guidance
-        )
-        return yaml.safe_dump(sc_yaml, default_flow_style=False)
+        return yaml.safe_dump(self.json, allow_unicode=True, default_flow_style=False, line_break="\n",
+            indent=4, explicit_start=False, explicit_end=False,)
+
+    def _get_control_control_masonry(self):
+        "produce control masonry yaml version of control detail"
+        # get json version
+        c = self._get_control_json()
+        # replace ":" with "&colon;"
+        description_sections = []
+        for section in self.description_sections:
+            description_sections.append(section.replace(":", "&colon;"))
+        c['description_sections'] = description_sections
+        c['description'] = self.description.replace(":", "&colon;").replace("\n", " ")
+        c['description_intro'] = self.description_intro.replace(":", "&colon;")
+        # add 'name' key
+        c['name'] = self.title
+        # remove unnecessary keys
+        c.pop("title", None)
+        # c.pop("id", None)
+        c.pop("responsible", None)
+        c.pop("supplemental_guidance", None)
+        return yaml.safe_dump(c, allow_unicode=True, default_flow_style=False, line_break="\n",
+            indent=4, explicit_start=False, explicit_end=False,)
 
     # utility functions
     def set_description_sections(self):
