@@ -21,10 +21,8 @@ __license__ = "Apache Software License 2.0"
 import os
 import json
 import yaml
-import subprocess
 import re
 import xml.etree.ElementTree as ET
-import sys
 
 
 class NIST800_53(object):
