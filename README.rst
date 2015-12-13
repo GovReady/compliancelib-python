@@ -21,6 +21,7 @@ Requirements
 - Python 2.7 or 3.4+
 - PyYAML - to generate YAML
 - graphviz
+- defusedxml
 
 Installation
 ------------
@@ -37,7 +38,6 @@ To install Python pip:
 Compliancelib can beinstalled with Python Easy Install::
 
 	easy_install compliancelib
-
 
 Usage
 -----

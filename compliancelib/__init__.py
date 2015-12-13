@@ -1,7 +1,7 @@
-import sys
 import os
 import json
 import yaml
+import defusedxml
 
 # from .text import joke
 from .nist800_53 import NIST800_53

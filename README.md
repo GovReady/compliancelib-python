@@ -20,6 +20,7 @@ This is early code. There may be errors!
 - Python 2.7 or 3.4+
 - PyYAML
 - graphviz
+- defusedxml
 
 ## Installation
 

@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 import compliancelib
-import sys
+# import sys
 import os
 import json
 import yaml

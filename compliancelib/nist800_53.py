@@ -22,7 +22,7 @@ import os
 import json
 import yaml
 import re
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 
 
 class NIST800_53(object):

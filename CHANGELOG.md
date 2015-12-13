@@ -1,5 +1,9 @@
 # Change Log
 
+## compliancelib v0.7.3
+- replace xml.etree.ElementTree with defusedxml.ElementTree
+- remove unused imports
+
 ## compliancelib v0.7.2
 - Improve json nosetest
 - rename test files to nist800_53 convention
