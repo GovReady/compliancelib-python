@@ -24,12 +24,13 @@ import yaml
 import re
 import defusedxml.ElementTree as ET
 
+XML_FILE = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')
 
 class NIST800_53(object):
     "represent 800-53 security controls"
     def __init__(self, id):
-        self.xmlfile = os.path.join(os.path.dirname(__file__), 'data/800-53-controls.xml')
         self.id = id
+        self.xmlfile = XML_FILE
         if "(" in self.id:
             self._load_control_enhancement_from_xml()
         else:
@@ -37,6 +38,24 @@ class NIST800_53(object):
         # split description
         self.set_description_sections()
         self._get_control_json_dict()
+
+    @staticmethod
+    def get_control_ids():
+        "get a list of all control ids"
+        tree = ET.parse(XML_FILE)
+        root = tree.getroot()
+        for sc in root.findall("./{http://scap.nist.gov/schema/sp800-53/feed/2.0}control"):
+            number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text.strip()
+            yield number
+
+    @staticmethod
+    def get_control_enhancement_ids():
+        "get a list of all control ids"
+        tree = ET.parse(XML_FILE)
+        root = tree.getroot()
+        for sc in root.findall("./{http://scap.nist.gov/schema/sp800-53/feed/2.0}control/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancement"):
+            number = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}number').text.strip()
+            yield number
 
     def _load_control_from_xml(self):
         "load control detail from 800-53 xml using a pure python process"
