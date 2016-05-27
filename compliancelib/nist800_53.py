@@ -99,11 +99,15 @@ class NIST800_53(object):
                 # self.control_enhancements = self.control_enhancements.replace(self.id, '\n')
             else:
                 self.control_enhancements = None
-            self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
+            self.supplemental_guidance = None
             related_controls = []
-            for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
-                related_controls.append(related.text.strip())
+            self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
+            if self.sg is not None:
+                sg_descr = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description')
+                if sg_descr is not None:
+                    self.supplemental_guidance = sg_descr.text.strip()
+                for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
+                    related_controls.append(related.text.strip())
             self.related_controls = ','.join(related_controls)
             self.responsible = self._get_responsible()
         else:
@@ -131,11 +135,15 @@ class NIST800_53(object):
             self.description = self.description.replace(self.id, '\n').strip()
             self.control_enhancements = None
             self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
+            self.supplemental_guidance = None
             related_controls = []
-            # findall("{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance/{http://scap.nist.gov/schema/sp800-53/2.0}related")
-            for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
-                related_controls.append(related.text.strip())
+            if self.sg is not None:
+                sg_descr = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description')
+                if sg_descr is not None:
+                    self.supplemental_guidance = sg_descr.text.strip()
+                # findall("{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance/{http://scap.nist.gov/schema/sp800-53/2.0}related")
+                for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
+                    related_controls.append(related.text.strip())
             self.related_controls = ','.join(related_controls)
             self.responsible = None
         else:
