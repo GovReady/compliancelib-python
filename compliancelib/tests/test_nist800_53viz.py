@@ -91,13 +91,13 @@ class NIST800_53VizTest(unittest.TestCase):
         # print "<%s>" % digraph
         # print cv.nodes
         self.assertTrue("%s" % digraph == """digraph {
-    "AU-3" [label="AU-3
+\t"AU-3" [label="AU-3
 Content Of Audit Records" URL="/control?id=AU-3" color=palevioletred fontcolor=palevioletred fontname=arial fontsize=12 shape=egg tooltip="(AU-3) Content Of Audit Records"]
-    "AU-2" [label="AU-2
+\t"AU-2" [label="AU-2
 Audit Events" URL="/control?id=AU-2" color=cornflowerblue fontcolor=cornflowerblue fontname=arial fontsize=12 shape=egg tooltip="(AU-2) Audit Events"]
-    "RA-3" [label="RA-3
+\t"RA-3" [label="RA-3
 Risk Assessment" URL="/control?id=RA-3" color=cornflowerblue fontcolor=cornflowerblue fontname=arial fontsize=12 shape=egg tooltip="(RA-3) Risk Assessment"]
-    "PM-9" [label="PM-9
+\t"PM-9" [label="PM-9
 Risk Management Strategy" URL="/control?id=PM-9" color=cornflowerblue fontcolor=cornflowerblue fontname=arial fontsize=12 shape=egg tooltip="(PM-9) Risk Management Strategy"]
 }"""
 )
