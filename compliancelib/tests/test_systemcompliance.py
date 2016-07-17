@@ -7,162 +7,162 @@ import os
 import json
 import yaml
 
-from compliancelib import OpenControl
+from compliancelib import SystemCompliance
 
-class OpenControlTest(TestCase):
+class SystemComplianceTest(TestCase):
     
     def test(self):
         self.assertTrue(True)
 
     def test_dummy_func(self):
-        oc = OpenControl()
-        self.assertTrue(oc.dummy_func() == 3)
+        sp = SystemCompliance()
+        self.assertTrue(sp.dummy_func() == 3)
 
     def test_load_ocfile(self):
         "Test loading of an OpenControl component YAML file"
         ocfileurl = "https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml"
-        oc = OpenControl()
+        sp = SystemCompliance()
         # test empty oc
-        self.assertTrue(len(oc.ocfiles) == 0)
+        self.assertTrue(len(sp.ocfiles) == 0)
         # load an OpenControl file
-        oc.load_ocfile_from_url(ocfileurl)
-        print len(oc.ocfiles)
-        print list(oc.ocfiles.keys())
+        sp.load_ocfile_from_url(ocfileurl)
+        print len(sp.ocfiles)
+        print list(sp.ocfiles.keys())
         #  test length of ocfiles
-        self.assertTrue(len(oc.ocfiles) == 1)
-        # self.assertTrue(oc.list_files() == "https://github.com/pburkholder/freedonia-compliance/blob/master/AU_policy/component.yaml")
+        self.assertTrue(len(sp.ocfiles) == 1)
+        # self.assertTrue(sp.list_files() == "https://github.com/pburkholder/freedonia-compliance/blob/master/AU_policy/component.yaml")
         # test not loading same file twice
-        oc.load_ocfile_from_url(ocfileurl)
-        self.assertTrue(len(oc.ocfiles) == 1)
+        sp.load_ocfile_from_url(ocfileurl)
+        self.assertTrue(len(sp.ocfiles) == 1)
         # load second file
         ocfileurl2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
-        oc.load_ocfile_from_url(ocfileurl2)
-        self.assertTrue(len(oc.ocfiles) == 2)
-        self.assertTrue(oc.ocfiles.keys() == ['https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml', 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'])
+        sp.load_ocfile_from_url(ocfileurl2)
+        self.assertTrue(len(sp.ocfiles) == 2)
+        self.assertTrue(sp.ocfiles.keys() == ['https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml', 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'])
 
     def test_system_dictionary_created(self):
         "Test system dictionary created"
-        oc = OpenControl()
+        sp = SystemCompliance()
         # test empty oc
-        self.assertTrue(len(oc.ocfiles) == 0)
+        self.assertTrue(len(sp.ocfiles) == 0)
         # test necessary dictionaries created
-        self.assertTrue(oc.system is not None)
-        self.assertTrue(oc.system['components'] is not None)
+        self.assertTrue(sp.system is not None)
+        self.assertTrue(sp.system['components'] is not None)
 
         # test that empty system object exists
-        self.assertTrue(oc.system['name'] == "Test System")
+        self.assertTrue(sp.system['name'] == "Test System")
 
     def test_system_component_add_from_url(self):
         "Test method 'system_component_add_from_url'"
-        oc = OpenControl()
+        sp = SystemCompliance()
         ocfileurl = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
-        oc.system_component_add_from_url(ocfileurl)
-        print oc.system_component_list()
-        self.assertTrue(oc.system_component_list() == ['Audit Policy'])
+        sp.system_component_add_from_url(ocfileurl)
+        print sp.system_component_list()
+        self.assertTrue(sp.system_component_list() == ['Audit Policy'])
 
     def test_system_components_info(self):
         "Test system component dictionary"
-        oc = OpenControl()
+        sp = SystemCompliance()
         # test necessary dictionaries created
-        self.assertTrue(oc.system is not None)
+        self.assertTrue(sp.system is not None)
 
         # test adding in components
         oc_component_file = os.path.join(os.path.dirname(__file__), '../data/UAA_component.yaml')
         print oc_component_file
         ocfileurl = "file://%s" % oc_component_file
-        oc.load_ocfile_from_url(ocfileurl)
+        sp.load_ocfile_from_url(ocfileurl)
 
-        test_component_dict = oc.ocfiles[ocfileurl]
-        oc.system_component_add(test_component_dict['name'], test_component_dict)
-        print "system components are %s " % oc.system['components'].keys()
-        print len(oc.system['components']['User Account and Authentication (UAA) Server']['satisfies'])
-        self.assertTrue(oc.system['components'].keys()[0] == "User Account and Authentication (UAA) Server")
-        self.assertTrue(len(oc.system['components']['User Account and Authentication (UAA) Server']['satisfies']) == 26)
+        test_component_dict = sp.ocfiles[ocfileurl]
+        sp.system_component_add(test_component_dict['name'], test_component_dict)
+        print "system components are %s " % sp.system['components'].keys()
+        print len(sp.system['components']['User Account and Authentication (UAA) Server']['satisfies'])
+        self.assertTrue(sp.system['components'].keys()[0] == "User Account and Authentication (UAA) Server")
+        self.assertTrue(len(sp.system['components']['User Account and Authentication (UAA) Server']['satisfies']) == 26)
 
         # add second component file and test list of components
         oc_component_file = os.path.join(os.path.dirname(__file__), '../data/AU_policy_component.yaml')
         print oc_component_file
         ocfileurl = "file://%s" % oc_component_file
-        oc.load_ocfile_from_url(ocfileurl)
+        sp.load_ocfile_from_url(ocfileurl)
         # this is where we add the component dictionary
-        oc.system_component_add(oc.ocfiles[ocfileurl]['name'], oc.ocfiles[ocfileurl])
+        sp.system_component_add(sp.ocfiles[ocfileurl]['name'], sp.ocfiles[ocfileurl])
 
         # test method to get list of system components
-        print oc.system_component_list()
-        self.assertTrue(oc.system_component_list() == ['Audit Policy', 'User Account and Authentication (UAA) Server'])
-        self.assertFalse(oc.system_component_list() == ['User Account and Authentication (UAA) Server', 'Wrong Name'])
+        print sp.system_component_list()
+        self.assertTrue(sp.system_component_list() == ['Audit Policy', 'User Account and Authentication (UAA) Server'])
+        self.assertFalse(sp.system_component_list() == ['User Account and Authentication (UAA) Server', 'Wrong Name'])
         # self.assertTrue(0==1)
 
     def test_system_standards_info(self):
         "Test system standards dictionary"
-        oc = OpenControl()
+        sp = SystemCompliance()
         # testing adding a standard
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
-        oc.system_dict_add('standards', standard_name, standard_dict)
-        self.assertTrue(oc.system_standard_list() == ["FRIST-800-53"])
+        sp.system_dict_add('standards', standard_name, standard_dict)
+        self.assertTrue(sp.system_standard_list() == ["FRIST-800-53"])
         # To do test for exception case of non-existent dictionary type
 
     def test_system_certifications_info(self):
         "Test system certifications dictionary"
-        oc = OpenControl()
+        sp = SystemCompliance()
         # testing adding a certification
         name = "FRed-RAMP-Low"
         my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
-        oc.system_dict_add('certifications', name, my_dict)
-        self.assertTrue(oc.system_certification_list() == ["FRed-RAMP-Low"])
+        sp.system_dict_add('certifications', name, my_dict)
+        self.assertTrue(sp.system_certification_list() == ["FRed-RAMP-Low"])
         # To do test for exception case of non-existent dictionary type 
 
     def test_system_roles_info(self):
         "Test system roles dictionary"
-        oc = OpenControl()
+        sp = SystemCompliance()
         # testing adding a role
         name = "SOME VALUE"
         my_dict = {"name": "SOME VALUE", "other_key": "some value"}
-        oc.system_dict_add('roles', name, my_dict)
-        self.assertTrue(oc.system_role_list() == ["SOME VALUE"])
+        sp.system_dict_add('roles', name, my_dict)
+        self.assertTrue(sp.system_role_list() == ["SOME VALUE"])
         # To do test for exception case of non-existent dictionary type
 
     def test_system_compliance_profile_abstract(self):
         "Test outputting basic system compliance profile"
-        oc = OpenControl()
+        sp = SystemCompliance()
         # set system name
-        oc.system['name'] = "GovReady WordPress Dashboard"
+        sp.system['name'] = "GovReady WordPress Dashboard"
         # add system components
         my_components = ['../data/UAA_component.yaml', '../data/AU_policy_component.yaml']
-        [oc.system_component_add_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
+        [sp.system_component_add_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
         
         # add system standard
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
-        oc.system_dict_add('standards', standard_name, standard_dict)
+        sp.system_dict_add('standards', standard_name, standard_dict)
 
         # add system certifications
         name = "FRed-RAMP-Low"
         my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
-        oc.system_dict_add('certifications', name, my_dict)
+        sp.system_dict_add('certifications', name, my_dict)
 
         # Test system compliance profile
-        print "System compliance profile abstract is %s" % oc.system_compliance_profile_abstract()
-        self.assertTrue(oc.system_compliance_profile_abstract() == {'stanards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
+        print "System compliance profile abstract is %s" % sp.system_compliance_profile_abstract()
+        self.assertTrue(sp.system_compliance_profile_abstract() == {'stanards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
 
     def test_display_control(self):
         "Test the querying of a control"
         # We assume just NIST 800-53 controls for time being
-        oc = OpenControl()
+        sp = SystemCompliance()
         # set system name
-        oc.system['name'] = "GovReady WordPress Dashboard"
+        sp.system['name'] = "GovReady WordPress Dashboard"
         # add system components
         my_components = ['../data/UAA_component.yaml', '../data/AU_policy_component.yaml']
-        [oc.system_component_add_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
+        [sp.system_component_add_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
         # add system standard
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
-        oc.system_dict_add('standards', standard_name, standard_dict)
+        sp.system_dict_add('standards', standard_name, standard_dict)
         # add system certifications
         name = "FRed-RAMP-Low"
         my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
-        oc.system_dict_add('certifications', name, my_dict)
+        sp.system_dict_add('certifications', name, my_dict)
 
         # System instantiated, let's test displaying control information
 
@@ -170,14 +170,14 @@ class OpenControlTest(TestCase):
         ck = "AC-200" # no such control
         sc_standard_info = compliancelib.NIST800_53(ck)
         # print sc.format('json')
-        sc_system_info = oc.control_details(ck)
+        sc_system_info = sp.control_details(ck)
         print "%s info is %s " % (ck, sc_system_info)
         print "----\n"
         # report when a control is  found
         ck = "AC-4"
         sc_standard_info = compliancelib.NIST800_53(ck)
         # print sc.format('json')
-        sc_system_info = oc.control_details(ck)
+        sc_system_info = sp.control_details(ck)
         # print "%s info is %s " % (ck, sc_system_info)
 
         # print sc_standard_info.title
@@ -195,7 +195,7 @@ class OpenControlTest(TestCase):
         ck = "AC-2 (1)" # no such control
         sc_standard_info = compliancelib.NIST800_53(ck)
         # print sc.format('json')
-        sc_system_info = oc.control_details(ck)
+        sc_system_info = sp.control_details(ck)
         # print "%s info is %s " % (ck, sc_system_info)
         print ck
         print sc_standard_info.title
@@ -206,7 +206,7 @@ class OpenControlTest(TestCase):
         print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
 
 
-        # ck_details = oc.control_details(ck)
+        # ck_details = sp.control_details(ck)
         # print ck_details
         self.assertTrue(ck_details == {"control_key": ck, "status" : "404", "status_message" : "Requested information does not exist"})
         # # report if a control is part of standard, but not part of certification

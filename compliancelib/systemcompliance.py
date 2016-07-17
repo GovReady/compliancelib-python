@@ -17,10 +17,10 @@ import compliancelib
 # instantiate an OpenControl object to hold an array of controls
 oc = compliancelib.OpenControl()
 
-oc.system['name']
-oc.system['name'] = "GovReady WordPress Dashboard"
+sp.system['name']
+sp.system['name'] = "GovReady WordPress Dashboard"
 
-oc.system_component_list()
+sp.system_component_list()
 # result
 # []
 
@@ -28,24 +28,24 @@ oc.system_component_list()
 # Add components from URLs
 f1 = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
 f2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
-oc.system_component_add_from_url(f1)
-oc.system_component_add_from_url(f2)
+sp.system_component_add_from_url(f1)
+sp.system_component_add_from_url(f2)
 
 # Alternatively
 # and it's idempotent
-oc.system_dict_add_from_url('components', f1)
-oc.system_dict_add_from_url('components', f2)
+sp.system_dict_add_from_url('components', f1)
+sp.system_dict_add_from_url('components', f2)
 
-oc.system_component_list()
+sp.system_component_list()
 # result
 # ['Audit Policy', 'User Account and Authentication (UAA) Server']
 
 
-oc.system_compliance_profile_abstract()
+sp.system_compliance_profile_abstract()
 # {'stanards': [], 'certifications': [], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']}
 
 import pprint
-pprint.pprint(oc.system_compliance_profile_abstract())
+pprint.pprint(sp.system_compliance_profile_abstract())
 {'certifications': [],
  'components': ['Audit Policy',
                 'User Account and Authentication (UAA) Server'],
@@ -57,8 +57,8 @@ compliancelib.NIST800_53(ck)
 # <compliancelib.nist800_53.NIST800_53 object at 0x100ccc350>
 
 sc_standard_info = compliancelib.NIST800_53(ck)
-sc_system_info = oc.control_details(ck)
-oc.control_details(ck)
+sc_system_info = sp.control_details(ck)
+sp.control_details(ck)
 # {'User Account and Authentication (UAA) Server': [{'control_key': 'AC-4', 'standard_key': 'NIST-800-53', 'covered_by': [], 'implementation_status': 'none', 'narrative': [{'text': 'The information system enforces approved authorizations for controlling the flow of information within the system and between interconnected systems based on the 18F Access Control Policy Section 3 -  Information Flow Enforcement which states:\n  - 18F enforces approved authorizations for controlling the flow of information within its information systems and between interconnected systems in accordance with applicable federal laws and 18F policies and procedures.\n  - 18F shall use flow control restrictions to include: keeping export controlled information from being transmitted in the clear to the Internet, blocking outside traffic that claims to be from within the organization and not passing any web requests to the Internet that are not from the internal web proxy.\n  - 18F shall use boundary protection devices (e.g., proxies, gateways, guards, encrypted tunnels, firewalls, and routers) that employ rule sets or establish configuration settings that restrict information system services, provide a packet-filtering capability based on header information, or message-filtering capability based on content (e.g., using key word searches or document characteristics.'}]}]}
 
 # Print control info from standard and also systempl implementation details
@@ -71,21 +71,21 @@ print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
 component_list = ['AC_Policy','AT_Policy','AU_Policy','CA_Policy','CICloudGov','CM_Policy','CP_Policy','CloudCheckr','ELKStack','IA_Policy','IR_Policy','JumpBox','MA_Policy','MP_Policy','PE_Policy','PL_Policy','PS_Policy','RA_Policy','SA_Policy','SC_Policy','SI_Policy','SecureProxy']
 urls = ["https://raw.githubusercontent.com/18F/cg-compliance/master/%s/component.yaml" % comp for comp in component_list]
 for compurl in urls:
-  oc.system_component_add_from_url(compurl)
+  sp.system_component_add_from_url(compurl)
 
-pprint.pprint(oc.control_details("AU-1"))
+pprint.pprint(sp.control_details("AU-1"))
 
 
 #### OLDER
 
 # load file 1
-oc.load_ocfile_from_url(f1)
+sp.load_ocfile_from_url(f1)
 # load file 1
-oc.load_ocfile_from_url(f2)
+sp.load_ocfile_from_url(f2)
 
 # loop though what controls are statisfied by second `f2` OpenControl YAML file
 # demonstrate combining OpenControl content with ComplianceLib content
-for c in oc.ocfiles[f2]['satisfies']: 
+for c in sp.ocfiles[f2]['satisfies']: 
   try:
     cd = compliancelib.NIST800_53(c['control_key'])
     if c['implementation_status'] == 'none':
@@ -98,7 +98,7 @@ for c in oc.ocfiles[f2]['satisfies']:
   except:
     print "%s - Error %s" % (c['control_key'], sys.exc_info()[0])
 
-for c in oc.ocfiles[f2]['satisfies']: 
+for c in sp.ocfiles[f2]['satisfies']: 
     print c['control_key']
     cd = compliancelib.NIST800_53(c['control_key'])
     print cd.title
@@ -107,9 +107,9 @@ for c in oc.ocfiles[f2]['satisfies']:
 # but we have to remember that a control_key can be in more than one component file
 
 cks2 = {}
-for kf in oc.ocfiles.keys():
+for kf in sp.ocfiles.keys():
   print kf
-  for c in oc.ocfiles[kf]['satisfies']:
+  for c in sp.ocfiles[kf]['satisfies']:
     if c['control_key'] not in cks2:
       cks2[c['control_key']] = {kf: c}
     else:
@@ -121,7 +121,7 @@ sc = compliancelib.NIST800_53(x)
 sc.title
 cks[sc.id]
 cks2[sc.id]
-# oc.ocfiles[cks[sc.id]]['satisfies']
+# sp.ocfiles[cks[sc.id]]['satisfies']
 cks2[sc.id][f2]['narrative'][0]['text']
 cks2[sc.id][f2]
 """
@@ -139,7 +139,7 @@ import re
 import urllib2
 import sys
 
-class OpenControl():
+class SystemCompliance():
     "initialize OpenControl security controls implementation"
     def __init__(self):
         self.ocfiles = {}
