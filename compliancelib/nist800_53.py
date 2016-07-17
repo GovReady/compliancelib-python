@@ -102,7 +102,7 @@ class NIST800_53(object):
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
             self.description = self.description.replace(self.id, '\n').strip()
             self.control_enhancements = None
-            # Some enhancements have funky XML and do not have supplemental guidance or related controls
+            # Some ecnhancements have funky XML and do not have supplemental guidance or related controls
             # So let's get data only if attributes exist
             if sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance'):
                 self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
