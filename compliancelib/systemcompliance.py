@@ -12,9 +12,7 @@ Visit [tbd] for the latest version.
 
 Example python CLI
 
-import sys
-import yaml
-import pprint
+import sys, yaml, pprint
 
 import compliancelib
 # instantiate an SystemCompliance object to hold an array of controls
