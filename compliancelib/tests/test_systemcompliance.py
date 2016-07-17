@@ -14,10 +14,6 @@ class SystemComplianceTest(TestCase):
     def test(self):
         self.assertTrue(True)
 
-    def test_dummy_func(self):
-        sp = SystemCompliance()
-        self.assertTrue(sp.dummy_func() == 3)
-
     def test_load_ocfile(self):
         "Test loading of an OpenControl component YAML file"
         ocfileurl = "https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml"
@@ -40,7 +36,7 @@ class SystemComplianceTest(TestCase):
         self.assertTrue(len(sp.ocfiles) == 2)
         self.assertTrue(sp.ocfiles.keys() == ['https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml', 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'])
 
-    def test_system_dictionary_created(self):
+    def test_create_system_dictionary(self):
         "Test system dictionary created"
         sp = SystemCompliance()
         # test empty oc
@@ -52,15 +48,15 @@ class SystemComplianceTest(TestCase):
         # test that empty system object exists
         self.assertTrue(sp.system['name'] == "Test System")
 
-    def test_system_component_add_from_url(self):
-        "Test method 'system_component_add_from_url'"
+    def test_add_component_from_url(self):
+        "Test method 'add_component_from_url'"
         sp = SystemCompliance()
         ocfileurl = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
-        sp.system_component_add_from_url(ocfileurl)
-        print sp.system_component_list()
-        self.assertTrue(sp.system_component_list() == ['Audit Policy'])
+        sp.add_component_from_url(ocfileurl)
+        print sp.components()
+        self.assertTrue(sp.components() == ['Audit Policy'])
 
-    def test_system_components_info(self):
+    def test_components(self):
         "Test system component dictionary"
         sp = SystemCompliance()
         # test necessary dictionaries created
@@ -88,63 +84,63 @@ class SystemComplianceTest(TestCase):
         sp.system_component_add(sp.ocfiles[ocfileurl]['name'], sp.ocfiles[ocfileurl])
 
         # test method to get list of system components
-        print sp.system_component_list()
-        self.assertTrue(sp.system_component_list() == ['Audit Policy', 'User Account and Authentication (UAA) Server'])
-        self.assertFalse(sp.system_component_list() == ['User Account and Authentication (UAA) Server', 'Wrong Name'])
+        print sp.components()
+        self.assertTrue(sp.components() == ['Audit Policy', 'User Account and Authentication (UAA) Server'])
+        self.assertFalse(sp.components() == ['User Account and Authentication (UAA) Server', 'Wrong Name'])
         # self.assertTrue(0==1)
 
-    def test_system_standards_info(self):
+    def test_standards(self):
         "Test system standards dictionary"
         sp = SystemCompliance()
         # testing adding a standard
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
-        sp.system_dict_add('standards', standard_name, standard_dict)
-        self.assertTrue(sp.system_standard_list() == ["FRIST-800-53"])
+        sp.add_system_dict('standards', standard_name, standard_dict)
+        self.assertTrue(sp.standards() == ["FRIST-800-53"])
         # To do test for exception case of non-existent dictionary type
 
-    def test_system_certifications_info(self):
+    def test_certifications(self):
         "Test system certifications dictionary"
         sp = SystemCompliance()
         # testing adding a certification
         name = "FRed-RAMP-Low"
         my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
-        sp.system_dict_add('certifications', name, my_dict)
-        self.assertTrue(sp.system_certification_list() == ["FRed-RAMP-Low"])
+        sp.add_system_dict('certifications', name, my_dict)
+        self.assertTrue(sp.certifications() == ["FRed-RAMP-Low"])
         # To do test for exception case of non-existent dictionary type 
 
-    def test_system_roles_info(self):
+    def test_roles(self):
         "Test system roles dictionary"
         sp = SystemCompliance()
         # testing adding a role
         name = "SOME VALUE"
         my_dict = {"name": "SOME VALUE", "other_key": "some value"}
-        sp.system_dict_add('roles', name, my_dict)
-        self.assertTrue(sp.system_role_list() == ["SOME VALUE"])
+        sp.add_system_dict('roles', name, my_dict)
+        self.assertTrue(sp.roles() == ["SOME VALUE"])
         # To do test for exception case of non-existent dictionary type
 
-    def test_system_compliance_profile_abstract(self):
+    def test_summary(self):
         "Test outputting basic system compliance profile"
         sp = SystemCompliance()
         # set system name
         sp.system['name'] = "GovReady WordPress Dashboard"
         # add system components
         my_components = ['../data/UAA_component.yaml', '../data/AU_policy_component.yaml']
-        [sp.system_component_add_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
+        [sp.add_component_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
         
         # add system standard
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
-        sp.system_dict_add('standards', standard_name, standard_dict)
+        sp.add_system_dict('standards', standard_name, standard_dict)
 
         # add system certifications
         name = "FRed-RAMP-Low"
         my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
-        sp.system_dict_add('certifications', name, my_dict)
+        sp.add_system_dict('certifications', name, my_dict)
 
         # Test system compliance profile
-        print "System compliance profile abstract is %s" % sp.system_compliance_profile_abstract()
-        self.assertTrue(sp.system_compliance_profile_abstract() == {'stanards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
+        print "System compliance summary %s" % sp.summary()
+        self.assertTrue(sp.summary() == {'stanards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
 
     def test_display_control(self):
         "Test the querying of a control"
@@ -154,15 +150,15 @@ class SystemComplianceTest(TestCase):
         sp.system['name'] = "GovReady WordPress Dashboard"
         # add system components
         my_components = ['../data/UAA_component.yaml', '../data/AU_policy_component.yaml']
-        [sp.system_component_add_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
+        [sp.add_component_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
         # add system standard
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
-        sp.system_dict_add('standards', standard_name, standard_dict)
+        sp.add_system_dict('standards', standard_name, standard_dict)
         # add system certifications
         name = "FRed-RAMP-Low"
         my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
-        sp.system_dict_add('certifications', name, my_dict)
+        sp.add_system_dict('certifications', name, my_dict)
 
         # System instantiated, let's test displaying control information
 

@@ -23,7 +23,7 @@ sp = compliancelib.SystemCompliance()
 sp.system['name']
 sp.system['name'] = "GovReady WordPress Dashboard"
 
-sp.system_component_list()
+sp.components()
 # result
 # []
 
@@ -31,24 +31,24 @@ sp.system_component_list()
 # Add components from URLs
 f1 = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
 f2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
-sp.system_component_add_from_url(f1)
-sp.system_component_add_from_url(f2)
+sp.add_component_from_url(f1)
+sp.add_component_from_url(f2)
 
 # Alternatively
 # and it's idempotent
-sp.system_dict_add_from_url('components', f1)
-sp.system_dict_add_from_url('components', f2)
+sp.add_system_dict_from_url('components', f1)
+sp.add_system_dict_from_url('components', f2)
 
-sp.system_component_list()
+sp.components()
 # result
 # ['Audit Policy', 'User Account and Authentication (UAA) Server']
 
 
-sp.system_compliance_profile_abstract()
+sp.summary()
 # {'stanards': [], 'certifications': [], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']}
 
 import pprint
-pprint.pprint(sp.system_compliance_profile_abstract())
+pprint.pprint(sp.summary())
 {'certifications': [],
  'components': ['Audit Policy',
                 'User Account and Authentication (UAA) Server'],
@@ -75,7 +75,7 @@ print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
 component_list = ['AC_Policy','AT_Policy','AU_Policy','CA_Policy','CICloudGov','CM_Policy','CP_Policy','CloudCheckr','ELKStack','IA_Policy','IR_Policy','JumpBox','MA_Policy','MP_Policy','PE_Policy','PL_Policy','PS_Policy','RA_Policy','SA_Policy','SC_Policy','SI_Policy','SecureProxy']
 urls = ["https://raw.githubusercontent.com/18F/cg-compliance/master/%s/component.yaml" % comp for comp in component_list]
 for compurl in urls:
-  sp.system_component_add_from_url(compurl)
+  sp.add_component_from_url(compurl)
 
 pprint.pprint(sp.control_details("AU-1"))
 pprint.pprint(sp.control_details("AU-5"))
@@ -145,37 +145,30 @@ import urllib2
 import sys
 
 class SystemCompliance():
-    "initialize OpenControl security controls implementation"
+    "initialize SystemCompliance security controls implementation"
     def __init__(self):
         self.ocfiles = {}
-        self.dummy_func()
         # define the dictionaries we will support so we avoid unexpected data
         self.supported_dictionaries = ['components', 'standards', 'certifications', 'assignments', 'roles']
         # stub out a system
         self._stub_system()
         pass
 
-    def dummy_func(self):
-        "blah"
-        c = 3
-        return c
-
+    # Not using this method anymore, worth keeping around?
     def load_ocfile_from_url(self, ocfileurl):
         "load OpenControl component YAML file from URL"
         # file must be actual YAML file
-        # do not load if url already loaded
+        # idempotent loading - do not load if url already loaded
         if ocfileurl in self.ocfiles.keys():
             return
-        # load OpenControl file
         try:
             self.ocfiles[ocfileurl] = yaml.safe_load(urllib2.urlopen(ocfileurl))
         except:
             print("Unexpected error loading YAML file:", sys.exc_info()[0])
             raise
 
-    # load stubs
     def _stub_system(self):
-      # To do, load system information file
+      # Load a stub file of the sytem
       self.system = {}
       self.system['name'] = "Test System"
       self.system['components'] = {}
@@ -188,7 +181,7 @@ class SystemCompliance():
       "add a component as a dictionary to the system with the component name as key"
       self.system['components'][component_name] = component_dict
 
-    def system_component_add_from_url(self, oc_componentyaml_url):
+    def add_component_from_url(self, oc_componentyaml_url):
       "add a component as a dictionary to the system from an OpenControl YAML file at a URL"
       # go load opencontrol file
       try:
@@ -201,12 +194,12 @@ class SystemCompliance():
       if (my_dict):
         self.system_component_add(my_dict['name'], my_dict)
 
-    def system_component_list(self):
+    def components(self):
       "list the components composing the system as array"
       return self.system['components'].keys()
 
     # generic method for loading dictionaries
-    def system_dict_add(self, my_dict_type, my_dict_name, my_dict):
+    def add_system_dict(self, my_dict_type, my_dict_name, my_dict):
       "load a dictionary into system object"
       if my_dict_type in self.supported_dictionaries:
         # to do - validate dictionary
@@ -216,7 +209,7 @@ class SystemCompliance():
         # pass or indicate error
         raise Exception('Attempt to load unsupported dictionary type %s' % my_dict_type)
 
-    def system_dict_add_from_url(self, dict_type, url):
+    def add_system_dict_from_url(self, dict_type, url):
       "load a dictionary into system object from a URL"
       if dict_type in self.supported_dictionaries:
         try:
@@ -231,19 +224,19 @@ class SystemCompliance():
       else:
         raise Exception('Attempt to load unsupported dictionary type %s' % dict_type)
 
-    def system_standard_list(self):
+    def standards(self):
       "list the standards composing the system as array"
       return self.system['standards'].keys()
 
-    def system_certification_list(self):
+    def certifications(self):
       "list the certifications composing the system as array"
       return self.system['certifications'].keys()
 
-    def system_role_list(self):
+    def roles(self):
       "list the roles composing the system as array"
       return self.system['roles'].keys()
 
-    def system_compliance_profile_abstract(self):
+    def summary(self):
       "dump high level system compliance profile abstract"
       scpa = {"name" :  self.system['name'],
         "components" : self.system['components'].keys(),
@@ -255,12 +248,12 @@ class SystemCompliance():
     def control_details(self, cid):
       control_key =  cid
       # if components loaded, look through
-      if len(self.system_component_list()) < 1:
+      if len(self.components()) < 1:
         raise Exception ("No controls available. No components have been loaded.")
       else:
         # look through components for control
         control_component_dict = {}
-        for component in self.system_component_list():
+        for component in self.components():
           component_control_info = [ck for ck in self.system['components'][component]['satisfies'] if ck['control_key'] == control_key]
           if (len(component_control_info)) > 0:
             control_component_dict[component] = component_control_info
