@@ -102,13 +102,23 @@ class NIST800_53(object):
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
             self.description = self.description.replace(self.id, '\n').strip()
             self.control_enhancements = None
-            self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-            self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
+            # Some enhancements have funky XML and do not have supplemental guidance or related controls
+            # So let's get data only if attributes exist
+            if sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance'):
+                self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
+                if self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description'):
+                    self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
+                else:
+                    self.supplemental_guidance = None
+            else:
+                self.sg = None
+                self.supplemental_guidance = None
             related_controls = []
             # findall("{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance/{http://scap.nist.gov/schema/sp800-53/2.0}related")
-            for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
-                related_controls.append(related.text.strip())
-            self.related_controls = ','.join(related_controls)
+            if self.sg:
+                for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
+                    related_controls.append(related.text.strip())
+                self.related_controls = ','.join(related_controls)
             self.responsible = None
         else:
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
