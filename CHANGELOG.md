@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.7.4
+- handle control enhancement missing data elements
+
 ## compliancelib v0.7.3
 - replace xml.etree.ElementTree with defusedxml.ElementTree
 - remove unused imports
