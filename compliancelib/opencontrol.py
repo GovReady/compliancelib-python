@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 """Class for OpenControl
 
 Instantiate and then...
@@ -22,9 +23,9 @@ f2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/com
 oc = compliancelib.OpenControl()
 
 # load file 1
-oc.load_ocfile(f1)
+oc.load_ocfile_from_url(f1)
 # load file 1
-oc.load_ocfile(f2)
+oc.load_ocfile_from_url(f2)
 
 # look at keys, which for now is file names
 # in future probably should be component names
@@ -91,6 +92,11 @@ class OpenControl():
     "initialize OpenControl security controls implementation"
     def __init__(self):
         self.ocfiles = {}
+        self.dummy_func()
+        # define the dictionaries we will support so we avoid unexpected data
+        self.supported_dictionaries = ['components', 'standards', 'certifications', 'roles']
+        # stub out a system
+        self._stub_system()
         pass
 
     def dummy_func(self):
@@ -98,16 +104,92 @@ class OpenControl():
         c = 3
         return c
 
-    def load_ocfile(self, ocfile):
+    def load_ocfile_from_url(self, ocfileurl):
         "load OpenControl component YAML file from URL"
         # file must be actual YAML file
         # do not load if url already loaded
-        if ocfile in self.ocfiles.keys():
+        if ocfileurl in self.ocfiles.keys():
             return
         # load OpenControl file
         try:
-            self.ocfiles[ocfile] = yaml.safe_load(urllib2.urlopen(ocfile))
+            self.ocfiles[ocfileurl] = yaml.safe_load(urllib2.urlopen(ocfileurl))
         except:
             print("Unexpected error loading YAML file:", sys.exc_info()[0])
             raise
 
+    # load stubs
+    def _stub_system(self):
+      # To do, load system information file
+      self.system = {}
+      self.system['name'] = "Test System"
+      self.system['components'] = {}
+      self.system['certifications'] = {}
+      self.system['standards'] = {}
+      self.system['roles'] = {}
+
+    def system_component_add(self, component_name, component_dict):
+      "add a component as a dictionary to the system with the component name as key"
+      self.system['components'][component_name] = component_dict
+
+    def system_component_add_from_url(self, oc_componentyaml_url):
+      "add a component as a dictionary to the system from an OpenControl YAML file at a URL"
+      # go load opencontrol file
+      try:
+        my_dict = yaml.safe_load(urllib2.urlopen(oc_componentyaml_url))
+        # todo - add checks to make sure it is a proper opencontrol file
+      except:
+        print("Unexpected error loading YAML file:", sys.exc_info()[0])
+        my_dict = None
+        raise
+      if (my_dict):
+        self.system_component_add(my_dict['name'], my_dict)
+
+    def system_component_list(self):
+      "list the components composing the system as array"
+      return self.system['components'].keys()
+
+    # generic method for loading dictionaries
+    def system_dict_add(self, my_dict_type, my_dict_name, my_dict):
+      "load a dictionary into system object"
+      if my_dict_type in self.supported_dictionaries:
+        # to do - validate dictionary
+        if (my_dict and my_dict_name):
+          self.system[my_dict_type][my_dict_name] = my_dict
+      else:
+        # pass or indicate error
+        raise Exception('Attempt to load unsupported dictionary type %s' % my_dict_type)
+
+    def system_dict_add_from_url(self, dict_type, url):
+      "load a dictionary into system object from a URL"
+      if dict_type in self.supported_dictionaries:
+        try:
+          my_dict = yaml.safe_load(urllib2.urlopen(url))
+          # todo - validate proper opencontrol file
+        except:
+          print("Unexpected error loading YAML file:", sys.exc_info()[0])
+          my_dict = None
+          raise
+        if (my_dict):
+          self.system[dict_type][my_dict[name]] = my_dict
+      else:
+        raise Exception('Attempt to load unsupported dictionary type %s' % dict_type)
+
+    def system_standard_list(self):
+      "list the standards composing the system as array"
+      return self.system['standards'].keys()
+
+    def system_certification_list(self):
+      "list the certifications composing the system as array"
+      return self.system['certifications'].keys()
+
+    def system_role_list(self):
+      "list the roles composing the system as array"
+      return self.system['roles'].keys()
+
+    def system_compliance_profile_abstract(self):
+      "dump high level system compliance profile abstract"
+      scpa = {"name" :  self.system['name'],
+        "components" : self.system['components'].keys(),
+        "stanards" : self.system['standards'].keys(),
+        "certifications" : self.system['certifications'].keys()}
+      return scpa
