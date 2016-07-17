@@ -144,7 +144,79 @@ class OpenControlTest(TestCase):
 
         # Test system compliance profile
         print "System compliance profile abstract is %s" % oc.system_compliance_profile_abstract()
-        self.assertTrue(oc.system_compliance_profile_abstract() == "something")
+        self.assertTrue(oc.system_compliance_profile_abstract() == {'stanards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
+
+    def test_display_control(self):
+        "Test the querying of a control"
+        # We assume just NIST 800-53 controls for time being
+        oc = OpenControl()
+        # set system name
+        oc.system['name'] = "GovReady WordPress Dashboard"
+        # add system components
+        my_components = ['../data/UAA_component.yaml', '../data/AU_policy_component.yaml']
+        [oc.system_component_add_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
+        # add system standard
+        standard_name = "FRIST-800-53"
+        standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
+        oc.system_dict_add('standards', standard_name, standard_dict)
+        # add system certifications
+        name = "FRed-RAMP-Low"
+        my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
+        oc.system_dict_add('certifications', name, my_dict)
+
+        # System instantiated, let's test displaying control information
+
+        # report when a control is not found
+        ck = "AC-200" # no such control
+        sc_standard_info = compliancelib.NIST800_53(ck)
+        # print sc.format('json')
+        sc_system_info = oc.control_details(ck)
+        print "%s info is %s " % (ck, sc_system_info)
+        print "----\n"
+        # report when a control is  found
+        ck = "AC-4"
+        sc_standard_info = compliancelib.NIST800_53(ck)
+        # print sc.format('json')
+        sc_system_info = oc.control_details(ck)
+        # print "%s info is %s " % (ck, sc_system_info)
+
+        # print sc_standard_info.title
+        # print sc_system_info[sc_system_info.keys()[0]][0]['implementation_status']
+        # print sc_system_info[sc_system_info.keys()[0]][0]['narrative']
+
+        print ck
+        print sc_standard_info.title
+        print sc_standard_info.description
+        print "\nSystem control implmentation details"
+        print "-------------------------------------"
+        print sc_system_info.keys()[0]
+        print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
+
+        ck = "AC-2 (1)" # no such control
+        sc_standard_info = compliancelib.NIST800_53(ck)
+        # print sc.format('json')
+        sc_system_info = oc.control_details(ck)
+        # print "%s info is %s " % (ck, sc_system_info)
+        print ck
+        print sc_standard_info.title
+        print sc_standard_info.description
+        print "\nSystem control implmentation details"
+        print "-------------------------------------"
+        print sc_system_info.keys()[0]
+        print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
+
+
+        # ck_details = oc.control_details(ck)
+        # print ck_details
+        self.assertTrue(ck_details == {"control_key": ck, "status" : "404", "status_message" : "Requested information does not exist"})
+        # # report if a control is part of standard, but not part of certification
+        # # report information is not available for control
+        # # report that a control is not implemented
+        
+        # display information that exists for control
+        # display which component contributing to a control
+
+        # display information about the control
 
 
 if __name__ == "__main__":

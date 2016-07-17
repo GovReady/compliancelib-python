@@ -14,23 +14,66 @@ Example python CLI
 
 import sys
 import compliancelib
-# Identify a couple OpenControl files to import
-# Eventually, this should be from reading an opencontrol.yaml file
-f1 = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
-f2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
-
 # instantiate an OpenControl object to hold an array of controls
 oc = compliancelib.OpenControl()
+
+oc.system['name']
+oc.system['name'] = "GovReady WordPress Dashboard"
+
+oc.system_component_list()
+# result
+# []
+
+
+# Add components from URLs
+f1 = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
+f2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
+oc.system_component_add_from_url(f1)
+oc.system_component_add_from_url(f2)
+
+# Alternatively
+# and it's idempotent
+oc.system_dict_add_from_url('components', f1)
+oc.system_dict_add_from_url('components', f2)
+
+oc.system_component_list()
+# result
+# ['Audit Policy', 'User Account and Authentication (UAA) Server']
+
+
+oc.system_compliance_profile_abstract()
+# {'stanards': [], 'certifications': [], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']}
+
+import pprint
+pprint.pprint(oc.system_compliance_profile_abstract())
+{'certifications': [],
+ 'components': ['Audit Policy',
+                'User Account and Authentication (UAA) Server'],
+ 'name': 'GovReady WordPress Dashboard',
+ 'stanards': []}
+
+ck = "AC-4"
+compliancelib.NIST800_53(ck)
+# <compliancelib.nist800_53.NIST800_53 object at 0x100ccc350>
+
+sc_standard_info = compliancelib.NIST800_53(ck)
+sc_system_info = oc.control_details(ck)
+oc.control_details(ck)
+# {'User Account and Authentication (UAA) Server': [{'control_key': 'AC-4', 'standard_key': 'NIST-800-53', 'covered_by': [], 'implementation_status': 'none', 'narrative': [{'text': 'The information system enforces approved authorizations for controlling the flow of information within the system and between interconnected systems based on the 18F Access Control Policy Section 3 -  Information Flow Enforcement which states:\n  - 18F enforces approved authorizations for controlling the flow of information within its information systems and between interconnected systems in accordance with applicable federal laws and 18F policies and procedures.\n  - 18F shall use flow control restrictions to include: keeping export controlled information from being transmitted in the clear to the Internet, blocking outside traffic that claims to be from within the organization and not passing any web requests to the Internet that are not from the internal web proxy.\n  - 18F shall use boundary protection devices (e.g., proxies, gateways, guards, encrypted tunnels, firewalls, and routers) that employ rule sets or establish configuration settings that restrict information system services, provide a packet-filtering capability based on header information, or message-filtering capability based on content (e.g., using key word searches or document characteristics.'}]}]}
+
+# Print control info from standard and also systempl implementation details
+print ck
+print sc_standard_info.title
+print sc_standard_info.description
+print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
+
+
+#### OLDER
 
 # load file 1
 oc.load_ocfile_from_url(f1)
 # load file 1
 oc.load_ocfile_from_url(f2)
-
-# look at keys, which for now is file names
-# in future probably should be component names
-oc.ocfiles.keys()
-oc.ocfiles[f1]
 
 # loop though what controls are statisfied by second `f2` OpenControl YAML file
 # demonstrate combining OpenControl content with ComplianceLib content
@@ -170,7 +213,7 @@ class OpenControl():
           my_dict = None
           raise
         if (my_dict):
-          self.system[dict_type][my_dict[name]] = my_dict
+          self.system[dict_type][my_dict['name']] = my_dict
       else:
         raise Exception('Attempt to load unsupported dictionary type %s' % dict_type)
 
@@ -190,6 +233,31 @@ class OpenControl():
       "dump high level system compliance profile abstract"
       scpa = {"name" :  self.system['name'],
         "components" : self.system['components'].keys(),
-        "stanards" : self.system['standards'].keys(),
+        "standards" : self.system['standards'].keys(),
         "certifications" : self.system['certifications'].keys()}
       return scpa
+
+    # Control information
+    def control_details(self, cid):
+      control_key =  cid
+      # if components loaded, look through
+      if len(self.system_component_list()) < 1:
+        raise Exception ("No controls available. No components have been loaded.")
+      else:
+        # look through components for control
+        control_component_dict = {}
+        for component in self.system_component_list():
+          component_control_info = [ck for ck in self.system['components'][component]['satisfies'] if ck['control_key'] == control_key]
+          if (len(component_control_info)) > 0:
+            control_component_dict[component] = component_control_info
+      return control_component_dict
+
+      # if cid not in ['AC-3', 'SA-4']:
+      #   status = "404"
+      #   status_message = "Requested information does not exist"
+      #   # {"control_key": ck, "status" : "404", "status_message" : "Requested information does not exist"})
+      # cd = { "control_key" : control_key,
+      #   "status" : status,
+      #   "status_message" : status_message
+      #   }
+      # return cd
