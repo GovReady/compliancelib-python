@@ -67,6 +67,14 @@ print sc_standard_info.title
 print sc_standard_info.description
 print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
 
+# Test loading GovCloud OpenControl component yaml directly
+component_list = ['AC_Policy','AT_Policy','AU_Policy','CA_Policy','CICloudGov','CM_Policy','CP_Policy','CloudCheckr','ELKStack','IA_Policy','IR_Policy','JumpBox','MA_Policy','MP_Policy','PE_Policy','PL_Policy','PS_Policy','RA_Policy','SA_Policy','SC_Policy','SI_Policy','SecureProxy']
+urls = ["https://raw.githubusercontent.com/18F/cg-compliance/master/%s/component.yaml" % comp for comp in component_list]
+for compurl in urls:
+  oc.system_component_add_from_url(compurl)
+
+pprint.pprint(oc.control_details("AU-1"))
+
 
 #### OLDER
 
@@ -137,7 +145,7 @@ class OpenControl():
         self.ocfiles = {}
         self.dummy_func()
         # define the dictionaries we will support so we avoid unexpected data
-        self.supported_dictionaries = ['components', 'standards', 'certifications', 'roles']
+        self.supported_dictionaries = ['components', 'standards', 'certifications', 'assignments', 'roles']
         # stub out a system
         self._stub_system()
         pass
@@ -168,6 +176,7 @@ class OpenControl():
       self.system['components'] = {}
       self.system['certifications'] = {}
       self.system['standards'] = {}
+      self.system['assignments'] = {}
       self.system['roles'] = {}
 
     def system_component_add(self, component_name, component_dict):
