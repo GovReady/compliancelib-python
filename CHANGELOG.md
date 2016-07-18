@@ -1,7 +1,11 @@
 # Change Log
 
+## compliancelib v0.8.0
+- Add class to represent System Compliance
+- System Compliance class consumes OpenControl formatted component files for control implementation
+
 ## compliancelib v0.7.4
-- handle control enhancement missing data elements
+- handle control enhancement that missing data elements
 
 ## compliancelib v0.7.3
 - replace xml.etree.ElementTree with defusedxml.ElementTree
