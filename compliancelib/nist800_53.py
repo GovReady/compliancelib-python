@@ -106,7 +106,7 @@ class NIST800_53(object):
             # So let's get data only if attributes exist
             if (len(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')) > 0):
                 self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-                if (lrn(self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description')) > 0):
+                if (len(self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description')) > 0):
                     self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
                 else:
                     self.supplemental_guidance = None
