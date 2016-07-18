@@ -53,8 +53,10 @@ ck = "AC-4"
 ci = sp.control(ck)
 ci.components
 ci.components_dict
+ci.implementation_status
+ci.assignments
 ci.implementation_narrative
-
+print ci.implementation_narrative
 
 # Test loading GovCloud OpenControl component yaml directly
 component_list = ['AC_Policy','AT_Policy','AU_Policy','CA_Policy','CICloudGov','CM_Policy','CP_Policy','CloudCheckr','ELKStack','IA_Policy','IR_Policy','JumpBox','MA_Policy','MP_Policy','PE_Policy','PL_Policy','PS_Policy','RA_Policy','SA_Policy','SC_Policy','SI_Policy','SecureProxy']
@@ -69,7 +71,7 @@ ck = "AC-2 (1)"
 ci = sp.control(ck)
 ci.components
 ci.components_dict
-ci.implementation_narrative
+print ci.implementation_narrative
 
 """
 
@@ -230,7 +232,7 @@ class SystemCompliance():
           if 'text' in text_item:
             text = text_item['text']
           ctl_str += "%s\nvia %s\n%s\n" % (key, component, text)
-      ci.narrative = ctl_str
+      ci.implementation_narrative = ctl_str
 
       # determine implementation status
       ci.implementation_status = ""
