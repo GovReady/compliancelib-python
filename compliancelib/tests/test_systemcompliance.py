@@ -1,12 +1,18 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
+__author__ = "Greg Elin (gregelin@govready.com)"
+__version__ = "$Revision: 0.2.0 $"
+__date__ = "$Date: 2016/07/18 07:27:00 $"
+__copyright__ = "Copyright (c) 2016 GovReady PBC"
+__license__ = "Apache Software License 2.0"
+
 from unittest import TestCase
 
 import compliancelib
 import os
 import json
 import yaml
-
 from compliancelib import SystemCompliance
 
 class SystemComplianceTest(TestCase):
