@@ -15,6 +15,12 @@ class NIST800_53Test(TestCase):
     def test(self):
         self.assertTrue(True)
 
+    def test_control_list(self):
+        self.assertEqual(len(list(NIST800_53.get_control_ids())), 256)
+
+    def test_control_enhancement_list(self):
+        self.assertEqual(len(list(NIST800_53.get_control_enhancement_ids())), 666)
+
     def test_id(self):
         id = "AT-3"
         c = NIST800_53(id)
