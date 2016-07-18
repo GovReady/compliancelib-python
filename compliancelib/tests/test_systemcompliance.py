@@ -46,7 +46,7 @@ class SystemComplianceTest(TestCase):
         self.assertTrue(sp.system['components'] is not None)
 
         # test that empty system object exists
-        self.assertTrue(sp.system['name'] == "Test System")
+        self.assertTrue(sp.system['name'] == "")
 
     def test_add_component_from_url(self):
         "Test method 'add_component_from_url'"
@@ -140,22 +140,18 @@ class SystemComplianceTest(TestCase):
 
         # Test system compliance profile
         print "System compliance summary %s" % sp.summary()
-        self.assertTrue(sp.summary() == {'stanards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
+        self.assertTrue(sp.summary() == {'standards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
 
     def test_control(self):
         "Test the control implementation object"
-        # We assume just NIST 800-53 controls for time being
+        # instantiate SystemCompliance object and populate to test
         sp = SystemCompliance()
-        # set system name
         sp.system['name'] = "GovReady WordPress Dashboard"
-        # add system components
         my_components = ['../data/UAA_component.yaml', '../data/AU_policy_component.yaml']
         [sp.add_component_from_url("file://%s" % os.path.join(os.path.dirname(__file__), ocfileurl)) for ocfileurl in my_components]
-        # add system standard
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
         sp.add_system_dict('standards', standard_name, standard_dict)
-        # add system certifications
         name = "FRed-RAMP-Low"
         my_dict = {"name": "FRed-RAMP-Low", "other_key": "some value"}
         sp.add_system_dict('certifications', name, my_dict)
@@ -169,6 +165,12 @@ class SystemComplianceTest(TestCase):
         ci = sp.control(ck)
         print "%s info is %s " % (ck, ci.title)
         print "\n"
+        self.assertTrue(ci.id == "AC-200")
+        self.assertTrue(ci.title == None)
+        self.assertTrue(ci.description == None)
+        self.assertTrue(ci.responsible == None)
+        self.assertTrue(ci.components_dict == {})
+
 
         # report when a control is  found
         ck = "AC-4"
@@ -179,7 +181,12 @@ class SystemComplianceTest(TestCase):
         print "\nSystem control implmentation details"
         print "-------------------------------------"
         print ci.components
-        print ci.narrative
+        print ci.implementation_narrative
+        self.assertTrue(ci.id == "AC-4")
+        self.assertTrue(ci.title == 'INFORMATION FLOW ENFORCEMENT')
+        self.assertTrue(ci.description == 'The information system enforces approved authorizations for controlling the flow of information within the system and between interconnected systems based on [Assignment: organization-defined information flow control policies].')
+        self.assertTrue(ci.responsible == 'information system')
+        self.assertTrue(ci.components == ['User Account and Authentication (UAA) Server'])
 
         # test control enhancement id
         ck = "AC-2 (1)"
@@ -190,9 +197,13 @@ class SystemComplianceTest(TestCase):
         print "\nSystem control implmentation details"
         print "-------------------------------------"
         print ci.components
-        print ci.narrative
+        print ci.implementation_narrative
+        self.assertTrue(ci.id == "AC-2 (1)")
+        self.assertTrue(ci.title == 'AUTOMATED SYSTEM ACCOUNT MANAGEMENT')
+        self.assertTrue(ci.description == 'The organization employs automated mechanisms to support the management of information system accounts.')
+        self.assertTrue(ci.responsible == None)
+        self.assertTrue(ci.components == ['User Account and Authentication (UAA) Server'])
 
-        self.assertTrue( 0 == 1 )
 
 if __name__ == "__main__":
     unittest.main()
