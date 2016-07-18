@@ -15,59 +15,46 @@ Example python CLI
 import sys, yaml, pprint
 
 import compliancelib
-# instantiate an SystemCompliance object to hold an array of controls
+# instantiate an SystemCompliance object
 sp = compliancelib.SystemCompliance()
 
-sp.system['name']
+# change name
 sp.system['name'] = "GovReady WordPress Dashboard"
 
+# Idempotent adding components from URLs
 sp.components()
-# result
-# []
-
-
-# Add components from URLs
 f1 = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
 f2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
 sp.add_component_from_url(f1)
 sp.add_component_from_url(f2)
-
+sp.add_component_from_url(f2)
+sp.components()
 # Alternatively
-# and it's idempotent
 sp.add_system_dict_from_url('components', f1)
 sp.add_system_dict_from_url('components', f2)
-
 sp.components()
 # result
 # ['Audit Policy', 'User Account and Authentication (UAA) Server']
 
-
+# display summary info
 sp.summary()
+# result
 # {'stanards': [], 'certifications': [], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']}
-
-import pprint
 pprint.pprint(sp.summary())
-{'certifications': [],
- 'components': ['Audit Policy',
-                'User Account and Authentication (UAA) Server'],
- 'name': 'GovReady WordPress Dashboard',
- 'stanards': []}
+# result
+# {'certifications': [],
+# 'components': ['Audit Policy',
+#                'User Account and Authentication (UAA) Server'],
+# 'name': 'GovReady WordPress Dashboard',
+# 'stanards': []}
 
+# query cntrol
 ck = "AC-4"
-compliancelib.NIST800_53(ck)
-# <compliancelib.nist800_53.NIST800_53 object at 0x100ccc350>
+ci = sp.control(ck)
+ci.components
+ci.components_dict
+ci.implementation_narrative
 
-sc_standard_info = compliancelib.NIST800_53(ck)
-sc_system_info = sp.control_details(ck)
-sp.control_details(ck)
-# {'User Account and Authentication (UAA) Server': [{'control_key': 'AC-4', 'standard_key': 'NIST-800-53', 'covered_by': [], 'implementation_status': 'none', 'narrative': [{'text': 'The information system enforces approved authorizations for controlling the flow of information within the system and between interconnected systems based on the 18F Access Control Policy Section 3 -  Information Flow Enforcement which states:\n  - 18F enforces approved authorizations for controlling the flow of information within its information systems and between interconnected systems in accordance with applicable federal laws and 18F policies and procedures.\n  - 18F shall use flow control restrictions to include: keeping export controlled information from being transmitted in the clear to the Internet, blocking outside traffic that claims to be from within the organization and not passing any web requests to the Internet that are not from the internal web proxy.\n  - 18F shall use boundary protection devices (e.g., proxies, gateways, guards, encrypted tunnels, firewalls, and routers) that employ rule sets or establish configuration settings that restrict information system services, provide a packet-filtering capability based on header information, or message-filtering capability based on content (e.g., using key word searches or document characteristics.'}]}]}
-
-
-# Print control info from standard and also systempl implementation details
-print ck
-print sc_standard_info.title
-print sc_standard_info.description
-print yaml.dump(sc_system_info[sc_system_info.keys()[0]])
 
 # Test loading GovCloud OpenControl component yaml directly
 component_list = ['AC_Policy','AT_Policy','AU_Policy','CA_Policy','CICloudGov','CM_Policy','CP_Policy','CloudCheckr','ELKStack','IA_Policy','IR_Policy','JumpBox','MA_Policy','MP_Policy','PE_Policy','PL_Policy','PS_Policy','RA_Policy','SA_Policy','SC_Policy','SI_Policy','SecureProxy']
@@ -75,58 +62,15 @@ urls = ["https://raw.githubusercontent.com/18F/cg-compliance/master/%s/component
 for compurl in urls:
   sp.add_component_from_url(compurl)
 
-pprint.pprint(sp.control_details("AU-1"))
-pprint.pprint(sp.control_details("AU-5"))
-pprint.pprint(sp.control_details("SC-10"))
+# nice controls to test: AU-1, AU-5, SC-10
 
-#### OLDER
+# Print out control details
+ck = "AC-2 (1)"
+ci = sp.control(ck)
+ci.components
+ci.components_dict
+ci.implementation_narrative
 
-# load file 1
-sp.load_ocfile_from_url(f1)
-# load file 1
-sp.load_ocfile_from_url(f2)
-
-# loop though what controls are statisfied by second `f2` OpenControl YAML file
-# demonstrate combining OpenControl content with ComplianceLib content
-for c in sp.ocfiles[f2]['satisfies']: 
-  try:
-    cd = compliancelib.NIST800_53(c['control_key'])
-    if c['implementation_status'] == 'none':
-      # putting implementation status into SSP terminology
-      status = 'planned'
-    else:
-      status = c['implementation_status']
-    print "%s - %s - %s" % (c['control_key'], status, cd.title)
-    # print cd.description
-  except:
-    print "%s - Error %s" % (c['control_key'], sys.exc_info()[0])
-
-for c in sp.ocfiles[f2]['satisfies']: 
-    print c['control_key']
-    cd = compliancelib.NIST800_53(c['control_key'])
-    print cd.title
-
-# If we build an index of control_keys, then we can look up control details easily,
-# but we have to remember that a control_key can be in more than one component file
-
-cks2 = {}
-for kf in sp.ocfiles.keys():
-  print kf
-  for c in sp.ocfiles[kf]['satisfies']:
-    if c['control_key'] not in cks2:
-      cks2[c['control_key']] = {kf: c}
-    else:
-      cks2[c['control_key']].append({kf: c})
-
-# let's start with a control and look up implementation
-x = "AC-7"
-sc = compliancelib.NIST800_53(x)
-sc.title
-cks[sc.id]
-cks2[sc.id]
-# sp.ocfiles[cks[sc.id]]['satisfies']
-cks2[sc.id][f2]['narrative'][0]['text']
-cks2[sc.id][f2]
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
@@ -141,6 +85,7 @@ import yaml
 import re
 import urllib2
 import sys
+from .nist800_53 import NIST800_53
 
 class SystemCompliance():
     "initialize SystemCompliance security controls implementation"
@@ -242,27 +187,59 @@ class SystemCompliance():
         "certifications" : self.system['certifications'].keys()}
       return scpa
 
-    # Control information
-    def control_details(self, cid):
-      control_key =  cid
-      # if components loaded, look through
+    def control(self, cid, standard = 'NIST800_53'):
+      "create a control object for system combining control info from standard and implementation details"
+      # raise error if components are not loaded
       if len(self.components()) < 1:
         raise Exception ("No controls available. No components have been loaded.")
-      else:
-        # look through components for control
-        control_component_dict = {}
-        for component in self.components():
-          component_control_info = [ck for ck in self.system['components'][component]['satisfies'] if ck['control_key'] == control_key]
-          if (len(component_control_info)) > 0:
-            control_component_dict[component] = component_control_info
-      return control_component_dict
 
-      # if cid not in ['AC-3', 'SA-4']:
-      #   status = "404"
-      #   status_message = "Requested information does not exist"
-      #   # {"control_key": ck, "status" : "404", "status_message" : "Requested information does not exist"})
-      # cd = { "control_key" : control_key,
-      #   "status" : status,
-      #   "status_message" : status_message
-      #   }
-      # return cd
+      # create control object from standard (NOTE: only support NIST 800-53 currently)
+      if (standard == 'NIST800_53'):
+        ci = NIST800_53(cid)
+      else:
+        raise Exception ("The standard %s is not currently supported." % standard)
+
+      # find all components with content regarding control_key
+      # add dictionary of components attribute to control
+      ci.components_dict = {}
+      for component in self.components():
+        component_control_info = [ck for ck in self.system['components'][component]['satisfies'] if ck['control_key'] == cid]
+        if (len(component_control_info)) > 0:
+          ci.components_dict[component] = component_control_info
+
+      # make it easy to look at list of components related to control by getting list of keys that are names of components
+      ci.components = ci.components_dict.keys()
+
+      # determine roles
+      ci.roles = {}
+
+      # determine assignments
+      ci.assignments = {}
+
+      # determine narrative
+      ci.implementation_narrative = ""
+      ctl_str = ""
+      for component in ci.components:
+        # print component
+        comp_contribution  = ci.components_dict[component][0]
+        for text_item in comp_contribution['narrative']:
+          key = ""
+          text = ""
+          if 'key' in text_item:
+            key = "%s:\n" % text_item['key']
+          if 'text' in text_item:
+            text = text_item['text']
+          ctl_str += "%s\nvia %s\n%s\n" % (key, component, text)
+      ci.narrative = ctl_str
+
+      # determine implementation status
+      ci.implementation_status = ""
+      ci.implementation_status_details = {}
+      # if all components implemented, then implemented
+      # if some components implemented, then partially implemented
+
+      # determine validation
+      ci.validation = {}
+
+      # return the control implementation object
+      return ci
