@@ -1,7 +1,15 @@
 # Change Log
 
+## compliancelib v0.9.0
+- Add OpenControlFiles class to read open controls
+- Resolve and ingest opencontrol.yaml file from GitHub repos
+- Resolve and ingest OpenControl component yaml files (no dependencies)
+- Update SystemCompliance class to load components via OpenControl YAML reference
+- Update SystemCompliance to dump plain text write-up of NIST800-53 System Security Plan control implementation write-up
+- NOTE: ingesting OpenControlFiles still incomplete
+
 ## compliancelib v0.8.0
-- Add class to represent System Compliance
+- Add SystemCompliance class to represent System Compliance
 - System Compliance class consumes OpenControl formatted component files for control implementation
 
 ## compliancelib v0.7.4

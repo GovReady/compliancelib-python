@@ -64,6 +64,8 @@ urls = ["https://raw.githubusercontent.com/18F/cg-compliance/master/%s/component
 for compurl in urls:
   sp.add_component_from_url(compurl)
 
+
+
 # nice controls to test: AU-1, AU-5, SC-10
 
 # Print out control details
@@ -73,11 +75,30 @@ ci.components
 ci.components_dict
 print ci.implementation_narrative
 
+
+# very short, load from opencontrol
+import compliancelib
+sp = compliancelib.SystemCompliance()
+sp.load_system_from_opencontrol_repo('https://github.com/18F/cg-compliance')
+sp.control('AC-4').title
+print sp.control('AC-4').description
+print sp.control('AC-4').implementation_narrative
+sp.control_ssp_text('AC-4')
+
+# freedonia-compliance
+import compliancelib
+sp = compliancelib.SystemCompliance()
+sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-compliance')
+sp.control('AU-1').title
+print sp.control('AU-1').description
+print sp.control('AU-1').implementation_narrative
+sp.control_ssp_text('AU-1')
+
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.2.0 $"
-__date__ = "$Date: 2016/07/18 07:27:00 $"
+__version__ = "$Revision: 0.3.0 $"
+__date__ = "$Date: 2016/07/23 09:27:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -88,6 +109,7 @@ import re
 import urllib2
 import sys
 from .nist800_53 import NIST800_53
+from .opencontrolfiles import OpenControlFiles
 
 class SystemCompliance():
     "initialize SystemCompliance security controls implementation"
@@ -246,3 +268,27 @@ class SystemCompliance():
 
       # return the control implementation object
       return ci
+
+    def control_ssp_text(self, cid):
+      "print out text for a control listing in system security plan (assume NIST800-53"
+      ci = self.control(cid)
+      print "%s - %s" % (ci.id, ci.title)
+      print "%s" % (ci.description)
+      print "\n"
+      print "responsible: %s" % ci.responsible
+      print "roles: %s" % ci.roles
+      print "implementation status: %s\n" % ci.implementation_status
+      print "%s" % ci.implementation_narrative
+
+    def load_system_from_opencontrol_repo(self, repo_url, revision='master', verbose=''):
+      "load system details and control implementation from a repo"
+      # TODO Reset all values before loading new system
+      #TODO handle not finding opencontrol.yaml file in repo
+      ocf =  OpenControlFiles()
+
+      for url in ocf.list_components_urls(ocf.resolve_ocfile_url(repo_url, revision)):
+        if (verbose=='v'):
+          print "Reading component %s" % url
+        self.add_component_from_url(url)
+      return True
+
