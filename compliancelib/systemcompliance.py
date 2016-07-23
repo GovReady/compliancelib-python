@@ -85,6 +85,11 @@ print sp.control('AC-4').description
 print sp.control('AC-4').implementation_narrative
 sp.control_ssp_text('AC-4')
 
+# list controls from each component
+for component in sp.components():
+  print component
+  [ck['control_key'] for ck in sp.system['components'][component]['satisfies']]
+
 # freedonia-compliance
 import compliancelib
 sp = compliancelib.SystemCompliance()
@@ -94,6 +99,9 @@ print sp.control('AU-1').description
 print sp.control('AU-1').implementation_narrative
 sp.control_ssp_text('AU-1')
 
+for component in sp.components():
+  print component
+  [ck['control_key'] for ck in sp.system['components'][component]['satisfies']]
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
