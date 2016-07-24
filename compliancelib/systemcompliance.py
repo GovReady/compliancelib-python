@@ -147,7 +147,6 @@ class SystemCompliance():
       try:
         my_dict = yaml.safe_load(urllib2.urlopen(oc_componentyaml_url))
         # todo - add checks to make sure it is a proper opencontrol file
-
       except:
         print("Unexpected error loading YAML file:", sys.exc_info()[0])
         my_dict = None
