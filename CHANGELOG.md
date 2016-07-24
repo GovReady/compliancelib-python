@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.10.0
+- Changed name of `list_component*` methods
+
 ## compliancelib v0.9.0
 - Add OpenControlFiles class to read open controls
 - Resolve and ingest opencontrol.yaml file from GitHub repos

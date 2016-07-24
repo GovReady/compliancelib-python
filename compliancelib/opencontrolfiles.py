@@ -25,11 +25,11 @@ component_path = ''
 ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
 print "test: ocfileurl %s" % ocfileurl
 # load components from opencontrol.yaml file
-components_urls = ocf.list_components_urls(ocfileurl)
+components_urls = ocf.list_components_urls_in_repo(ocfileurl)
 
 # instantiate an SystemCompliance object
 sp = compliancelib.SystemCompliance()
-for compurl in ocf.list_components_urls(ocfileurl):
+for compurl in ocf.list_components_urls_in_repo(ocfileurl):
   sp.add_component_from_url(compurl)
 
 # Print out control details
@@ -43,7 +43,7 @@ print ci.implementation_narrative
 import compliancelib
 ocf =  compliancelib.OpenControlFiles()
 sp = compliancelib.SystemCompliance()
-for url in ocf.list_components_urls(ocf.resolve_ocfile_url('https://github.com/18F/cg-compliance','master')):
+for url in ocf.list_components_urls_in_repo(ocf.resolve_ocfile_url('https://github.com/18F/cg-compliance','master')):
     sp.add_component_from_url(url)
 
 sp.control('AC-4').title
@@ -127,13 +127,13 @@ class OpenControlFiles():
             raise Exception('Attempt to load unsupported repo service. Only GitHub.com supported in this version of ComplianceLib')
         return ocfile_url
 
-    def list_components(self, ocfileurl):
+    def list_components_in_repo(self, ocfileurl):
         "list components found in an opencontrol.yaml file"
         ocfile_dict = self.load_ocfile_from_url(ocfileurl)
         component_list = ocfile_dict['components']
         return component_list
 
-    def list_components_urls(self, ocfileurl):
+    def list_components_urls_in_repo(self, ocfileurl):
         "list component urls found in an opencontrol.yaml file"
         parsed_uri = urlparse(ocfileurl)
         if (parsed_uri.netloc =='raw.githubusercontent.com'):
@@ -148,7 +148,7 @@ class OpenControlFiles():
         print "repo_ref in list_components_urls xx: %s" % repo_ref
         ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
         print "ocfileurl: %s" % ocfileurl
-        component_list = self.list_components(ocfileurl)
+        component_list = self.list_components_in_repo(ocfileurl)
         components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
         return components_urls_list
 

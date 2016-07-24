@@ -89,7 +89,7 @@ class OpenControlFilesTest(TestCase):
         #TODO the following test is brittle
         self.assertTrue(['metadata', 'dependencies', 'name', 'components', 'schema_version'] ==  my_dict.keys())
 
-    def test_list_components(self):
+    def test_list_components_in_repo(self):
         "Test generating a list of components from opencontrol.yaml file"
         ocf = OpenControlFiles()
         repo_ref = 'https://github.com/18F/cg-compliance'
@@ -97,11 +97,11 @@ class OpenControlFilesTest(TestCase):
         component_path = ''
         ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
         # load opencontrol.yaml file
-        components = ocf.list_components(ocfileurl)
+        components = ocf.list_components_in_repo(ocfileurl)
         self.assertTrue(['./AC_Policy', './AT_Policy', './AU_Policy', './CA_Policy', './CICloudGov', './CM_Policy', './CP_Policy', './CloudCheckr', './ELKStack', './IA_Policy', './IR_Policy', './JumpBox', './MA_Policy', './MP_Policy', './PE_Policy', './PL_Policy', './PS_Policy', './RA_Policy', './SA_Policy', './SC_Policy', './SI_Policy', './SecureProxy'] == components)
         # self.assertTrue( 1 == 2)
 
-    def test_list_components_urls(self):
+    def test_list_components_urls_in_repo(self):
         "Test generating a list of component URL files from opencontrol.yaml file"
         ocf = OpenControlFiles()
         repo_ref = 'https://github.com/18F/cg-compliance'
@@ -111,7 +111,7 @@ class OpenControlFilesTest(TestCase):
         print "repo_ref 1: %s" % repo_ref
         print "ocfileurl 1: ocfileurl %s" % ocfileurl
         # load opencontrol.yaml file
-        components_urls = ocf.list_components_urls(ocfileurl)
+        components_urls = ocf.list_components_urls_in_repo(ocfileurl)
         # print components_urls
         self.assertTrue(len(components_urls) == 22)
         self.assertTrue('https://raw.githubusercontent.com/18F/cg-compliance/master/./AC_Policy/component.yaml' in components_urls)
@@ -125,7 +125,7 @@ class OpenControlFilesTest(TestCase):
         ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
         print "ocfileurl 2: ocfileurl %s" % ocfileurl
         # load opencontrol.yaml file
-        components_urls = ocf.list_components_urls(ocfileurl)
+        components_urls = ocf.list_components_urls_in_repo(ocfileurl)
         print components_urls
         self.assertTrue(len(components_urls) == 1)
         self.assertTrue(['https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/./AU_policy/component.yaml'] == components_urls)
