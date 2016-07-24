@@ -64,8 +64,6 @@ urls = ["https://raw.githubusercontent.com/18F/cg-compliance/master/%s/component
 for compurl in urls:
   sp.add_component_from_url(compurl)
 
-
-
 # nice controls to test: AU-1, AU-5, SC-10
 
 # Print out control details
@@ -129,19 +127,6 @@ class SystemCompliance():
         self._stub_system()
         pass
 
-    # Not using this method anymore, worth keeping around?
-    def load_ocfile_from_url(self, ocfileurl):
-        "load OpenControl component YAML file from URL"
-        # file must be actual YAML file
-        # idempotent loading - do not load if url already loaded
-        if ocfileurl in self.ocfiles.keys():
-            return
-        try:
-            self.ocfiles[ocfileurl] = yaml.safe_load(urllib2.urlopen(ocfileurl))
-        except:
-            print("Unexpected error loading YAML file:", sys.exc_info()[0])
-            raise
-
     def _stub_system(self):
       # Load a stub file of the sytem
       self.system = {}
@@ -168,6 +153,7 @@ class SystemCompliance():
         my_dict = None
         raise
       if (my_dict):
+        # TODO: Consider if method `system_component_add` needed
         self.system_component_add(my_dict['name'], my_dict)
 
     def components(self):

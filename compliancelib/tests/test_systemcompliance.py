@@ -13,6 +13,7 @@ import compliancelib
 import os
 import json
 import yaml
+import urllib2
 from compliancelib import SystemCompliance
 
 class SystemComplianceTest(TestCase):
@@ -20,27 +21,27 @@ class SystemComplianceTest(TestCase):
     def test(self):
         self.assertTrue(True)
 
-    def test_load_ocfile(self):
-        "Test loading of an OpenControl component YAML file"
-        ocfileurl = "https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml"
-        sp = SystemCompliance()
-        # test empty oc
-        self.assertTrue(len(sp.ocfiles) == 0)
-        # load an OpenControl file
-        sp.load_ocfile_from_url(ocfileurl)
-        print len(sp.ocfiles)
-        print list(sp.ocfiles.keys())
-        #  test length of ocfiles
-        self.assertTrue(len(sp.ocfiles) == 1)
-        # self.assertTrue(sp.list_files() == "https://github.com/pburkholder/freedonia-compliance/blob/master/AU_policy/component.yaml")
-        # test not loading same file twice
-        sp.load_ocfile_from_url(ocfileurl)
-        self.assertTrue(len(sp.ocfiles) == 1)
-        # load second file
-        ocfileurl2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
-        sp.load_ocfile_from_url(ocfileurl2)
-        self.assertTrue(len(sp.ocfiles) == 2)
-        self.assertTrue(sp.ocfiles.keys() == ['https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml', 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'])
+    # def test_load_ocfile(self):
+    #     "Test loading of an OpenControl component YAML file"
+    #     ocfileurl = "https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml"
+    #     sp = SystemCompliance()
+    #     # test empty oc
+    #     self.assertTrue(len(sp.ocfiles) == 0)
+    #     # load an OpenControl file
+    #     sp.load_ocfile_from_url(ocfileurl)
+    #     print len(sp.ocfiles)
+    #     print list(sp.ocfiles.keys())
+    #     #  test length of ocfiles
+    #     self.assertTrue(len(sp.ocfiles) == 1)
+    #     # self.assertTrue(sp.list_files() == "https://github.com/pburkholder/freedonia-compliance/blob/master/AU_policy/component.yaml")
+    #     # test not loading same file twice
+    #     sp.load_ocfile_from_url(ocfileurl)
+    #     self.assertTrue(len(sp.ocfiles) == 1)
+    #     # load second file
+    #     ocfileurl2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
+    #     sp.load_ocfile_from_url(ocfileurl2)
+    #     self.assertTrue(len(sp.ocfiles) == 2)
+    #     self.assertTrue(sp.ocfiles.keys() == ['https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml', 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'])
 
     def test_create_system_dictionary(self):
         "Test system dictionary created"
@@ -72,9 +73,7 @@ class SystemComplianceTest(TestCase):
         oc_component_file = os.path.join(os.path.dirname(__file__), '../data/UAA_component.yaml')
         print oc_component_file
         ocfileurl = "file://%s" % oc_component_file
-        sp.load_ocfile_from_url(ocfileurl)
-
-        test_component_dict = sp.ocfiles[ocfileurl]
+        test_component_dict = yaml.safe_load(urllib2.urlopen(ocfileurl))
         sp.system_component_add(test_component_dict['name'], test_component_dict)
         print "system components are %s " % sp.system['components'].keys()
         print len(sp.system['components']['User Account and Authentication (UAA) Server']['satisfies'])
@@ -85,9 +84,9 @@ class SystemComplianceTest(TestCase):
         oc_component_file = os.path.join(os.path.dirname(__file__), '../data/AU_policy_component.yaml')
         print oc_component_file
         ocfileurl = "file://%s" % oc_component_file
-        sp.load_ocfile_from_url(ocfileurl)
         # this is where we add the component dictionary
-        sp.system_component_add(sp.ocfiles[ocfileurl]['name'], sp.ocfiles[ocfileurl])
+        test_component_dict = yaml.safe_load(urllib2.urlopen(ocfileurl))
+        sp.system_component_add(test_component_dict['name'], test_component_dict)
 
         # test method to get list of system components
         print sp.components()
