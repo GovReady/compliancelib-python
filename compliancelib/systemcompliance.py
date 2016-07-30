@@ -56,7 +56,7 @@ ci.components_dict
 ci.implementation_status
 ci.assignments
 ci.implementation_narrative
-print ci.implementation_narrative
+print(ci.implementation_narrative)
 
 # Test loading GovCloud OpenControl component yaml directly
 component_list = ['AC_Policy','AT_Policy','AU_Policy','CA_Policy','CICloudGov','CM_Policy','CP_Policy','CloudCheckr','ELKStack','IA_Policy','IR_Policy','JumpBox','MA_Policy','MP_Policy','PE_Policy','PL_Policy','PS_Policy','RA_Policy','SA_Policy','SC_Policy','SI_Policy','SecureProxy']
@@ -71,7 +71,7 @@ ck = "AC-2 (1)"
 ci = sp.control(ck)
 ci.components
 ci.components_dict
-print ci.implementation_narrative
+print(ci.implementation_narrative)
 
 
 # very short, load from opencontrol
@@ -79,13 +79,13 @@ import compliancelib
 sp = compliancelib.SystemCompliance()
 sp.load_system_from_opencontrol_repo('https://github.com/18F/cg-compliance')
 sp.control('AC-4').title
-print sp.control('AC-4').description
-print sp.control('AC-4').implementation_narrative
+print(sp.control('AC-4').description)
+print(sp.control('AC-4').implementation_narrative)
 sp.control_ssp_text('AC-4')
 
 # list controls from each component
 for component in sp.components():
-  print component
+  print(component)
   [ck['control_key'] for ck in sp.system['components'][component]['satisfies']]
 
 # freedonia-compliance
@@ -93,12 +93,12 @@ import compliancelib
 sp = compliancelib.SystemCompliance()
 sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-compliance')
 sp.control('AU-1').title
-print sp.control('AU-1').description
-print sp.control('AU-1').implementation_narrative
+print(sp.control('AU-1').description)
+print(sp.control('AU-1').implementation_narrative)
 sp.control_ssp_text('AU-1')
 
 for component in sp.components():
-  print component
+  print(component)
   [ck['control_key'] for ck in sp.system['components'][component]['satisfies']]
 """
 
@@ -112,10 +112,16 @@ import os
 import json
 import yaml
 import re
-import urllib2
 import sys
 from .nist800_53 import NIST800_53
 from .opencontrolfiles import OpenControlFiles
+
+if sys.version_info >= (3, 0):
+    from urllib.parse import urlparse
+    from urllib.request import urlopen
+if sys.version_info < (3, 0) and sys.version_info >= (2, 5):
+    from urlparse import urlparse
+    from urllib2 import urlopen
 
 class SystemCompliance():
     "initialize SystemCompliance security controls implementation"
@@ -145,7 +151,7 @@ class SystemCompliance():
       "add a component as a dictionary to the system from an OpenControl YAML file at a URL"
       # go load opencontrol file
       try:
-        my_dict = yaml.safe_load(urllib2.urlopen(oc_componentyaml_url))
+        my_dict = yaml.safe_load(urlopen(oc_componentyaml_url))
         # todo - add checks to make sure it is a proper opencontrol file
       except:
         print("Unexpected error loading YAML file:", sys.exc_info()[0])
@@ -157,7 +163,7 @@ class SystemCompliance():
 
     def components(self):
       "list the components composing the system as array"
-      return self.system['components'].keys()
+      return list(self.system['components'])
 
     # generic method for loading dictionaries
     def add_system_dict(self, my_dict_type, my_dict_name, my_dict):
@@ -174,7 +180,7 @@ class SystemCompliance():
       "load a dictionary into system object from a URL"
       if dict_type in self.supported_dictionaries:
         try:
-          my_dict = yaml.safe_load(urllib2.urlopen(url))
+          my_dict = yaml.safe_load(urlopen(url))
           # todo - validate proper opencontrol file
         except:
           print("Unexpected error loading YAML file:", sys.exc_info()[0])
@@ -187,22 +193,22 @@ class SystemCompliance():
 
     def standards(self):
       "list the standards composing the system as array"
-      return self.system['standards'].keys()
+      return list(self.system['standards'])
 
     def certifications(self):
       "list the certifications composing the system as array"
-      return self.system['certifications'].keys()
+      return list(self.system['certifications'])
 
     def roles(self):
       "list the roles composing the system as array"
-      return self.system['roles'].keys()
+      return list(self.system['roles'])
 
     def summary(self):
       "dump high level system compliance profile abstract"
       scpa = {"name" :  self.system['name'],
-        "components" : self.system['components'].keys(),
-        "standards" : self.system['standards'].keys(),
-        "certifications" : self.system['certifications'].keys()}
+        "components" : list(self.system['components']),
+        "standards" : list(self.system['standards']),
+        "certifications" : list(self.system['certifications'])}
       return scpa
 
     def control(self, cid, standard = 'NIST800_53'):
@@ -226,7 +232,7 @@ class SystemCompliance():
           ci.components_dict[component] = component_control_info
 
       # make it easy to look at list of components related to control by getting list of keys that are names of components
-      ci.components = ci.components_dict.keys()
+      ci.components = list(ci.components_dict)
 
       # determine roles
       ci.roles = {}
@@ -265,13 +271,13 @@ class SystemCompliance():
     def control_ssp_text(self, cid):
       "print out text for a control listing in system security plan (assume NIST800-53"
       ci = self.control(cid)
-      print "%s - %s" % (ci.id, ci.title)
-      print "%s" % (ci.description)
-      print "\n"
-      print "responsible: %s" % ci.responsible
-      print "roles: %s" % ci.roles
-      print "implementation status: %s\n" % ci.implementation_status
-      print "%s" % ci.implementation_narrative
+      print("%s - %s" % (ci.id, ci.title))
+      print("%s" % (ci.description))
+      print("\n")
+      print("responsible: %s" % ci.responsible)
+      print("roles: %s" % ci.roles)
+      print("implementation status: %s\n" % ci.implementation_status)
+      print("%s" % ci.implementation_narrative)
 
     def load_system_from_opencontrol_repo(self, repo_url, revision='master', verbose=''):
       "load system details and control implementation from a repo"
@@ -281,7 +287,7 @@ class SystemCompliance():
 
       for url in ocf.list_components_urls(ocf.resolve_ocfile_url(repo_url, revision)):
         if (verbose=='v'):
-          print "Reading component %s" % url
+          print("Reading component %s" % url)
         self.add_component_from_url(url)
       return True
 

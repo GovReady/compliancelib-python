@@ -23,7 +23,7 @@ repo_ref = 'https://github.com/18F/cg-compliance'
 revision = 'master'
 component_path = ''
 ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
-print "test: ocfileurl %s" % ocfileurl
+print("test: ocfileurl %s" % ocfileurl)
 # load components from opencontrol.yaml file
 components_urls = ocf.list_components_urls_in_repo(ocfileurl)
 
@@ -37,7 +37,7 @@ ck = "AC-2 (1)"
 ci = sp.control(ck)
 ci.components
 ci.components_dict
-print ci.implementation_narrative
+print(ci.implementation_narrative)
 
 # shorter
 import compliancelib
@@ -47,8 +47,8 @@ for url in ocf.list_components_urls_in_repo(ocf.resolve_ocfile_url('https://gith
     sp.add_component_from_url(url)
 
 sp.control('AC-4').title
-print sp.control('AC-4').description
-print sp.control('AC-4').implementation_narrative
+print(sp.control('AC-4').description)
+print(sp.control('AC-4').implementation_narrative)
 sp.control_ssp_text('AC-4')
 
 # freedonia-compliance
@@ -56,8 +56,8 @@ import compliancelib
 sp = compliancelib.SystemCompliance()
 sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-compliance')
 sp.control('AC-4').title
-print sp.control('AC-4').description
-print sp.control('AC-4').implementation_narrative
+print(sp.control('AC-4').description)
+print(sp.control('AC-4').implementation_narrative)
 sp.control_ssp_text('AC-4')
 
 """
@@ -72,13 +72,14 @@ import os
 import json
 import yaml
 import re
-import urllib2
 import sys
 
 if sys.version_info >= (3, 0):
     from urllib.parse import urlparse
+    from urllib.request import urlopen
 if sys.version_info < (3, 0) and sys.version_info >= (2, 5):
     from urlparse import urlparse
+    from urllib2 import urlopen
 
 class OpenControlFiles():
     "initialize OpenControlFiles object"
@@ -94,7 +95,7 @@ class OpenControlFiles():
         if ocfileurl in self.ocfiles.keys():
             return self.ocfiles[ocfileurl]
         try:
-            self.ocfiles[ocfileurl] = yaml.safe_load(urllib2.urlopen(ocfileurl))
+            self.ocfiles[ocfileurl] = yaml.safe_load(urlopen(ocfileurl))
         except:
             print("Unexpected error loading YAML file:", sys.exc_info()[0])
             raise
@@ -105,7 +106,7 @@ class OpenControlFiles():
         # TODO Sanitize path components better
         # TODO use urlparse library
         ocfile_url = ''
-        print "repo_url in resolve_ocfile_url: %s" % repo_url
+        print("repo_url in resolve_ocfile_url: %s" % repo_url)
         if 'https://github.com/' in repo_url:
             repo_service = 'github'
         if (repo_service == 'github'):
@@ -145,9 +146,9 @@ class OpenControlFiles():
             raise Exception('Attempt to load unsupported repo service. Only GitHub.com supported in this version of ComplianceLib')
         if (repo_service == 'github'):
             repo_ref = "%s://%s/%s/%s" % (parsed_uri.scheme, 'github.com', parsed_uri.path.split('/')[1], parsed_uri.path.split('/')[2])
-        print "repo_ref in list_components_urls xx: %s" % repo_ref
+        print("repo_ref in list_components_urls xx: %s" % repo_ref)
         ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
-        print "ocfileurl: %s" % ocfileurl
+        print("ocfileurl: %s" % ocfileurl)
         component_list = self.list_components_in_repo(ocfileurl)
         components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
         return components_urls_list

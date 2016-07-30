@@ -13,8 +13,16 @@ import compliancelib
 import os
 import json
 import yaml
-import urllib2
+
 from compliancelib import SystemCompliance
+import sys
+
+if sys.version_info >= (3, 0):
+    from urllib.parse import urlparse
+    from urllib.request import urlopen
+if sys.version_info < (3, 0) and sys.version_info >= (2, 5):
+    from urlparse import urlparse
+    from urllib2 import urlopen
 
 class SystemComplianceTest(TestCase):
     
@@ -60,7 +68,7 @@ class SystemComplianceTest(TestCase):
         sp = SystemCompliance()
         ocfileurl = 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'
         sp.add_component_from_url(ocfileurl)
-        print sp.components()
+        print(sp.components())
         self.assertTrue(sp.components() == ['Audit Policy'])
 
     def test_components(self):
@@ -71,28 +79,28 @@ class SystemComplianceTest(TestCase):
 
         # test adding in components
         oc_component_file = os.path.join(os.path.dirname(__file__), '../data/UAA_component.yaml')
-        print oc_component_file
+        print(oc_component_file)
         ocfileurl = "file://%s" % oc_component_file
-        test_component_dict = yaml.safe_load(urllib2.urlopen(ocfileurl))
+        test_component_dict = yaml.safe_load(urlopen(ocfileurl))
         sp.system_component_add(test_component_dict['name'], test_component_dict)
-        print "system components are %s " % sp.system['components'].keys()
-        print len(sp.system['components']['User Account and Authentication (UAA) Server']['satisfies'])
-        self.assertTrue(sp.system['components'].keys()[0] == "User Account and Authentication (UAA) Server")
+        print("system components are %s " % sp.system['components'].keys())
+        print(len(sp.system['components']['User Account and Authentication (UAA) Server']['satisfies']))
+        self.assertTrue(list(sp.system['components'])[0] == "User Account and Authentication (UAA) Server")
         self.assertTrue(len(sp.system['components']['User Account and Authentication (UAA) Server']['satisfies']) == 26)
 
         # add second component file and test list of components
         oc_component_file = os.path.join(os.path.dirname(__file__), '../data/AU_policy_component.yaml')
-        print oc_component_file
+        print(oc_component_file)
         ocfileurl = "file://%s" % oc_component_file
         # this is where we add the component dictionary
-        test_component_dict = yaml.safe_load(urllib2.urlopen(ocfileurl))
+        test_component_dict = yaml.safe_load(urlopen(ocfileurl))
         sp.system_component_add(test_component_dict['name'], test_component_dict)
 
         # test method to get list of system components
-        print sp.components()
-        self.assertTrue(sp.components() == ['Audit Policy', 'User Account and Authentication (UAA) Server'])
-        self.assertFalse(sp.components() == ['User Account and Authentication (UAA) Server', 'Wrong Name'])
-        # self.assertTrue(0==1)
+        print(sp.components())
+        self.assertTrue('Audit Policy' in sp.components())
+        self.assertTrue('User Account and Authentication (UAA) Server' in sp.components())
+        self.assertFalse('Wrong Name' in sp.components())
 
     def test_standards(self):
         "Test system standards dictionary"
@@ -101,6 +109,7 @@ class SystemComplianceTest(TestCase):
         standard_name = "FRIST-800-53"
         standard_dict = {"name": "FRIST-800-53", "other_key": "some value"}
         sp.add_system_dict('standards', standard_name, standard_dict)
+        print(sp.standards())
         self.assertTrue(sp.standards() == ["FRIST-800-53"])
         # To do test for exception case of non-existent dictionary type
 
@@ -144,8 +153,14 @@ class SystemComplianceTest(TestCase):
         sp.add_system_dict('certifications', name, my_dict)
 
         # Test system compliance profile
-        print "System compliance summary %s" % sp.summary()
-        self.assertTrue(sp.summary() == {'standards': ['FRIST-800-53'], 'certifications': ['FRed-RAMP-Low'], 'name': 'GovReady WordPress Dashboard', 'components': ['Audit Policy', 'User Account and Authentication (UAA) Server']})
+        print("System compliance summary %s" % sp.summary())
+        print(sp.summary()['components'])
+        print("********")
+        self.assertTrue(sp.summary()['standards'] == ['FRIST-800-53'])
+        self.assertTrue(sp.summary()['certifications'] == ['FRed-RAMP-Low'])
+        self.assertTrue('Audit Policy' in sp.summary()['components'])
+        self.assertTrue('User Account and Authentication (UAA) Server' in sp.summary()['components'])
+        self.assertTrue(sp.summary()['name'] == 'GovReady WordPress Dashboard')
 
     def test_control(self):
         "Test the control implementation object"
@@ -168,8 +183,8 @@ class SystemComplianceTest(TestCase):
         # report when a control is not found
         ck = "AC-200" # no such control
         ci = sp.control(ck)
-        print "%s info is %s " % (ck, ci.title)
-        print "\n"
+        print("%s info is %s " % (ck, ci.title))
+        print("\n")
         self.assertTrue(ci.id == "AC-200")
         self.assertTrue(ci.title == None)
         self.assertTrue(ci.description == None)
@@ -180,13 +195,13 @@ class SystemComplianceTest(TestCase):
         # report when a control is  found
         ck = "AC-4"
         ci = sp.control(ck)
-        print ci.id
-        print ci.title
-        print ci.description
-        print "\nSystem control implmentation details"
-        print "-------------------------------------"
-        print ci.components
-        print ci.implementation_narrative
+        print(ci.id)
+        print(ci.title)
+        print(ci.description)
+        print("\nSystem control implmentation details")
+        print("-------------------------------------")
+        print(ci.components)
+        print(ci.implementation_narrative)
         self.assertTrue(ci.id == "AC-4")
         self.assertTrue(ci.title == 'INFORMATION FLOW ENFORCEMENT')
         self.assertTrue(ci.description == 'The information system enforces approved authorizations for controlling the flow of information within the system and between interconnected systems based on [Assignment: organization-defined information flow control policies].')
@@ -196,13 +211,13 @@ class SystemComplianceTest(TestCase):
         # test control enhancement id
         ck = "AC-2 (1)"
         ci = sp.control(ck)
-        print ci.id
-        print ci.title
-        print ci.description
-        print "\nSystem control implmentation details"
-        print "-------------------------------------"
-        print ci.components
-        print ci.implementation_narrative
+        print(ci.id)
+        print(ci.title)
+        print(ci.description)
+        print("\nSystem control implmentation details")
+        print("-------------------------------------")
+        print(ci.components)
+        print(ci.implementation_narrative)
         self.assertTrue(ci.id == "AC-2 (1)")
         self.assertTrue(ci.title == 'AUTOMATED SYSTEM ACCOUNT MANAGEMENT')
         self.assertTrue(ci.description == 'The organization employs automated mechanisms to support the management of information system accounts.')
