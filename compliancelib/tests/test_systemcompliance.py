@@ -29,28 +29,6 @@ class SystemComplianceTest(TestCase):
     def test(self):
         self.assertTrue(True)
 
-    # def test_load_ocfile(self):
-    #     "Test loading of an OpenControl component YAML file"
-    #     ocfileurl = "https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml"
-    #     sp = SystemCompliance()
-    #     # test empty oc
-    #     self.assertTrue(len(sp.ocfiles) == 0)
-    #     # load an OpenControl file
-    #     sp.load_ocfile_from_url(ocfileurl)
-    #     print len(sp.ocfiles)
-    #     print list(sp.ocfiles.keys())
-    #     #  test length of ocfiles
-    #     self.assertTrue(len(sp.ocfiles) == 1)
-    #     # self.assertTrue(sp.list_files() == "https://github.com/pburkholder/freedonia-compliance/blob/master/AU_policy/component.yaml")
-    #     # test not loading same file twice
-    #     sp.load_ocfile_from_url(ocfileurl)
-    #     self.assertTrue(len(sp.ocfiles) == 1)
-    #     # load second file
-    #     ocfileurl2 = 'https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml'
-    #     sp.load_ocfile_from_url(ocfileurl2)
-    #     self.assertTrue(len(sp.ocfiles) == 2)
-    #     self.assertTrue(sp.ocfiles.keys() == ['https://raw.githubusercontent.com/opencontrol/cf-compliance/master/UAA/component.yaml', 'https://raw.githubusercontent.com/pburkholder/freedonia-compliance/master/AU_policy/component.yaml'])
-
     def test_create_system_dictionary(self):
         "Test system dictionary created"
         sp = SystemCompliance()
@@ -190,7 +168,29 @@ class SystemComplianceTest(TestCase):
         self.assertTrue(ci.description == None)
         self.assertTrue(ci.responsible == None)
         self.assertTrue(ci.components_dict == {})
+        # TODO Test implementation_status
+        # TODO Test implementation_status_details
 
+        ck = "AU-1"
+        ci = sp.control(ck)
+        print(ci.id)
+        print(ci.title)
+        print(ci.description)
+        print("\nSystem control implmentation details")
+        print("-------------------------------------")
+        print(ci.components)
+        print(ci.implementation_narrative)
+        self.assertTrue(ci.id == "AU-1")
+        self.assertTrue(ci.title == 'AUDIT AND ACCOUNTABILITY POLICY AND PROCEDURES')
+        self.assertTrue(ci.description == """The organization:
+a. Develops, documents, and disseminates to [Assignment: organization-defined personnel or roles]:
+a.1. An audit and accountability policy that addresses purpose, scope, roles, responsibilities, management commitment, coordination among organizational entities, and compliance; and
+a.2. Procedures to facilitate the implementation of the audit and accountability policy and associated audit and accountability controls; and
+b. Reviews and updates the current:
+b.1. Audit and accountability policy [Assignment: organization-defined frequency]; and
+b.2. Audit and accountability procedures [Assignment: organization-defined frequency].""")
+        self.assertTrue(ci.responsible == 'organization')
+        self.assertTrue(ci.components == ['Audit Policy'])
 
         # report when a control is  found
         ck = "AC-4"
@@ -224,6 +224,15 @@ class SystemComplianceTest(TestCase):
         self.assertTrue(ci.responsible == None)
         self.assertTrue(ci.components == ['User Account and Authentication (UAA) Server'])
 
+    def test_control_ssp_text(self):
+        "Test print out text for a control listing in system security plan (assume NIST800-53)"
+        print("Need tests written for this method")
+        # self.assertTrue(1==2)
+
+    def test_load_system_from_opencontrol_repo(self):
+        "Test load system details and control implementation from a repo"
+        print("Need tests test written for this method")
+        # self.assertTrue(1==2)
 
 if __name__ == "__main__":
     unittest.main()

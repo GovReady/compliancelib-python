@@ -81,6 +81,7 @@ sp.load_system_from_opencontrol_repo('https://github.com/18F/cg-compliance')
 sp.control('AC-4').title
 print(sp.control('AC-4').description)
 print(sp.control('AC-4').implementation_narrative)
+print(sp.control('AC-4').implementation_status)
 sp.control_ssp_text('AC-4')
 
 # list controls from each component
@@ -95,6 +96,7 @@ sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-c
 sp.control('AU-1').title
 print(sp.control('AU-1').description)
 print(sp.control('AU-1').implementation_narrative)
+print(sp.control('AC-4').implementation_status)
 sp.control_ssp_text('AU-1')
 
 for component in sp.components():
@@ -257,11 +259,20 @@ class SystemCompliance():
       ci.implementation_narrative = ctl_str
 
       # determine implementation status
-      ci.implementation_status = ""
+      # We need a dictionary because mutiple components support a control
       ci.implementation_status_details = {}
-      # if all components implemented, then implemented
-      # if some components implemented, then partially implemented
-
+      for component in ci.components:
+        comp_contribution  = ci.components_dict[component][0]
+        ci.implementation_status_details[component] = comp_contribution['implementation_status']
+      # now that we have implementation status details for components, calculate actual status
+          # From FedRAMP-SSP-Template-High-2016-06-20-v01-00.docx
+          # Implementation Status (check all that apply):
+          # ☐ Implemented
+          # ☐ Partially implemented
+          # ☐ Planned
+          # ☐ Alternative implementation
+          # ☐ Not applicable
+      ci.implementation_status = [ci.implementation_status_details[component] for component in list(ci.implementation_status_details)]
       # determine validation
       ci.validation = {}
 
@@ -269,7 +280,7 @@ class SystemCompliance():
       return ci
 
     def control_ssp_text(self, cid):
-      "print out text for a control listing in system security plan (assume NIST800-53"
+      "print out text for a control listing in system security plan (assume NIST800-53)"
       ci = self.control(cid)
       print("%s - %s" % (ci.id, ci.title))
       print("%s" % (ci.description))
@@ -285,7 +296,7 @@ class SystemCompliance():
       #TODO handle not finding opencontrol.yaml file in repo
       ocf =  OpenControlFiles()
 
-      for url in ocf.list_components_urls(ocf.resolve_ocfile_url(repo_url, revision)):
+      for url in ocf.list_components_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision)):
         if (verbose=='v'):
           print("Reading component %s" % url)
         self.add_component_from_url(url)
