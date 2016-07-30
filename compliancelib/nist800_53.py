@@ -137,9 +137,9 @@ class NIST800_53(object):
 
             # Some enhancements have funky XML and do not have supplemental guidance or related controls
             # So let's get data only if attributes exist
-            if (len(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')) > 0):
+            if sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance') is not None:
                 self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
-                if (len(self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description')) > 0):
+                if (self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description') is not None):
                     self.supplemental_guidance = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description').text.strip()
                 else:
                     self.supplemental_guidance = None
@@ -148,7 +148,7 @@ class NIST800_53(object):
                 self.supplemental_guidance = None
             related_controls = []
             # findall("{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance/{http://scap.nist.gov/schema/sp800-53/2.0}related")
-            if (len(self.sg) > 0):
+            if (self.sg is not None):
                 for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
                     related_controls.append(related.text.strip())
                 self.related_controls = ','.join(related_controls)
