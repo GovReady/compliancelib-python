@@ -168,7 +168,7 @@ print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicod
 
 ```
 
-**Advanced - Dependencies**
+**Advanced Usage - Dependencies**
 
 ComplianceLib's `NIST800_53Viz` class creates a graph of all precursor controls for a given control. ComplianceLib is the first time these precursor controls have been made available as code.
 
@@ -187,11 +187,10 @@ To see control dependencies, simply do in python shell::
 
 Creating the graphviz file is currently left as a reader exercise until future documentation completed.
 
-**Advanced - Compliance as Code**
+## Compliance as Code
 
-Expressing security controls as code is useful.
-
-Expressing system compliance as code is a game-changer.
+**Expressing security controls as code is useful.**
+**Expressing system compliance as code is a game-changer.**
 
 [OpenControl](http://open-control.org) is an emerging "Compliance as Code" community developing open-source, re-usable, shared compliance-by-component information and support tools. The goal is to allow developers to represent compliance as code of their component libraries and assembled systems in maintained repositories.
 
