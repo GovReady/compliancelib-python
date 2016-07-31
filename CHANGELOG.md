@@ -1,5 +1,10 @@
 # Change Log
 
+## compliancelib v0.11.0
+- Represent a control's enhancements as an array of control enhancement ids
+- Move textblock of control enhancements into attribute control_enhancement_textblock
+- Rename internal method for list of all control enhancements in 800-53
+
 ## compliancelib v0.10.0
 - Changed name of `list_component*` methods
 

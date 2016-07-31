@@ -13,8 +13,8 @@ Visit [tbd] for the latest version.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.8.0 $"
-__date__ = "$Date: 2016/07/18 07:52:00 $"
+__version__ = "$Revision: 0.9.0 $"
+__date__ = "$Date: 2016/07/31 00:14:00 $"
 __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
