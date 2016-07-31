@@ -1,5 +1,10 @@
 # Change Log
 
+## compliancelib v0.12.0
+- Update README
+- Represent related controls as array instead of string
+- Improve tests for related control cases
+
 ## compliancelib v0.11.0
 - Represent a control's enhancements as an array of control enhancement ids
 - Move textblock of control enhancements into attribute control_enhancement_textblock

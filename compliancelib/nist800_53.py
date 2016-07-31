@@ -13,8 +13,8 @@ Visit [tbd] for the latest version.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.9.0 $"
-__date__ = "$Date: 2016/07/31 00:14:00 $"
+__version__ = "$Revision: 0.10.0 $"
+__date__ = "$Date: 2016/07/31 09:30:00 $"
 __copyright__ = "Copyright (c) 2015 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -97,7 +97,6 @@ class NIST800_53(object):
             if (sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements')) is not None:
                 # control enhancements as list of ids
                 self.control_enhancements = [scen.text for scen in sc.findall('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancement/{http://scap.nist.gov/schema/sp800-53/2.0}number')]
-                print(self.control_enhancements)
                 # control enhancements as single block of text
                 self.control_enhancements_textblock = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements').itertext())
                 self.control_enhancements_textblock = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'[\n ]{2,}','\n',re.sub(r'[ ]{2,}',' ',self.control_enhancements_textblock))))
@@ -108,20 +107,22 @@ class NIST800_53(object):
                 # control enhancements as single block of text if none found
                 self.control_enhancements_textblock = None
             self.supplemental_guidance = None
+            # set related_controls to empty array in case there are no related controls
+            self.related_controls = []
             related_controls = []
             self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
             if self.sg is not None:
                 sg_descr = self.sg.find('{http://scap.nist.gov/schema/sp800-53/2.0}description')
                 if sg_descr is not None:
                     self.supplemental_guidance = sg_descr.text.strip()
-                for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
-                    related_controls.append(related.text.strip())
-            self.related_controls = ','.join(related_controls)
+                # Get related controls listed in supplemental guidance
+                self.related_controls = [rcid.text for rcid in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related')]
             self.responsible = self._get_responsible()
         else:
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')
-            self.title = self.description = self.supplemental_guidance = self.control_enhancements = self.responsible = None
+            self.title = self.description = self.supplemental_guidance = self.control_enhancements_textblock = self.responsible = None
             self.details = {}
+            self.control_enhancements = self.related_controls = []
 
     def _load_control_enhancement_from_xml(self):
         "load control enhancement from 800-53 xml using a pure python process"
@@ -154,12 +155,13 @@ class NIST800_53(object):
             else:
                 self.sg = None
                 self.supplemental_guidance = None
+            # set related_controls to empty array in case there are no related controls
+            self.related_controls = []
             related_controls = []
             # findall("{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance/{http://scap.nist.gov/schema/sp800-53/2.0}related")
             if (self.sg is not None):
-                for related in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related'):
-                    related_controls.append(related.text.strip())
-                self.related_controls = ','.join(related_controls)
+                # Get related controls listed in supplemental guidance
+                self.related_controls = [rcid.text for rcid in self.sg.findall('{http://scap.nist.gov/schema/sp800-53/2.0}related')]
             self.responsible = None
         else:
             self.details = json.loads('{"id": null, "error": "Failed to get security control information from 800-53 xml"}')

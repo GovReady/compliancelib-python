@@ -82,6 +82,8 @@ AU-7
         self.assertTrue(c.supplemental_guidance == None)
         self.assertTrue(c.responsible == None)
         self.assertTrue(c.details == {})
+        self.assertTrue(c.related_controls == [])
+        self.assertTrue(c.control_enhancements == [])
 
     def test_details_nonexistent_control(self):
         id = "AX-3"
@@ -104,6 +106,26 @@ AU-7
         c = NIST800_53("AC-2 (4)")
         print(c.supplemental_guidance)
         self.assertTrue(c.supplemental_guidance is None)
+
+    def test_related_controls(self):
+        id = "AC-16"
+        c = NIST800_53(id)
+        # test control enhancement with related controls
+        c = NIST800_53("AC-2 (2)")
+        print(c.supplemental_guidance)
+        self.assertTrue(c.supplemental_guidance == "This control enhancement requires the removal of both temporary and emergency accounts automatically after a predefined period of time has elapsed, rather than at the convenience of the systems administrator.")
+        # test control enhancement case where supplemental guidance text is missing, but related controls exist
+        c = NIST800_53("AC-2 (4)")
+        print(c.supplemental_guidance)
+        self.assertTrue(c.supplemental_guidance is None)
+        print(c.related_controls)
+        self.assertTrue(c.related_controls == ['AU-2', 'AU-12'])
+        # test control enhancement case where supplemental guidance text is missing, and no related controls
+        c = NIST800_53("AC-2 (10)")
+        print(c.supplemental_guidance)
+        self.assertTrue(c.supplemental_guidance is None)
+        print(c.related_controls)
+        self.assertTrue(c.related_controls == [])
 
     def test_responsible(self):
         # test "organization"
