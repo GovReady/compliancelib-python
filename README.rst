@@ -61,6 +61,19 @@ Compliancelib can beinstalled with Python Easy Install::
 
 	easy_install compliancelib
 
+Running tests
+-------------
+
+With python 2.7 (on a Mac):
+(Note: you may need to include 'sudo' on a Mac, but that could also just be me)
+
+	sudo python setup.py test
+
+With python 3.4+ (on a Mac):
+(Note: you may need to include 'sudo' on a Mac, but that could also just be me)
+
+	sudo python3 setup.py test
+
 Usage
 -----
 
@@ -248,17 +261,3 @@ The roadmap includes emitting text snippets for System Security Plans::
 	Since the AU-1 `control` is to document and disseminate a policy on Audit and Accountability, then
 	this narrative suffices to provide that control. A verification step could be something
 	that checks that the referenced policy is no more than 365 days old.
-
-
-Running tests
--------------
-
-With python 2.7 (on a Mac):
-(Note: you may need to include 'sudo' on a Mac, but that could also just be me)
-
-	sudo python setup.py test
-
-With python 3.4+ (on a Mac):
-(Note: you may need to include 'sudo' on a Mac, but that could also just be me)
-
-	sudo python3 setup.py test
