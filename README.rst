@@ -178,7 +178,7 @@ ComplianceLib's `NIST800_53Viz` class creates a graph of all precursor controls 
 
 The `NIST800_53Viz` class will also generate a graphviz file visualizing nodes and edges of the dependency graph for a security control.
 
-The list of precursor controls are extracted from [NIST SP 800-53 R1 Assessment Cases](compliancelib/data/800-53A-R1_Assessment-Cases_All-18-Families_ipd). We extracted the precursor-controls from NIST Assessment Guide documents into simplified data structure listing precursor, concurrent, and successor controls by family. View these files in this repo's [compliancelib/data/dependency](compliancelib/data/dependency) subdirectory.
+The list of precursor controls are extracted from [NIST SP 800-53 R1 Assessment Cases](compliancelib/data/800-53A-R1_Assessment-Cases_All-18-Families_ipd). We extracted the precursor-controls from NIST Assessment Guide documents into simplified data structure listing precursor, concurrent, and successor controls by family. View these files in this repo's [compliancelib/data/dependencies](compliancelib/data/dependencies) subdirectory.
 
 To see control dependencies, simply do in python shell::
 
