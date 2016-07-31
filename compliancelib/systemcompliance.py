@@ -94,10 +94,9 @@ import compliancelib
 sp = compliancelib.SystemCompliance()
 sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-compliance')
 sp.control('AU-1').title
+sp.control_ssp_text('AU-1')
 print(sp.control('AU-1').description)
 print(sp.control('AU-1').implementation_narrative)
-print(sp.control('AC-4').implementation_status)
-sp.control_ssp_text('AU-1')
 
 for component in sp.components():
   print(component)

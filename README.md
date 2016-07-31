@@ -165,6 +165,12 @@ print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicod
 
 **Advanced - Dependencies**
 
+ComplianceLib's `NIST800_53Viz` class creates a graph of all precursor controls for a given control. ComplianceLib is the first time these precursor controls have been made available as code.
+
+The `NIST800_53Viz` class will also generate a graphviz file visualizing nodes and edges of the dependency graph for a security control.
+
+The list of precursor controls are extracted from [NIST SP 800-53 R1 Assessment Cases](compliancelib/data/800-53A-R1_Assessment-Cases_All-18-Families_ipd). We extracted the precursor-controls from NIST Assessment Guide documents into simplified data structure listing precursor, concurrent, and successor controls by family. View these files in this repo's [compliancelib/data/dependency](compliancelib/data/dependency) subdirectory.
+
 To see control dependencies, simply do in python shell::
 
 ```python
@@ -172,6 +178,87 @@ To see control dependencies, simply do in python shell::
 >>> cv = compliancelib.NIST800_53Viz("AU-3")
 >>> cv.precursor_controls
 ['AU-3', 'AU-2', 'RA-3', 'PM-9']
+```
+
+Creating the graphviz file is currently left as a reader exercise until future documentation completed.
+
+**Advanced - Compliance as Code**
+
+Expressing security controls as code is useful.
+
+Expressing system compliance as code is a game-changer.
+
+[OpenControl](http://open-control.org) is an emerging "Compliance as Code" community developing open-source, re-usable, shared compliance-by-component information and support tools. The goal is to allow developers to represent compliance as code of their component libraries and assembled systems in maintained repositories.
+
+ComplianceLib's `OpenControlClass` and `SystemCompliance` classes work together to read OpenControl data files and represent an Information System's compliance state as a Python object that can be queried.
+
+The `OpenControlClass` and `SystemCompliance` classes are under heavy development in ComplianceLib versions 0.8.0 through versions 0.15.0 with class attributes and methods subject to significant change.
+
+Below is an example of using ComplianceLib to load and query compliance posture of the OpenControl [Freedonia-Compliance](https://github.com/opencontrol/freedonia-compliance) tutorial.
+
+```python
+>>> import compliancelib
+>>> sp = compliancelib.SystemCompliance()
+>>> sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-compliance')
+repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
+repo_ref in list_components_urls xx: https://github.com/opencontrol/freedonia-compliance
+repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
+ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+True
+
+>>> sp.system['name'] = "My Awesome Website"
+>>> sp.system['name']
+'My Awesome Website'
+
+>>> sp.control('AU-1').title
+'AUDIT AND ACCOUNTABILITY POLICY AND PROCEDURES'
+>>> sp.control('AU-1').description
+'The organization:\na. Develops, documents, and disseminates to [Assignment: organization-defined personnel or roles]:\na.1. An audit and accountability policy that addresses purpose, scope, roles, responsibilities, management commitment, coordination among organizational entities, and compliance; and\na.2. Procedures to facilitate the implementation of the audit and accountability policy and associated audit and accountability controls; and\nb. Reviews and updates the current:\nb.1. Audit and accountability policy [Assignment: organization-defined frequency]; and\nb.2. Audit and accountability procedures [Assignment: organization-defined frequency].'
+>>> sp.control('AU-1').priority
+'P1'
+>>> sp.control('AU-1').implementation_status
+['implemented']
+>>> sp.control('AU-1').implementation_status_details
+{'Audit Policy': 'implemented'}
+>>> sp.control('AU-1').components
+['Audit Policy']
+>>> sp.control('AU-1').components_dict
+{'Audit Policy': [{'narrative': [{'text': 'This text describes how our organization is meeting the requirements for the\nAudit policy, and also references a more complete description at ./AU_policy/README.md\n\nSince the AU-1 `control` is to document and disseminate a policy on Audit and Accountability, then\nthis narrative suffices to provide that control. A verification step could be something\nthat checks that the referenced policy is no more than 365 days old.\n'}], 'control_key': 'AU-1', 'covered_by': [], 'standard_key': 'FRIST-800-53', 'implementation_status': 'implemented'}]}
+```
+
+Looking at the `sp.control` object dictonary provides a glimpse of the roadmap:
+
+```python
+>>> sp.control('AU-1').__dict__.keys()
+dict_keys(['responsible', 'implementation_status_details', 'implementation_status', 'title', 'related_controls', 'id', 'control_enhancements', 'description_sections', 'components_dict', 'json_dict', 'assignments', 'implementation_narrative', 'family', 'description', 'control_enhancements_textblock', 'supplemental_guidance', 'components', 'description_intro', 'sg', 'priority', 'validation', 'number', 'roles'])
+```
+
+The roadmap includes emitting text snippets for System Security Plans:
+
+```python
+>>> sp.control_ssp_text('AU-1')
+AU-1 - AUDIT AND ACCOUNTABILITY POLICY AND PROCEDURES
+The organization:
+a. Develops, documents, and disseminates to [Assignment: organization-defined personnel or roles]:
+a.1. An audit and accountability policy that addresses purpose, scope, roles, responsibilities, management commitment, coordination among organizational entities, and compliance; and
+a.2. Procedures to facilitate the implementation of the audit and accountability policy and associated audit and accountability controls; and
+b. Reviews and updates the current:
+b.1. Audit and accountability policy [Assignment: organization-defined frequency]; and
+b.2. Audit and accountability procedures [Assignment: organization-defined frequency].
+
+
+responsible: organization
+roles: {}
+implementation status: ['implemented']
+
+
+via Audit Policy
+This text describes how our organization is meeting the requirements for the
+Audit policy, and also references a more complete description at ./AU_policy/README.md
+
+Since the AU-1 `control` is to document and disseminate a policy on Audit and Accountability, then
+this narrative suffices to provide that control. A verification step could be something
+that checks that the referenced policy is no more than 365 days old.
 ```
 
 ## Running tests
