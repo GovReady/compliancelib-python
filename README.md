@@ -99,7 +99,7 @@ systems to which personnel have authorized access. In addition,  organizations p
 
 **Formatting**
 
-ComplianceLib will also generate control information in various formats.
+ComplianceLib will also generate control information in various formats:
 
 ```python
 >>> print(c.format('json'))
@@ -136,7 +136,7 @@ id: AT-3
 name: ROLE-BASED SECURITY TRAINING
 ```
 
-Example code for generating list of controls in `YAML` format
+Example code for generating list of controls in `YAML` format:
 
 ```python
 controllist = ["AT-3", "AU-1", "IR-2"]
@@ -149,7 +149,7 @@ print(yaml.safe_dump(d, default_flow_style=False, encoding='utf-8', allow_unicod
     explicit_start=True, explicit_end=True))
 ```
 
-Example code for generating list of controls in `control-masonry` format
+Example code for generating list of controls in `control-masonry` format:
 
 ```python
 controllist = ["AT-3", "AU-1", "IR-2"]
