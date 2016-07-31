@@ -15,11 +15,13 @@ Create a python class that generates FISMA 800-53 security control information t
 - [x] list of control enhancements identifiers
 - [x] control responsibility (e.g., organization or information system)
 - [x] related controls
+
 **Better**
 - [ ] control assignment parameters
 - [x] output control information in various formats (e.g., JSON, YAML, OpenControl)
 - [x] dependent controls (precursors) and recursive dependency trees
 - [x] visual representation of control dependencies
+
 **Best**
 - [ ] mapping of control to (likely) generic organization role (e.g., developer, project manager, sys admin)
 - [x] reading OpenControl files
