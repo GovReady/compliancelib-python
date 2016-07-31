@@ -69,7 +69,8 @@ The title of AT-3 is ROLE-BASED SECURITY TRAINING
 ```
 
 List various details of a control in a Python shell:
-```
+
+```python
 >>> c.id
 'AT-3'
 >>> c.number
@@ -100,7 +101,7 @@ systems to which personnel have authorized access. In addition,  organizations p
 
 ComplianceLib will also generate control information in various formats.
 
-```
+```python
 >>> print(c.format('json'))
 {"description": "The organization provides role-based security training to personnel with assigned security roles and 
 responsibilities:\na. Before authorizing access to the information system or performing assigned duties;\nb. When required by 
