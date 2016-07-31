@@ -21,14 +21,19 @@ Create a python class that generates FISMA 800-53 security control information t
 - [x] visual representation of control dependencies
 
 **Best**
-- [ ] mapping of control to (likely) generic organization role (e.g., developer, project manager, sys admin)
 - [x] reading OpenControl files
 - [ ] resolving and reading OpenControl depencies
 - [x] system compliance status (e.g., control implementation narratives)
 - [ ] generating snippets for System Security Plan and other assessment artifacts
+- [ ] mapping of control to (likely) generic organization role (e.g., developer, project manager, sys admin)
 
 ## Warning
 This is pre-production and under active development.
+
+## License
+GPL 3.0
+
+This was a lot of hardwork and has a number of firsts. Please support it or do not use it.
 
 ## Requirements
 - Python 2.7 or 3.4+
