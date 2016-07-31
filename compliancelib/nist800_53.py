@@ -58,8 +58,8 @@ class NIST800_53(object):
             yield number
 
     @staticmethod
-    def get_control_enhancement_ids():
-        "get a list of all control ids"
+    def get_all_control_enhancement_ids():
+        "get a list of ALL control enhancement ids in the 800-53"
         tree = NIST800_53.get_dom()
         root = tree.getroot()
         for sc in root.findall("./{http://scap.nist.gov/schema/sp800-53/feed/2.0}control/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancement"):
@@ -93,12 +93,20 @@ class NIST800_53(object):
             self.description = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}statement').itertext())
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
             self.description = self.description.replace(self.id, '\n').strip()
+            # determine control enhancements for control
             if (sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements')) is not None:
-                self.control_enhancements = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements').itertext())
-                self.control_enhancements = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'[\n ]{2,}','\n',re.sub(r'[ ]{2,}',' ',self.control_enhancements))))
+                # control enhancements as list of ids
+                self.control_enhancements = [scen.text for scen in sc.findall('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements/{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancement/{http://scap.nist.gov/schema/sp800-53/2.0}number')]
+                print(self.control_enhancements)
+                # control enhancements as single block of text
+                self.control_enhancements_textblock = ''.join(sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}control-enhancements').itertext())
+                self.control_enhancements_textblock = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'[\n ]{2,}','\n',re.sub(r'[ ]{2,}',' ',self.control_enhancements_textblock))))
                 # self.control_enhancements = self.control_enhancements.replace(self.id, '\n')
             else:
+                # control enhancements as list of ids if none found
                 self.control_enhancements = None
+                # control enhancements as single block of text if none found
+                self.control_enhancements_textblock = None
             self.supplemental_guidance = None
             related_controls = []
             self.sg = sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance')
@@ -134,7 +142,7 @@ class NIST800_53(object):
             self.description = re.sub(r'[ ]{2,}','',re.sub(r'^[ ]', '',re.sub(r'\n','',re.sub(r'[ ]{2,}',' ',self.description))))
             self.description = self.description.replace(self.id, '\n').strip()
             self.control_enhancements = None
-
+            self.control_enhancements_textblock = None
             # Some enhancements have funky XML and do not have supplemental guidance or related controls
             # So let's get data only if attributes exist
             if sc.find('{http://scap.nist.gov/schema/sp800-53/2.0}supplemental-guidance') is not None:
