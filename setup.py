@@ -5,19 +5,19 @@ def readme():
         return f.read()
 
 setup(name='compliancelib',
-      version='0.11.0',
+      version='0.13.0',
       description='A python library for modeling IT Compliance',
       long_description=readme(),
       classifiers=[
         # As from http://pypi.python.org/pypi?%3Aaction=list_classifiers
         # 'Development Status :: 1 - Planning',
         # 'Development Status :: 2 - Pre-Alpha',
-        'Development Status :: 3 - Alpha',
-        # 'Development Status :: 4 - Beta',
+        # 'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         # 'Development Status :: 5 - Production/Stable',
         # 'Development Status :: 6 - Mature',
         # 'Development Status :: 7 - Inactive',
-        'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: GPL 3.0',
         'Programming Language :: Python :: 3.0',
         'Operating System :: MacOS',
         'Operating System :: Unix',

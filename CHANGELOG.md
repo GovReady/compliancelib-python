@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.12.1
+- Add GPL 3.0 license
+
 ## compliancelib v0.12.0
 - Update README
 - Represent related controls as array instead of string
