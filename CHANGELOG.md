@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.12.2
+- Correcting link in README.rst
+
 ## compliancelib v0.12.1
 - Add GPL 3.0 license
 

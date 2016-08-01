@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='compliancelib',
-      version='0.13.0',
+      version='0.12.2',
       description='A python library for modeling IT Compliance',
       long_description=readme(),
       classifiers=[
@@ -17,7 +17,7 @@ setup(name='compliancelib',
         # 'Development Status :: 5 - Production/Stable',
         # 'Development Status :: 6 - Mature',
         # 'Development Status :: 7 - Inactive',
-        'License :: OSI Approved :: GPL 3.0',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Programming Language :: Python :: 3.0',
         'Operating System :: MacOS',
         'Operating System :: Unix',

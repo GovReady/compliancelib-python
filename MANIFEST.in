@@ -23,3 +23,5 @@ include compliancelib/data/dependencies/RA-.txt
 include compliancelib/data/dependencies/SA-.txt
 include compliancelib/data/dependencies/SE-.txt
 include compliancelib/data/dependencies/SI-.txt
+include compliancelib/data/AU_policy_component.yaml
+include compliancelib/data/UAA_component.yaml

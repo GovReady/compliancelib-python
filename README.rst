@@ -2,9 +2,9 @@ compliancelib
 =============
 Machine readable cybersecurity compliance standards library for Python, starting with FISMA and NIST Risk Management Framework
 
-Source code: https://github.com/govready/compliancelib-python
+Source code: https://github.com/govready/compliancelib-python/
 
-For more history, see earlier prototype 800-53-Control-Server (https://github.com/govready/800-53-server).
+For more history, see earlier prototype 800-53-Control-Server (https://github.com/govready/800-53-server/).
 
 Goal
 ----
