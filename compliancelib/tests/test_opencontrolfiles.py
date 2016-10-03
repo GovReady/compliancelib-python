@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.0 $"
-__date__ = "$Date: 2016/10/02 19:30:00 $"
+__version__ = "$Revision: 0.3.1 $"
+__date__ = "$Date: 2016/10/03 10:47:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -91,7 +91,7 @@ class OpenControlFilesTest(TestCase):
         correct_url = ocf.resolve_ocfile_url(repo_ref, revision)
         self.assertTrue( "{}/{}".format(repo_ref,'opencontrol.yaml') == correct_url)
 
-    def test_resolve_component_url(self):
+    def test_resolve_component_url_github(self):
         "Test resolution of a component url"
         ocf = OpenControlFiles()
         repo_ref = 'https://github.com/18F/cg-compliance'
@@ -100,6 +100,20 @@ class OpenControlFilesTest(TestCase):
         # repo_url, revision, path, yaml_file = 'component.yaml'
         correct_url = ocf.resolve_component_url(repo_ref, revision, component_path)
         self.assertTrue( 'https://raw.githubusercontent.com/18F/cg-compliance/master/./CloudCheckr/component.yaml' == correct_url)
+
+    def test_resolve_component_url_localfile(self):
+        "Test resolution of a component url that is a localfile"
+        ocf = OpenControlFiles()
+        # construct absolute file path
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        repo_ref = "file://{}/{}".format(dir_path, "test_data/repo1")
+        print("dir_path is {}".format(dir_path))
+        print("repo_ref is {}".format(repo_ref))
+        revision = 'master'
+        component_path = './AU_policy'
+        correct_url = ocf.resolve_component_url(repo_ref, revision, component_path)
+        print("correct_url is {}".format(correct_url))
+        self.assertTrue( "{}/{}/{}".format(repo_ref, component_path, 'component.yaml') == correct_url)
 
     def test_parse_opencontrolfile(self):
         "Test retrieve and parsing of an opencontrol.yaml file"

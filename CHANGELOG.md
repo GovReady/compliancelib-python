@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.13.1
+- Resolve opencontrol components on localfile system
+
 ## compliancelib v0.13.0
 - Resolve opencontrol repos on localfile system
 

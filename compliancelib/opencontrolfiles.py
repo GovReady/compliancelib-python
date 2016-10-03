@@ -80,8 +80,8 @@ sp.control_ssp_text('AC-4')
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.0 $"
-__date__ = "$Date: 2016/10/02 21:00:00 $"
+__version__ = "$Revision: 0.3.1 $"
+__date__ = "$Date: 2016/10/03 10:47:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -142,16 +142,20 @@ class OpenControlFiles():
         "Resolve url of github repo to actual opencontrol detail yaml file"
         # TODO Sanitize path components better
         ocfile_url = ''
+        # Resolve GitHub repos
         if 'https://github.com/' in repo_url:
             repo_service = 'github'
-        else:
-            raise Exception('WHY AMI HERE?')
-        if (repo_service == 'github'):
             ocfile_url = "%s/%s/%s/%s" % (repo_url.replace('https://github.com/','https://raw.githubusercontent.com/'), revision, path, yaml_file)
-        else:
-            # only GitHub supported
-            raise Exception('Attempt to load unsupported repo service. Only GitHub.com supported in this version of ComplianceLib')
-        return ocfile_url
+            return ocfile_url
+        # Resolve localfile repo (`file:///`)
+        if 'file:///' in repo_url:
+           repo_service = 'localfile'
+           ocfile_url = "%s/%s/%s" % (repo_url, path, yaml_file)
+           print("ocfile_url is {}".format(ocfile_url))
+           return ocfile_url
+        # TODO: Add non-GitHub services here
+        # No match of hosted type
+        raise Exception('Attempt to load unsupported repo service. Only GitHub.com supported in this version of ComplianceLib')
 
     def list_components_in_repo(self, ocfileurl):
         "list components found in an opencontrol.yaml file"
