@@ -25,3 +25,4 @@ include compliancelib/data/dependencies/SE-.txt
 include compliancelib/data/dependencies/SI-.txt
 include compliancelib/data/AU_policy_component.yaml
 include compliancelib/data/UAA_component.yaml
+include compliancelib/tests/test_data/repo1/opencontrol.yaml
