@@ -80,8 +80,8 @@ sp.control_ssp_text('AC-4')
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.2.0 $"
-__date__ = "$Date: 2016/07/23 09:27:00 $"
+__version__ = "$Revision: 0.3.0 $"
+__date__ = "$Date: 2016/10/02 21:00:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -124,11 +124,19 @@ class OpenControlFiles():
         # TODO use urlparse library
         ocfile_url = ''
         print("repo_url in resolve_ocfile_url: %s" % repo_url)
+        # Resolve GitHub repos
         if 'https://github.com/' in repo_url:
             repo_service = 'github'
-        if (repo_service == 'github'):
             ocfile_url = "%s/%s/%s" % (repo_url.replace('https://github.com/','https://raw.githubusercontent.com/'), revision, yaml_file)
-        return ocfile_url
+            return ocfile_url
+        # Resolve localfile repo (`file:///`)
+        if 'file:///' in repo_url:
+           repo_service = 'localfile'
+           ocfile_url = "%s/%s" % (repo_url, yaml_file)
+           print("ocfile_url is {}".format(ocfile_url))
+           return ocfile_url
+        # TODO: Add non-GitHub services here
+        return repo_url
 
     def resolve_component_url(self, repo_url, revision, path, yaml_file = 'component.yaml'):
         "Resolve url of github repo to actual opencontrol detail yaml file"

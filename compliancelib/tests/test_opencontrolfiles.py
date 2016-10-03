@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.2.0 $"
-__date__ = "$Date: 2016/07/23 09:27:00 $"
+__version__ = "$Revision: 0.3.0 $"
+__date__ = "$Date: 2016/10/02 19:30:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -69,7 +69,7 @@ class OpenControlFilesTest(TestCase):
         print("ALERT: If this test fails, first check if ocfileurl content has changed!")
         self.assertTrue(ocf.load_ocfile_from_url(ocfileurl)=={'documentation_complete': False, 'references': [{'path': 'https://github.com/opencontrol/freedonia-policies/wiki/Audit-Policy', 'name': 'AU Policy'}], 'satisfies': [{'control_key': 'AU-1', 'standard_key': 'FRIST-800-53', 'covered_by': [], 'implementation_status': 'implemented', 'narrative': [{'text': 'This text describes how our organization is meeting the requirements for the\nAudit policy, and also references a more complete description at ./AU_policy/README.md\n\nSince the AU-1 `control` is to document and disseminate a policy on Audit and Accountability, then\nthis narrative suffices to provide that control. A verification step could be something\nthat checks that the referenced policy is no more than 365 days old.\n'}]}, {'control_key': 'AU-2', 'standard_key': 'FRIST-800-53', 'covered_by': [], 'implementation_status': 'none', 'narrative': [{'text': "Application and Server logs are sent to PaperTrail to provide audit\nreduction and report generation capabilites for Freedonia Devops and end users\nof the Freedonia hello_world system.\n\nPaperTrail is a SaaS for aggregation of audit log data across multiple systems and tiers\n\nWith the PaperTrail capability the organizations's operations and development teams\ncan structure and customize audit logs queries to specific app instances, API\ncalls, system metrics, user access, system components, network traffic flow and\nother criteria.\n"}]}], 'schema_version': '3.0.0', 'name': 'Audit Policy'})
 
-    def test_resolve_ocfile_url(self):
+    def test_resolve_ocfile_url_github(self):
         "Test resolution of a opencontrol.yaml url"
         ocf = OpenControlFiles()
         repo_ref = 'https://github.com/18F/cg-compliance'
@@ -77,6 +77,19 @@ class OpenControlFilesTest(TestCase):
         component_path = ''
         correct_url = ocf.resolve_ocfile_url(repo_ref, revision)
         self.assertTrue( 'https://raw.githubusercontent.com/18F/cg-compliance/master/opencontrol.yaml' == correct_url)
+
+    def test_resolve_ocfile_url_localfile(self):
+        "Test resolution of a opencontrol.yaml url that is a localfile"
+        ocf = OpenControlFiles()
+        # construct absolute file path
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        repo_ref = "file://{}/{}".format(dir_path, "test_data/repo1")
+        print("dir_path is {}".format(dir_path))
+        print("repo_ref is {}".format(repo_ref))
+        revision = 'master'
+        component_path = ''
+        correct_url = ocf.resolve_ocfile_url(repo_ref, revision)
+        self.assertTrue( "{}/{}".format(repo_ref,'opencontrol.yaml') == correct_url)
 
     def test_resolve_component_url(self):
         "Test resolution of a component url"

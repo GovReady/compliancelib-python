@@ -231,6 +231,10 @@ Below is an example of using ComplianceLib to load and query compliance posture 
 	>>> sp.control('AU-1').components_dict
 	{'Audit Policy': [{'narrative': [{'text': 'This text describes how our organization is meeting the requirements for the\nAudit policy, and also references a more complete description at ./AU_policy/README.md\n\nSince the AU-1 `control` is to document and disseminate a policy on Audit and Accountability, then\nthis narrative suffices to provide that control. A verification step could be something\nthat checks that the referenced policy is no more than 365 days old.\n'}], 'control_key': 'AU-1', 'covered_by': [], 'standard_key': 'FRIST-800-53', 'implementation_status': 'implemented'}]}
 
+To import a local repo:
+
+	sp.load_system_from_opencontrol_repo('file:///fullpath/to/localfile/freedonia-compliance')
+
 Looking at the `sp.control` object dictonary provides a glimpse of the roadmap::
 
 	>>> sp.control('AU-1').__dict__.keys()
