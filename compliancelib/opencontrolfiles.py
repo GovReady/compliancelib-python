@@ -80,8 +80,8 @@ sp.control_ssp_text('AC-4')
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.1 $"
-__date__ = "$Date: 2016/10/03 10:47:00 $"
+__version__ = "$Revision: 0.3.2 $"
+__date__ = "$Date: 2016/10/05 9:47:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -133,7 +133,7 @@ class OpenControlFiles():
         if 'file:///' in repo_url:
            repo_service = 'localfile'
            ocfile_url = "%s/%s" % (repo_url, yaml_file)
-           print("ocfile_url is {}".format(ocfile_url))
+           print("opencontrol ocfile_url is {}".format(ocfile_url))
            return ocfile_url
         # TODO: Add non-GitHub services here
         return repo_url
@@ -151,7 +151,7 @@ class OpenControlFiles():
         if 'file:///' in repo_url:
            repo_service = 'localfile'
            ocfile_url = "%s/%s/%s" % (repo_url, path, yaml_file)
-           print("ocfile_url is {}".format(ocfile_url))
+           print("component ocfile_url is {}".format(ocfile_url))
            return ocfile_url
         # TODO: Add non-GitHub services here
         # No match of hosted type
@@ -170,16 +170,30 @@ class OpenControlFiles():
             repo_service = 'github'
             repo_owner = parsed_uri.path.split('/')[1]
             revision = parsed_uri.path.split('/')[3]
+            repo_ref = "%s://%s/%s/%s" % (parsed_uri.scheme, 'github.com', parsed_uri.path.split('/')[1], parsed_uri.path.split('/')[2])
+            print("repo_ref in list_components_urls: %s" % repo_ref)
+            ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
+            print("ocfileurl: %s" % ocfileurl)
+            component_list = self.list_components_in_repo(ocfileurl)
+            components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
+            return components_urls_list
+        elif (parsed_uri.scheme == 'file') :
+            print("\nlf: *** parsed_uri.scheme == 'file'")
+            #urlparse(ocfileurl)
+            #ParseResult(scheme='file', netloc='', path='/codedata/code/bunsen-compliance', params='', query='', fragment='')
+            print(parsed_uri)
+            repo_service = 'localfile'
+            repo_owner = ''
+            revision = 'master'
+            # repo_ref = "%s://%s/%s/%s" % (parsed_uri.scheme, 'github.com', parsed_uri.path.split('/')[1], parsed_uri.path.split('/')[2])
+
+            repo_ref = "%s://%s" % (parsed_uri.scheme, parsed_uri.path.split('/opencontrol.yaml')[0])
+            print("lf: repo_ref in list_components_urls: {}".format(repo_ref))
+            ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
+            print("lf: ocfileurl: %s" % ocfileurl)
+            component_list = self.list_components_in_repo(ocfileurl)
+            components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
+            return components_urls_list
         else:
             # only GitHub supported
             raise Exception('Attempt to load unsupported repo service. Only GitHub.com supported in this version of ComplianceLib')
-        if (repo_service == 'github'):
-            repo_ref = "%s://%s/%s/%s" % (parsed_uri.scheme, 'github.com', parsed_uri.path.split('/')[1], parsed_uri.path.split('/')[2])
-        print("repo_ref in list_components_urls xx: %s" % repo_ref)
-        ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
-        print("ocfileurl: %s" % ocfileurl)
-        component_list = self.list_components_in_repo(ocfileurl)
-        components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
-        return components_urls_list
-
-

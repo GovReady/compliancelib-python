@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.1 $"
-__date__ = "$Date: 2016/10/03 10:47:00 $"
+__version__ = "$Revision: 0.3.2 $"
+__date__ = "$Date: 2016/10/06 9:47:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -164,6 +164,7 @@ class OpenControlFilesTest(TestCase):
         self.assertTrue('https://raw.githubusercontent.com/18F/cg-compliance/master/./ELKStack/component.yaml' in components_urls)
         self.assertTrue('https://raw.githubusercontent.com/18F/cg-compliance/master/./MA_Policy/component.yaml' in components_urls)
         self.assertTrue('https://raw.githubusercontent.com/18F/cg-compliance/master/./CICloudGov/component.yaml' in components_urls)
+
         # test with other repo
         repo_ref = 'https://github.com/opencontrol/freedonia-compliance'
         revision = 'master'
@@ -176,6 +177,24 @@ class OpenControlFilesTest(TestCase):
         self.assertTrue(len(components_urls) == 1)
         self.assertTrue(['https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/./AU_policy/component.yaml'] == components_urls)
 
+        # test with repo on localfile system
+        print("\n******* test repo on localfile system ****")
+        # construct absolute file path
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        repo_ref = "file://{}/{}".format(dir_path, "test_data/repo1")
+        # resolve the `opencontrol.yaml` file
+        ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
+        # print debug info
+        print("dir_path is {}".format(dir_path))
+        print("repo_ref is {}".format(repo_ref))
+        print("ocfileurl 3: ocfileurl %s" % ocfileurl)
+        revision = 'master'
+        components_urls = ocf.list_components_urls_in_repo(ocfileurl)
+        # components_urls = ["a", "b"]
+        print("component_urls equal {}".format(components_urls))
+        expected_url = "file://{}/{}".format(dir_path, "test_data/repo1/./AU_policy/component.yaml")
+        print("expected_url is {}".format(expected_url))
+        self.assertTrue([expected_url] == components_urls)
 
 if __name__ == "__main__":
     unittest.main()
