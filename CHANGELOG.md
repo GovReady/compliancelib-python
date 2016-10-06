@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.13.3
+- No changes, bumping version number
+
 ## compliancelib v0.13.2
 - Resolve opencontrol components on localfile system, fixing component references
 
