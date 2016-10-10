@@ -80,8 +80,8 @@ sp.control_ssp_text('AC-4')
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.2 $"
-__date__ = "$Date: 2016/10/05 9:47:00 $"
+__version__ = "$Revision: 0.3.3 $"
+__date__ = "$Date: 2016/10/10 6:36:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -155,7 +155,7 @@ class OpenControlFiles():
            return ocfile_url
         # TODO: Add non-GitHub services here
         # No match of hosted type
-        raise Exception('Attempt to load unsupported repo service. Only GitHub.com supported in this version of ComplianceLib')
+        raise Exception('Attempt to load unsupported repo service. Only GitHub.com and local repositories (file:///) supported in this version of ComplianceLib')
 
     def list_components_in_repo(self, ocfileurl):
         "list components found in an opencontrol.yaml file"
@@ -196,4 +196,4 @@ class OpenControlFiles():
             return components_urls_list
         else:
             # only GitHub supported
-            raise Exception('Attempt to load unsupported repo service. Only GitHub.com supported in this version of ComplianceLib')
+            raise Exception('Attempt to load unsupported repo service. Only GitHub.com  and local repositories (file:///)supported in this version of ComplianceLib')

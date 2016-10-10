@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.13.4
+- Indicate local repos supported in error message
+
 ## compliancelib v0.13.3
 - No changes, bumping version number
 

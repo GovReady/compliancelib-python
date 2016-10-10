@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='compliancelib',
-      version='0.13.3',
+      version='0.13.4',
       description='A python library for modeling IT Compliance',
       long_description=readme(),
       classifiers=[
