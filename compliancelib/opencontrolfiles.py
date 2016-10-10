@@ -81,7 +81,7 @@ sp.control_ssp_text('AC-4')
 
 __author__ = "Greg Elin (gregelin@govready.com)"
 __version__ = "$Revision: 0.3.3 $"
-__date__ = "$Date: 2016/10/10 6:36:00 $"
+__date__ = "$Date: 2016/10/10 6:42:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -196,4 +196,4 @@ class OpenControlFiles():
             return components_urls_list
         else:
             # only GitHub supported
-            raise Exception('Attempt to load unsupported repo service. Only GitHub.com  and local repositories (file:///)supported in this version of ComplianceLib')
+            raise Exception('Attempt to load unsupported repo service. Only GitHub.com and local repositories (file:///)supported in this version of ComplianceLib')
