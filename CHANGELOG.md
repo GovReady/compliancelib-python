@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v0.13.6
+- Add python logging to OpenControlFiles class
+
 ## compliancelib v0.13.4
 - Indicate local repos supported in error message
 

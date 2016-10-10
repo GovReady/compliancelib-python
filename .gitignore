@@ -63,4 +63,8 @@ target/
 files.txt
 
 # generated output
-output/*
+output/*.pdf
+output/img/*precursors*
+output/img/*.svg
+output/logs/*.log
+

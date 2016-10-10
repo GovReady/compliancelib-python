@@ -77,11 +77,16 @@ print(sp.control('AC-4').description)
 print(sp.control('AC-4').implementation_narrative)
 sp.control_ssp_text('AC-4')
 
+# setting logging levels
+# opencontrolfiles.py incorporates python logging module
+ocf = compliancelib.OpenControlFiles()
+ocf.logger.setLevel("DEBUG")
+
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.3 $"
-__date__ = "$Date: 2016/10/10 6:42:00 $"
+__version__ = "$Revision: 0.3.4 $"
+__date__ = "$Date: 2016/10/10 10:16:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -90,6 +95,7 @@ import json
 import yaml
 import re
 import sys
+import logging
 
 if sys.version_info >= (3, 0):
     from urllib.parse import urlparse
@@ -98,11 +104,24 @@ if sys.version_info < (3, 0) and sys.version_info >= (2, 5):
     from urlparse import urlparse
     from urllib2 import urlopen
 
+# create logger with 'opencontrolfiles'
+logger = logging.getLogger('opencontrolfiles')
+logger.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('[LOG compliancelib]; %(levelname)s; %(asctime)s; %(name)s; %(message)s')
+ch.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(ch)
+
 class OpenControlFiles():
     "initialize OpenControlFiles object"
 
     def __init__(self):
         self.ocfiles = {}
+        self.logger = logging.getLogger('opencontrolfiles')
 
     # Not using this method anymore, worth keeping around?
     def load_ocfile_from_url(self, ocfileurl):
@@ -115,6 +134,7 @@ class OpenControlFiles():
             self.ocfiles[ocfileurl] = yaml.safe_load(urlopen(ocfileurl))
         except:
             print("Unexpected error loading YAML file:", sys.exc_info()[0])
+            self.logger.error("Unexpected error loading YAML file:", sys.exc_info()[0])
             raise
         return self.ocfiles[ocfileurl]
 
@@ -123,7 +143,7 @@ class OpenControlFiles():
         # TODO Sanitize path components better
         # TODO use urlparse library
         ocfile_url = ''
-        print("repo_url in resolve_ocfile_url: %s" % repo_url)
+        self.logger.info("repo_url in resolve_ocfile_url: %s" % repo_url)
         # Resolve GitHub repos
         if 'https://github.com/' in repo_url:
             repo_service = 'github'
@@ -133,7 +153,7 @@ class OpenControlFiles():
         if 'file:///' in repo_url:
            repo_service = 'localfile'
            ocfile_url = "%s/%s" % (repo_url, yaml_file)
-           print("opencontrol ocfile_url is {}".format(ocfile_url))
+           self.logger.info("opencontrol ocfile_url is {}".format(ocfile_url))
            return ocfile_url
         # TODO: Add non-GitHub services here
         return repo_url
@@ -151,7 +171,7 @@ class OpenControlFiles():
         if 'file:///' in repo_url:
            repo_service = 'localfile'
            ocfile_url = "%s/%s/%s" % (repo_url, path, yaml_file)
-           print("component ocfile_url is {}".format(ocfile_url))
+           self.logger.info("component ocfile_url is {}".format(ocfile_url))
            return ocfile_url
         # TODO: Add non-GitHub services here
         # No match of hosted type
@@ -171,26 +191,26 @@ class OpenControlFiles():
             repo_owner = parsed_uri.path.split('/')[1]
             revision = parsed_uri.path.split('/')[3]
             repo_ref = "%s://%s/%s/%s" % (parsed_uri.scheme, 'github.com', parsed_uri.path.split('/')[1], parsed_uri.path.split('/')[2])
-            print("repo_ref in list_components_urls: %s" % repo_ref)
+            self.logger.info("repo_ref in list_components_urls: %s" % repo_ref)
             ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
-            print("ocfileurl: %s" % ocfileurl)
+            self.logger.info("ocfileurl: %s" % ocfileurl)
             component_list = self.list_components_in_repo(ocfileurl)
             components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
             return components_urls_list
         elif (parsed_uri.scheme == 'file') :
-            print("\nlf: *** parsed_uri.scheme == 'file'")
+            self.logger.info("parsed_uri.scheme == 'file'")
             #urlparse(ocfileurl)
             #ParseResult(scheme='file', netloc='', path='/codedata/code/bunsen-compliance', params='', query='', fragment='')
-            print(parsed_uri)
+            self.logger.info(parsed_uri)
             repo_service = 'localfile'
             repo_owner = ''
             revision = 'master'
             # repo_ref = "%s://%s/%s/%s" % (parsed_uri.scheme, 'github.com', parsed_uri.path.split('/')[1], parsed_uri.path.split('/')[2])
 
             repo_ref = "%s://%s" % (parsed_uri.scheme, parsed_uri.path.split('/opencontrol.yaml')[0])
-            print("lf: repo_ref in list_components_urls: {}".format(repo_ref))
+            self.logger.info("repo_ref in list_components_urls: {}".format(repo_ref))
             ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
-            print("lf: ocfileurl: %s" % ocfileurl)
+            self.logger.info("ocfileurl: %s" % ocfileurl)
             component_list = self.list_components_in_repo(ocfileurl)
             components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
             return components_urls_list
