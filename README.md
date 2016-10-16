@@ -220,10 +220,10 @@ Below is an example of using ComplianceLib to load and query compliance posture 
 >>> import compliancelib
 >>> sp = compliancelib.SystemCompliance()
 >>> sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-compliance')
-repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
-repo_ref in list_components_urls xx: https://github.com/opencontrol/freedonia-compliance
-repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
-ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+[LOG compliancelib]; INFO; 2016-10-16 11:52:52,968; opencontrolfiles; repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
+[LOG compliancelib]; INFO; 2016-10-16 11:52:52,968; opencontrolfiles; repo_ref in list_components_urls: https://github.com/opencontrol/freedonia-compliance
+[LOG compliancelib]; INFO; 2016-10-16 11:52:52,968; opencontrolfiles; repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
+[LOG compliancelib]; INFO; 2016-10-16 11:52:52,969; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
 True
 
 >>> sp.system['name'] = "My Awesome Website"
@@ -250,6 +250,14 @@ To import a local repo:
 
 ```
 sp.load_system_from_opencontrol_repo('file:///fullpath/to/localfile/freedonia-compliance')
+```
+
+Adjust commandline verbosity by set log level of OpenControlFile class to one of CRITICAL, ERROR, WARNING, INFO, DEBUG:
+
+```
+>>> ocf = compliancelib.OpenControlFiles()
+>>> ocf.logger.setLevel("DEBUG")
+>>> ocf.logger.setLevel("CRTICAL")
 ```
 
 Looking at the `sp.control` object dictonary provides a glimpse of the roadmap:
