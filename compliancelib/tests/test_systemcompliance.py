@@ -252,7 +252,30 @@ b.2. Audit and accountability procedures [Assignment: organization-defined frequ
     def test_load_system_from_opencontrol_repo(self):
         "Test load system details and control implementation from a repo"
         print("Need tests test written for this method")
-        # self.assertTrue(1==2)
+        # test with other repo
+        repo_url = 'https://github.com/opencontrol/freedonia-compliance'
+        sp = SystemCompliance()
+        sp.load_system_from_opencontrol_repo(repo_url)
+        print("components: ", sp.components())
+        print("standards: ", sp.standards())
+        print("certifications: ", sp.certifications())
+        self.assertTrue(sp.components() == ['Audit Policy'])
+        self.assertTrue(sp.standards() == [])
+        self.assertTrue(sp.certifications() == [])
+
+        # test with local repo
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        repo_url = "file://{}/{}".format(dir_path, "test_data/repo2")
+        print("repo_url3:", repo_url)
+        sp = SystemCompliance()
+        sp.load_system_from_opencontrol_repo(repo_url)
+        print("components3: ", sp.components())
+        print("standards3: ", sp.standards())
+        print("certifications3: ", sp.certifications())
+        self.assertTrue(sp.components() == ['Audit Policy'])
+        self.assertTrue(sp.standards() == ['FRIST-800-53'])
+        self.assertTrue('FredRAMP-low' in sp.certifications())
+        self.assertTrue('LATO' in sp.certifications())
 
 if __name__ == "__main__":
     unittest.main()

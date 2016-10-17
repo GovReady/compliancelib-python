@@ -124,8 +124,8 @@ for component in sp.components():
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.0 $"
-__date__ = "$Date: 2016/07/23 09:27:00 $"
+__version__ = "$Revision: 1.0.0 $"
+__date__ = "$Date: 2016/10/16 23:14:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -171,6 +171,7 @@ class SystemCompliance():
     def add_component_from_url(self, oc_componentyaml_url):
       "add a component as a dictionary to the system from an OpenControl YAML file at a URL"
       # go load opencontrol file
+      print("oc_componentyaml_url: ", oc_componentyaml_url)
       try:
         my_dict = yaml.safe_load(urlopen(oc_componentyaml_url))
         # todo - add checks to make sure it is a proper opencontrol file
@@ -315,9 +316,23 @@ class SystemCompliance():
       #TODO handle not finding opencontrol.yaml file in repo
       ocf =  OpenControlFiles()
 
-      for url in ocf.list_components_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision)):
+      item_type = "components"
+      for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
         if (verbose=='v'):
-          print("Reading component %s" % url)
+          print("Reading %s %s" % (item_type, url))
         self.add_component_from_url(url)
+
+      item_type = "standards"
+      for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
+        if (verbose=='v'):
+          print("Reading %s %s" % (item_type, url))
+        self.add_system_dict_from_url("standards", url)
+
+      item_type = "certifications"
+      for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
+        if (verbose=='v'):
+          print("Reading %s %s" % (item_type, url))
+        self.add_system_dict_from_url("certifications", url)
+
       return True
 

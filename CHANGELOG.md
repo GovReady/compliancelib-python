@@ -1,5 +1,10 @@
 # Change Log
 
+## complianceLib v1.0.0
+- Refactor OpenControlFiles class to read components, standards, certifications from shared methods
+- SystemCompliance reading standards and certificaftions
+- NOTE: SystemCompliance not yet consuming content from remote dependency repos into
+
 ## compliancelib v0.13.6
 - Add python logging to OpenControlFiles class
 

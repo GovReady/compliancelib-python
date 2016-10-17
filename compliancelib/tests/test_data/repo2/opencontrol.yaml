@@ -1,0 +1,25 @@
+schema_version: "1.0.0"
+name: freedonia2.fd
+metadata:
+  description: Test OpenControl repo with local certifications and standards 
+  maintainers:
+    - pburkholder@pobox.com
+components:
+  - ./AU_policy
+standards:
+  - ./standards/FRIST-800-53.yaml
+certifications:
+  - ./certifications/FredRAMP-low.yaml
+  - ./certifications/LATO.yaml
+dependencies:
+  standards:
+    - url: https://github.com/opencontrol/NIST-800-53-Standards
+      revision: master
+  certifications:
+    - url: https://github.com/opencontrol/FedRAMP-Certifications
+      revision: master
+  systems:
+    - url: https://github.com/opencontrol/cf-compliance
+      revision: master
+    - url: https://github.com/opencontrol/aws-compliance
+      revision: master

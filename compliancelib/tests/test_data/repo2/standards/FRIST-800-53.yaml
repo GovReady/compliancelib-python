@@ -1,0 +1,22 @@
+name: FRIST-800-53
+AU-1:
+  family: AU
+  name: Audit and Accountability Policy and Procedures
+AU-2:
+  family: AU
+  name: Audit Events
+AU-2 (3):
+  family: AU
+  name: Audit Events | Reviews and Updates
+PE-2:
+  family: PE
+  name: Physical Access Authorizations
+SC-1:
+  family: SC
+  name: System and Communications Protection Policy and Procedures
+SC-7:
+  family: SC
+  name: Boundary Protection
+XX-1:
+  family: XX
+  name: Dummy Mock Control

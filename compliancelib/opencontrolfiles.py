@@ -42,11 +42,11 @@ component_path = ''
 ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
 print("test: ocfileurl %s" % ocfileurl)
 # load components from opencontrol.yaml file
-components_urls = ocf.list_components_urls_in_repo(ocfileurl)
+components_urls = ocf.list_items_urls_in_repo(ocfileurl, "components")
 
 # instantiate an SystemCompliance object
 sp = compliancelib.SystemCompliance()
-for compurl in ocf.list_components_urls_in_repo(ocfileurl):
+for compurl in ocf.list_items_urls_in_repo(ocfileurl, "components"):
   sp.add_component_from_url(compurl)
 
 # Print out control details
@@ -60,7 +60,7 @@ print(ci.implementation_narrative)
 import compliancelib
 ocf =  compliancelib.OpenControlFiles()
 sp = compliancelib.SystemCompliance()
-for url in ocf.list_components_urls_in_repo(ocf.resolve_ocfile_url('https://github.com/18F/cg-compliance','master')):
+for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url('https://github.com/18F/cg-compliance','master')):
     sp.add_component_from_url(url)
 
 sp.control('AC-4').title
@@ -85,8 +85,8 @@ ocf.logger.setLevel("DEBUG")
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.4 $"
-__date__ = "$Date: 2016/10/10 10:16:00 $"
+__version__ = "$Revision: 1.0. $"
+__date__ = "$Date: 2016/10/16 10:16:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -123,7 +123,6 @@ class OpenControlFiles():
         self.ocfiles = {}
         self.logger = logging.getLogger('opencontrolfiles')
 
-    # Not using this method anymore, worth keeping around?
     def load_ocfile_from_url(self, ocfileurl):
         "load OpenControl component YAML file from URL"
         # file must be actual YAML file
@@ -140,10 +139,11 @@ class OpenControlFiles():
 
     def resolve_ocfile_url(self, repo_url, revision, yaml_file = 'opencontrol.yaml'):
         "Resolve url of github repo to actual opencontrol detail yaml file"
+        self.logger.debug("Resolving url of repo_url ({}), revision ({}), yaml_file ({})".format(repo_url, revision, yaml_file))
         # TODO Sanitize path components better
         # TODO use urlparse library
         ocfile_url = ''
-        self.logger.info("repo_url in resolve_ocfile_url: %s" % repo_url)
+        self.logger.debug("repo_url in resolve_ocfile_url: %s" % repo_url)
         # Resolve GitHub repos
         if 'https://github.com/' in repo_url:
             repo_service = 'github'
@@ -158,44 +158,57 @@ class OpenControlFiles():
         # TODO: Add non-GitHub services here
         return repo_url
 
-    def resolve_component_url(self, repo_url, revision, path, yaml_file = 'component.yaml'):
-        "Resolve url of github repo to actual opencontrol detail yaml file"
+    def resolve_item_url(self, repo_url, revision, path, item_type):
+        "Resolve url of github repo to actual opencontrol component.yaml file"
         # TODO Sanitize path components better
-        ocfile_url = ''
+
         # Resolve GitHub repos
         if 'https://github.com/' in repo_url:
-            repo_service = 'github'
-            ocfile_url = "%s/%s/%s/%s" % (repo_url.replace('https://github.com/','https://raw.githubusercontent.com/'), revision, path, yaml_file)
-            return ocfile_url
+            if (item_type == "components"):
+                return "%s/%s/%s/%s" % (repo_url.replace('https://github.com/','https://raw.githubusercontent.com/'), revision, path, "component.yaml")
+            elif (item_type == "standards"):
+                return "%s/%s/%s" % (repo_url.replace('https://github.com/','https://raw.githubusercontent.com/'), revision, path)
+            elif (item_type == "certifications"):
+                return "%s/%s/%s" % (repo_url.replace('https://github.com/','https://raw.githubusercontent.com/'), revision, path)
+            else:
+                raise Exception('Attempt to load unsupported item type service. Only "components", "standards", and "certifications" supported in this version of ComplianceLib')
         # Resolve localfile repo (`file:///`)
         if 'file:///' in repo_url:
-           repo_service = 'localfile'
-           ocfile_url = "%s/%s/%s" % (repo_url, path, yaml_file)
-           self.logger.info("component ocfile_url is {}".format(ocfile_url))
-           return ocfile_url
+            if (item_type == "components"):
+                ocfile_url = "%s/%s/%s" % (repo_url, path, "component.yaml")
+            elif (item_type == "standards"):
+                ocfile_url = "%s/%s" % (repo_url, path)
+            elif (item_type == "certifications"):
+                ocfile_url = "%s/%s" % (repo_url, path)
+            else:
+                raise Exception('Attempt to load unsupported item type service. Only "components", "standards", and "certifications" supported in this version of ComplianceLib')
+            self.logger.info("component ocfile_url is {}".format(ocfile_url))
+            return ocfile_url
         # TODO: Add non-GitHub services here
         # No match of hosted type
         raise Exception('Attempt to load unsupported repo service. Only GitHub.com and local repositories (file:///) supported in this version of ComplianceLib')
 
-    def list_components_in_repo(self, ocfileurl):
-        "list components found in an opencontrol.yaml file"
+    def list_items_in_repo(self, ocfileurl, item_type):
+        "list paths of components found in an opencontrol.yaml file, not including any dependencies"
+        item_list = []
         ocfile_dict = self.load_ocfile_from_url(ocfileurl)
-        component_list = ocfile_dict['components']
-        return component_list
+        if item_type in ocfile_dict.keys():
+            item_list = ocfile_dict[item_type]
+        return item_list
 
-    def list_components_urls_in_repo(self, ocfileurl):
-        "list component urls found in an opencontrol.yaml file"
+    def list_items_urls_in_repo(self, ocfileurl, item_type):
+        "list item urls found in an opencontrol.yaml file"
         parsed_uri = urlparse(ocfileurl)
         if (parsed_uri.netloc =='raw.githubusercontent.com'):
             repo_service = 'github'
             repo_owner = parsed_uri.path.split('/')[1]
             revision = parsed_uri.path.split('/')[3]
             repo_ref = "%s://%s/%s/%s" % (parsed_uri.scheme, 'github.com', parsed_uri.path.split('/')[1], parsed_uri.path.split('/')[2])
-            self.logger.info("repo_ref in list_components_urls: %s" % repo_ref)
+            self.logger.debug("repo_ref in list_items_urls_in_repo: %s" % repo_ref)
             ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
             self.logger.info("ocfileurl: %s" % ocfileurl)
-            component_list = self.list_components_in_repo(ocfileurl)
-            components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
+            component_list = self.list_items_in_repo(ocfileurl, item_type)
+            components_urls_list = [self.resolve_item_url(repo_ref, revision, component_url, item_type) for component_url in component_list]
             return components_urls_list
         elif (parsed_uri.scheme == 'file') :
             self.logger.info("parsed_uri.scheme == 'file'")
@@ -211,9 +224,11 @@ class OpenControlFiles():
             self.logger.info("repo_ref in list_components_urls: {}".format(repo_ref))
             ocfileurl = self.resolve_ocfile_url(repo_ref, revision)
             self.logger.info("ocfileurl: %s" % ocfileurl)
-            component_list = self.list_components_in_repo(ocfileurl)
-            components_urls_list = [self.resolve_component_url(repo_ref, revision, component_url ) for component_url in component_list]
+            component_list = self.list_items_in_repo(ocfileurl, item_type)
+            components_urls_list = [self.resolve_item_url(repo_ref, revision, component_url, item_type) for component_url in component_list]
             return components_urls_list
         else:
             # only GitHub supported
             raise Exception('Attempt to load unsupported repo service. Only GitHub.com and local repositories (file:///)supported in this version of ComplianceLib')
+
+
