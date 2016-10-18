@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.2.0 $"
-__date__ = "$Date: 2016/07/18 07:27:00 $"
+__version__ = "$Revision: 0.6.0 $"
+__date__ = "$Date: 2016/10/18 06:30:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -251,28 +251,45 @@ b.2. Audit and accountability procedures [Assignment: organization-defined frequ
 
     def test_load_system_from_opencontrol_repo(self):
         "Test load system details and control implementation from a repo"
-        print("Need tests test written for this method")
         # test with other repo
         repo_url = 'https://github.com/opencontrol/freedonia-compliance'
+        # reduce log noise for this test
+        ocf = compliancelib.OpenControlFiles()
+        ocf.logger.setLevel("CRITICAL")
         sp = SystemCompliance()
         sp.load_system_from_opencontrol_repo(repo_url)
         print("components: ", sp.components())
         print("standards: ", sp.standards())
         print("certifications: ", sp.certifications())
-        self.assertTrue(sp.components() == ['Audit Policy'])
-        self.assertTrue(sp.standards() == [])
-        self.assertTrue(sp.certifications() == [])
+        print("systems: ", sp.systems())
+        # self.assertTrue(sp.components() == ['Audit Policy']) # only local component(s)
+        # self.assertTrue(sp.components() == ['Audit Policy', 'AWS Core', 'AWS Implementation'])
+        self.assertTrue('Audit Policy' in sp.components())
+        self.assertTrue('AWS Core' in sp.components())
+        self.assertTrue('AWS Implementation' in sp.components())
+        # check dependency values
+        self.assertTrue(sp.standards() == ['FRIST-800-53'])
+        self.assertTrue(sp.certifications() == ['FredRAMP-low'])
+        self.assertTrue(sp.systems() == ['freedonia-aws'])
+        # self.assertTrue(1==2)
 
+    def test_load_system_from_opencontrol_repo_localfile(self):
+        "Test load system details and control implementation from a repo on local file system"
         # test with local repo
         dir_path = os.path.dirname(os.path.realpath(__file__))
         repo_url = "file://{}/{}".format(dir_path, "test_data/repo2")
         print("repo_url3:", repo_url)
+        # reduce log noise for this test
+        ocf = compliancelib.OpenControlFiles()
+        ocf.logger.setLevel("CRITICAL")
         sp = SystemCompliance()
         sp.load_system_from_opencontrol_repo(repo_url)
         print("components3: ", sp.components())
         print("standards3: ", sp.standards())
         print("certifications3: ", sp.certifications())
-        self.assertTrue(sp.components() == ['Audit Policy'])
+        print("systems3", sp.systems())
+        self.assertTrue('Audit Policy' in sp.components())
+        self.assertTrue('Cloud Formation' in sp.components())
         self.assertTrue(sp.standards() == ['FRIST-800-53'])
         self.assertTrue('FredRAMP-low' in sp.certifications())
         self.assertTrue('LATO' in sp.certifications())

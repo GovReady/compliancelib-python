@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.3.2 $"
-__date__ = "$Date: 2016/10/06 9:47:00 $"
+__version__ = "$Revision: 0.4.0 $"
+__date__ = "$Date: 2016/10/18 05:30:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -297,6 +297,29 @@ class OpenControlFilesTest(TestCase):
         self.assertTrue('./certifications/FredRAMP-low.yaml' in items)
         self.assertTrue('./certifications/LATO.yaml' in items)
 
+    def test_list_dependency_items_in_repo(self):
+        "Test generating a list of items from opencontrol.yaml file dependencies section"
+        ocf = OpenControlFiles()
+        repo_ref = 'https://github.com/18F/cg-compliance'
+        revision = 'master'
+        component_path = ''
+        item_type = "systems"
+        ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
+        # load opencontrol.yaml file
+        items = ocf.list_dependency_items_in_repo(ocfileurl, item_type)
+        print("test_list_dependency_items_in_repo 'standards' are: ", items)
+        self.assertTrue({'revision': 'master', 'url': 'https://github.com/opencontrol/cf-compliance'} in items)
+        self.assertTrue({'revision': 'master', 'url': 'https://github.com/opencontrol/aws-compliance'} in items)
+        # test certifications
+        item_type = "certifications"
+        items = ocf.list_dependency_items_in_repo(ocfileurl, item_type)
+        print("test_list_dependency_items_in_repo 'certfications' are: ", items)
+        self.assertTrue({'revision': 'master', 'url': 'https://github.com/opencontrol/FedRAMP-Certifications'} in items)
+        # test non-existent type
+        item_type = "non-existent-type"
+        items = ocf.list_dependency_items_in_repo(ocfileurl, item_type)
+        print("test_list_dependency_items_in_repo 'non-existent-type' are: ", items)
+        self.assertTrue([] == items)
 
 if __name__ == "__main__":
     unittest.main()

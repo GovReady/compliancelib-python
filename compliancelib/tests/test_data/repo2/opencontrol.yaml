@@ -12,12 +12,6 @@ certifications:
   - ./certifications/FredRAMP-low.yaml
   - ./certifications/LATO.yaml
 dependencies:
-  standards:
-    - url: https://github.com/opencontrol/NIST-800-53-Standards
-      revision: master
-  certifications:
-    - url: https://github.com/opencontrol/FedRAMP-Certifications
-      revision: master
   systems:
     - url: https://github.com/opencontrol/cf-compliance
       revision: master
