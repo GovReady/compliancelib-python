@@ -25,16 +25,17 @@ Create a python class that generates FISMA 800-53 security control information t
 **Best**
 - [x] reading OpenControl files
 - [x] load local repo standards, certifications, components
-- [ ] load local repo systems
-- [ ] resolving and reading OpenControl depencies
-- [ ] load remote repo standards, certifications, components, systems
+- [x] load local repo systems
+- [x] resolving and reading OpenControl depencies
+- [x] load remote repo standards, certifications, components, systems
 - [x] system compliance status (e.g., control implementation narratives)
-- [ ] generating snippets for System Security Plan and other assessment artifacts
+- [x] generating snippets for System Security Plan and other assessment artifacts
 - [ ] mapping of control to (likely) generic organization role (e.g., developer, project manager, sys admin)
 
-Warning
--------
-This is pre-production and under active development.
+Warnings
+--------
+- This is pre-production and under active development.
+- Reading of dependencies functions only one level deep (e.g., read indicated dependency files but no recursion)
 
 License
 -------
