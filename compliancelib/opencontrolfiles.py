@@ -85,8 +85,8 @@ ocf.logger.setLevel("DEBUG")
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 1.0. $"
-__date__ = "$Date: 2016/10/16 10:16:00 $"
+__version__ = "$Revision: 1.1.0 $"
+__date__ = "$Date: 2016/10/18 05:30:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -189,7 +189,7 @@ class OpenControlFiles():
         raise Exception('Attempt to load unsupported repo service. Only GitHub.com and local repositories (file:///) supported in this version of ComplianceLib')
 
     def list_items_in_repo(self, ocfileurl, item_type):
-        "list paths of components found in an opencontrol.yaml file, not including any dependencies"
+        "list paths of items found in an opencontrol.yaml file, not including any dependencies"
         item_list = []
         ocfile_dict = self.load_ocfile_from_url(ocfileurl)
         if item_type in ocfile_dict.keys():
@@ -230,5 +230,13 @@ class OpenControlFiles():
         else:
             # only GitHub supported
             raise Exception('Attempt to load unsupported repo service. Only GitHub.com and local repositories (file:///)supported in this version of ComplianceLib')
+
+    def list_dependency_items_in_repo(self, ocfileurl, item_type):
+        "list paths of items found in the dependencies of an opencontrol.yaml file"
+        item_list = []
+        ocfile_dict = self.load_ocfile_from_url(ocfileurl)
+        if item_type in ocfile_dict['dependencies'].keys():
+            item_list = ocfile_dict['dependencies'][item_type]
+        return item_list
 
 

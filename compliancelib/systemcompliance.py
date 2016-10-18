@@ -124,8 +124,8 @@ for component in sp.components():
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 1.0.0 $"
-__date__ = "$Date: 2016/10/16 23:14:00 $"
+__version__ = "$Revision: 1.1.0 $"
+__date__ = "$Date: 2016/10/18 05:30:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -149,7 +149,7 @@ class SystemCompliance():
     def __init__(self):
         self.ocfiles = {}
         # define the dictionaries we will support so we avoid unexpected data
-        self.supported_dictionaries = ['components', 'standards', 'certifications', 'assignments', 'roles']
+        self.supported_dictionaries = ['components', 'standards', 'certifications', 'assignments', 'roles', 'systems']
         # stub out a system
         self._stub_system()
         pass
@@ -161,6 +161,7 @@ class SystemCompliance():
       self.system['components'] = {}
       self.system['certifications'] = {}
       self.system['standards'] = {}
+      self.system['systems'] = {}
       self.system['assignments'] = {}
       self.system['roles'] = {}
 
@@ -220,6 +221,10 @@ class SystemCompliance():
     def certifications(self):
       "list the certifications composing the system as array"
       return list(self.system['certifications'])
+
+    def systems(self):
+      "list the systems composing the system as array"
+      return list(self.system['systems'])
 
     def roles(self):
       "list the roles composing the system as array"
@@ -316,23 +321,37 @@ class SystemCompliance():
       #TODO handle not finding opencontrol.yaml file in repo
       ocf =  OpenControlFiles()
 
-      item_type = "components"
-      for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
-        if (verbose=='v'):
-          print("Reading %s %s" % (item_type, url))
-        self.add_component_from_url(url)
+      for item_type in self.supported_dictionaries:
+        for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
+          if (verbose=='v'): print("Reading %s %s" % (item_type, url))
+          self.add_system_dict_from_url(item_type, url)
 
-      item_type = "standards"
-      for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
-        if (verbose=='v'):
-          print("Reading %s %s" % (item_type, url))
-        self.add_system_dict_from_url("standards", url)
-
-      item_type = "certifications"
-      for url in ocf.list_items_urls_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
-        if (verbose=='v'):
-          print("Reading %s %s" % (item_type, url))
-        self.add_system_dict_from_url("certifications", url)
+      # load dependencies
+      for item_type in self.supported_dictionaries:
+        print("**** looking for item_type: ", item_type)
+        # get standards in dependencies
+        for dependency_item in ocf.list_dependency_items_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
+          print("******** dependency_item ******\n", dependency_item)
+          dependency_ocf =  OpenControlFiles()
+          dependency_repo_url = dependency_item['url']
+          print("******** dependency_repo_url ******\n", dependency_repo_url)
+          dependency_revision = dependency_item['revision']
+          # print("******** resolved dependency *******\n", dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision))
+          if (item_type == 'systems'):
+            url = dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision)
+            print("*** Reading system dependencies '%s' %s" % (item_type, url))
+            self.add_system_dict_from_url(item_type, url)
+            # read remote item_type components
+            for url in dependency_ocf.list_items_urls_in_repo(dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision), "components"):
+              print("*** Reading dependencies '%s' %s" % ("components", url))
+              # TODO test if we will end duplicating and overwriting existing key
+              self.add_system_dict_from_url("components", url)
+          else:
+            # read remote item_type indicated
+            for url in dependency_ocf.list_items_urls_in_repo(dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision), item_type):
+              print("*** Reading dependencies '%s' %s" % (item_type, url))
+              # TODO test if we will end duplicating and overwriting existing key
+              self.add_system_dict_from_url(item_type, url)
 
       return True
 

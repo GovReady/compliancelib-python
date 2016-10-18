@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.2.0 $"
-__date__ = "$Date: 2016/07/18 07:27:00 $"
+__version__ = "$Revision: 0.5.0 $"
+__date__ = "$Date: 2016/10/18 05:30:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
@@ -259,9 +259,12 @@ b.2. Audit and accountability procedures [Assignment: organization-defined frequ
         print("components: ", sp.components())
         print("standards: ", sp.standards())
         print("certifications: ", sp.certifications())
+        print("systems: ", sp.systems())
         self.assertTrue(sp.components() == ['Audit Policy'])
-        self.assertTrue(sp.standards() == [])
-        self.assertTrue(sp.certifications() == [])
+        # check dependency values
+        self.assertTrue(sp.standards() == ['FRIST-800-53'])
+        self.assertTrue(sp.certifications() == ['FredRAMP-low'])
+        self.assertTrue(1==2)
 
         # test with local repo
         dir_path = os.path.dirname(os.path.realpath(__file__))
