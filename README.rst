@@ -210,15 +210,29 @@ Below is an example of using ComplianceLib to load and query compliance posture 
 	>>> import compliancelib
 	>>> sp = compliancelib.SystemCompliance()
 	>>> sp.load_system_from_opencontrol_repo('https://github.com/opencontrol/freedonia-compliance')
-	[LOG compliancelib]; INFO; 2016-10-16 11:52:52,968; opencontrolfiles; repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
-	[LOG compliancelib]; INFO; 2016-10-16 11:52:52,968; opencontrolfiles; repo_ref in list_components_urls: https://github.com/opencontrol/freedonia-compliance
-	[LOG compliancelib]; INFO; 2016-10-16 11:52:52,968; opencontrolfiles; repo_url in resolve_ocfile_url: https://github.com/opencontrol/freedonia-compliance
-	[LOG compliancelib]; INFO; 2016-10-16 11:52:52,969; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:57,807; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,503; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,503; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,503; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,503; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,503; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-compliance/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,503; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-frist/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,641; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-frist/master/opencontrol.yaml
+	[LOG compliancelib]; INFO; 2016-10-19 06:05:58,842; opencontrolfiles; ocfileurl: https://raw.githubusercontent.com/opencontrol/freedonia-aws-compliance/master/opencontrol.yaml
 	True
 
-	>>> sp.system['name'] = "My Awesome Website"
+	>>> sp.system['name'] = "My Awesome System"
 	>>> sp.system['name']
-	'My Awesome Website'
+	'My Awesome System'
+
+	>>> sp.components()
+	['Audit Policy', 'AWS Core', 'AWS Implementation']
+	>>> sp.standards()
+	['FRIST-800-53']
+	>>> sp.certifications()
+	['FredRAMP-low']
+	>>> sp.systems()
+	['freedonia-aws']
 
 	>>> sp.control('AU-1').title
 	'AUDIT AND ACCOUNTABILITY POLICY AND PROCEDURES'

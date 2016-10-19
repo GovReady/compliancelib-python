@@ -318,7 +318,7 @@ class SystemCompliance():
     def load_system_from_opencontrol_repo(self, repo_url, revision='master', verbose=''):
       "load system details and control implementation from a repo"
       # TODO Reset all values before loading new system
-      #TODO handle not finding opencontrol.yaml file in repo
+      # TODO handle not finding opencontrol.yaml file in repo
       ocf =  OpenControlFiles()
 
       for item_type in self.supported_dictionaries:
@@ -328,28 +328,21 @@ class SystemCompliance():
 
       # load dependencies
       for item_type in self.supported_dictionaries:
-        print("**** looking for item_type: ", item_type)
         # get standards in dependencies
         for dependency_item in ocf.list_dependency_items_in_repo(ocf.resolve_ocfile_url(repo_url, revision), item_type):
-          print("******** dependency_item ******\n", dependency_item)
           dependency_ocf =  OpenControlFiles()
           dependency_repo_url = dependency_item['url']
-          print("******** dependency_repo_url ******\n", dependency_repo_url)
           dependency_revision = dependency_item['revision']
-          # print("******** resolved dependency *******\n", dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision))
           if (item_type == 'systems'):
             url = dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision)
-            print("*** Reading system dependencies '%s' %s" % (item_type, url))
             self.add_system_dict_from_url(item_type, url)
             # read remote item_type components
             for url in dependency_ocf.list_items_urls_in_repo(dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision), "components"):
-              print("*** Reading dependencies '%s' %s" % ("components", url))
               # TODO test if we will end duplicating and overwriting existing key
               self.add_system_dict_from_url("components", url)
           else:
             # read remote item_type indicated
             for url in dependency_ocf.list_items_urls_in_repo(dependency_ocf.resolve_ocfile_url(dependency_repo_url.strip("/"), dependency_revision), item_type):
-              print("*** Reading dependencies '%s' %s" % (item_type, url))
               # TODO test if we will end duplicating and overwriting existing key
               self.add_system_dict_from_url(item_type, url)
 
