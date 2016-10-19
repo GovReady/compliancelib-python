@@ -3,7 +3,7 @@
 ## compliancelib v1.1.0
 - OpenControlFiles class generates list of dependencies by item type
 - SystemCompliance class consumes content listed in dependencies (but only one level deep, e.g., will retrieve item types that are locally listed in the dependent repository, but will not recursive deeper)
-- Technical debt of possible duplicate keys read from remote repos are not tested again existing keys (e.g., a local component file and dependent component file referring to same ID for component could collide)
+- Technical debt added of possible duplicate keys read from remote repos are not tested again existing keys (e.g., a local component file and dependent component file referring to same ID for component could collide)
 
 ## complianceLib v1.0.0
 - Refactor OpenControlFiles class to read components, standards, certifications from shared methods

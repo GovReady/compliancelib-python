@@ -32,7 +32,7 @@ setup(name='compliancelib',
       url='http://github.com/govready/compliancelib-python',
       author='Greg Elin',
       author_email='gregelin@govready.com',
-      license='Apache License 2.0',
+      license='GNU General Public License v3 (GPLv3)',
       packages=['compliancelib'],
       package_data={
       'compliancelib': ['data/*.xml', 'data/*.pdf', 'data/dependencies/*.txt'],
