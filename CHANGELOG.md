@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v1.1.1
+- Improve OpenControl narrative parsing to handle narratives that are strings and lists
+
 ## compliancelib v1.1.0
 - OpenControlFiles class generates list of dependencies by item type
 - SystemCompliance class consumes content listed in dependencies (but only one level deep, e.g., will retrieve item types that are locally listed in the dependent repository, but will not recursive deeper)

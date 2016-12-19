@@ -13,7 +13,5 @@ certifications:
   - ./certifications/LATO.yaml
 dependencies:
   systems:
-    - url: https://github.com/opencontrol/cf-compliance
-      revision: master
     - url: https://github.com/opencontrol/aws-compliance
       revision: master

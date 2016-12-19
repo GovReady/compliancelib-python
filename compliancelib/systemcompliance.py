@@ -124,10 +124,10 @@ for component in sp.components():
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 1.1.0 $"
-__date__ = "$Date: 2016/10/18 05:30:00 $"
+__version__ = "$Revision: 1.1.1 $"
+__date__ = "$Date: 2016/12/18 20:13:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
-__license__ = "Apache Software License 2.0"
+__license__ = "GNU General Public License v3 (GPLv3)"
 
 import os
 import json
@@ -273,14 +273,28 @@ class SystemCompliance():
       for component in ci.components:
         # print component
         comp_contribution  = ci.components_dict[component][0]
-        for text_item in comp_contribution['narrative']:
-          key = ""
-          text = ""
-          if 'key' in text_item:
-            key = "%s:\n" % text_item['key']
-          if 'text' in text_item:
-            text = text_item['text']
-          ctl_str += "%s\nvia %s\n%s\n" % (key, component, text)
+        # Check if type(comp_contribution) is string or list
+        if type(comp_contribution['narrative']) is str:
+          # comp_contribution['narative'] is a string, like this:
+          # Ex: {'control_key': 'AC-4', 'standard_key': 'NIST-800-53', 'covered_by': [], 'implementation_status': 'none', 'narrative': 'Cloud.Gov enforces security groups and other network traffic rules in a strict priority order. Cloud.Gov returns an allow...
+          text = comp_contribution['narrative']
+          ctl_str += "via %s\n%s\n" % (component, text)
+        if type(comp_contribution['narrative']) is list:
+          # comp_contribution['narative'] is a list, like this:
+          # {'control_key': 'AC-4', 'standard_key': 'NIST-800-53', 'covered_by': [], 'implementation_status': 'none', 'narrative': [{'text': 'The information system enforces approved authorizations for controlling the flow of information within the system
+          for text_item in comp_contribution['narrative']:
+            key = ""
+            text = ""
+            if 'key' in text_item:
+              key = "%s:\n" % text_item['key']
+            elif 'text' in text_item:
+              text = text_item['text']
+            # Todo - deal with error case
+            else:
+              # we have a likely error in the data formating of the opencontrol file
+              # Report an error
+              text = "Possible error in %s's OpenControl file, no identified 'text' key in narrative block"
+            ctl_str += "%s\nvia %s\n%s\n" % (key, component, text)
       ci.implementation_narrative = ctl_str
 
       # determine implementation status

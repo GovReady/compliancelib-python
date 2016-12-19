@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.6.0 $"
-__date__ = "$Date: 2016/10/18 06:30:00 $"
+__version__ = "$Revision: 0.6.1 $"
+__date__ = "$Date: 2016/12/18 20:18:00 $"
 __copyright__ = "Copyright (c) 2016 GovReady PBC"
-__license__ = "Apache Software License 2.0"
+__license__ = "GNU General Public License v3 (GPLv3)"
 
 from unittest import TestCase
 
@@ -243,6 +243,33 @@ b.2. Audit and accountability procedures [Assignment: organization-defined frequ
         self.assertTrue(ci.description == 'The organization employs automated mechanisms to support the management of information system accounts.')
         self.assertTrue(ci.responsible == None)
         self.assertTrue(ci.components == ['User Account and Authentication (UAA) Server'])
+
+    def test_narrative_extraction(self):
+        "Test control method correctly extracts narrative for different cases of data format"
+        # comp_contribution['narative'] is a string, like this:
+          # Ex: {'control_key': 'AC-4', 'standard_key': 'NIST-800-53', 'covered_by': [], 'implementation_status': 'none', 'narrative': 'Cloud.Gov enforces security groups and other network traffic rules in a strict priority order. Cloud.Gov returns an allow...
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        repo_url = "file://{}/{}".format(dir_path, "test_data/repo2")
+        print("repo_url_narrative_extraction:", repo_url)
+        # reduce log noise for this test
+        ocf = compliancelib.OpenControlFiles()
+        ocf.logger.setLevel("CRITICAL")
+        sp = SystemCompliance()
+        sp.load_system_from_opencontrol_repo(repo_url)
+        print("****************** AU-1")
+        #print(sp.control_ssp_text('AU-1'))
+        ck = "AU-1"
+        ci = sp.control(ck)
+        print(ci.components_dict[ci.components[0]][0]['narrative'][0]['text'][0:23])
+        self.assertTrue(type(ci.components_dict[ci.components[0]][0]['narrative']) is list)
+        self.assertTrue(ci.components_dict[ci.components[0]][0]['narrative'][0]['text'][0:23] == "This text describes how")
+
+        print("****************** AU-3")
+        ck = "AU-3"
+        ci = sp.control(ck)
+        print(ci.components_dict[ci.components[0]][0]['narrative'][0:23])
+        self.assertTrue(type(ci.components_dict[ci.components[0]][0]['narrative']) is str)
+        self.assertTrue(ci.components_dict[ci.components[0]][0]['narrative'][0:23] == "This is a sample contro")
 
     def test_control_ssp_text(self):
         "Test print out text for a control listing in system security plan (assume NIST800-53)"

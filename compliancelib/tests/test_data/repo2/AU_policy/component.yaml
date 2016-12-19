@@ -29,7 +29,13 @@ satisfies:
 
         PaperTrail is a SaaS for aggregation of audit log data across multiple systems and tiers
 
-        With the PaperTrail capability the organizations's operations and development teams
+        With the PaperTrail capability, organizations operations and development teams
         can structure and customize audit logs queries to specific app instances, API
         calls, system metrics, user access, system components, network traffic flow and
         other criteria.
+- control_key: AU-3
+  standard_key: FRIST-800-53
+  covered_by: []
+  implementation_status: none
+  narrative: |
+        This is a sample control where no text attribute was defined for the control key, just text.
