@@ -1,0 +1,13 @@
+schema_version: "1.0.0"
+name: freedonia_nd.fd
+metadata:
+  description: Test OpenControl repo with local certifications and standards and standards and no dependencies key
+  maintainers:
+    - pburkholder@pobox.com
+components:
+  - ./AU_policy
+standards:
+  - ./standards/FRIST-800-53.yaml
+certifications:
+  - ./certifications/FredRAMP-low.yaml
+  - ./certifications/LATO.yaml

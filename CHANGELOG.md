@@ -1,5 +1,8 @@
 # Change Log
 
+## compliancelib v1.1.2
+- fix OpenControlFiles crash when OpenControl repo contains no dependencies
+
 ## compliancelib v1.1.1
 - Improve OpenControl narrative parsing to handle narratives that are strings and lists
 

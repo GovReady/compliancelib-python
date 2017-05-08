@@ -1,0 +1,9 @@
+name: FredRAMP-low
+standards:
+
+  FRIST-800-53:
+    AU-1: {}
+    AU-2: {}
+    PE-2: {}
+    SC-1: {}
+    SC-7: {}

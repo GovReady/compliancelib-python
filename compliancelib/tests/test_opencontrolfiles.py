@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 0.4.0 $"
-__date__ = "$Date: 2016/10/18 05:30:00 $"
-__copyright__ = "Copyright (c) 2016 GovReady PBC"
+__version__ = "$Revision: 0.5.0 $"
+__date__ = "$Date: 2017/05/08 03:12:00 $"
+__copyright__ = "Copyright (c) 2016, 2017 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
 from unittest import TestCase
@@ -320,6 +320,26 @@ class OpenControlFilesTest(TestCase):
         items = ocf.list_dependency_items_in_repo(ocfileurl, item_type)
         print("test_list_dependency_items_in_repo 'non-existent-type' are: ", items)
         self.assertTrue([] == items)
+
+    def test_list_dependency_items_in_repo_no_dependencies(self):
+        "Test generating a list of items from opencontrol.yaml file dependencies section"
+        ocf = OpenControlFiles()
+        # TODO: need better test in case Docker adds dependencies
+        # construct absolute file path
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        repo_ref = "file://{}/{}".format(dir_path, "test_data/repo_no_dependencies")
+        revision = 'master'
+        item_type = "dependencies"
+        # resolve the `opencontrol.yaml` file
+        ocfileurl = ocf.resolve_ocfile_url(repo_ref, revision)
+        # print debug info
+        print("dir_path is {}".format(dir_path))
+        print("repo_ref is {}".format(repo_ref))
+        # load opencontrol.yaml file
+        items = ocf.list_dependency_items_in_repo(ocfileurl, item_type)
+        print("test_list_dependency_items_in_repo 'dependencies' are: ", items)
+        self.assertTrue([] == items)
+        
 
 if __name__ == "__main__":
     unittest.main()

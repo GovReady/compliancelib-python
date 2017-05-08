@@ -85,9 +85,9 @@ ocf.logger.setLevel("DEBUG")
 """
 
 __author__ = "Greg Elin (gregelin@govready.com)"
-__version__ = "$Revision: 1.1.0 $"
-__date__ = "$Date: 2016/10/18 05:30:00 $"
-__copyright__ = "Copyright (c) 2016 GovReady PBC"
+__version__ = "$Revision: 1.1.1 $"
+__date__ = "$Date: 2017/05/08 05:30:00 $"
+__copyright__ = "Copyright (c) 2016, 2017 GovReady PBC"
 __license__ = "Apache Software License 2.0"
 
 import os
@@ -235,6 +235,8 @@ class OpenControlFiles():
         "list paths of items found in the dependencies of an opencontrol.yaml file"
         item_list = []
         ocfile_dict = self.load_ocfile_from_url(ocfileurl)
+        # Return empty if no dependencies key present
+        if not 'dependencies' in ocfile_dict: return []
         if item_type in ocfile_dict['dependencies'].keys():
             item_list = ocfile_dict['dependencies'][item_type]
         return item_list
