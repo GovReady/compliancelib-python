@@ -54,7 +54,7 @@ ck = "AC-2 (1)"
 ci = sp.control(ck)
 ci.components
 ci.components_dict
-print(ci.implementation_narrative)
+print(ci.narrative)
 
 # shorter
 import compliancelib
