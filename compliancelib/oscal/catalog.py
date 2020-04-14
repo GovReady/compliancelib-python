@@ -152,5 +152,75 @@ class Catalog (object):
         param = self.find_dict_by_value(control['parameters'], "id", param_id)
         return param['label']
 
+    def get_control_prose_as_markdown(self, control_data, part_types={ "statement" }):
+        # Concatenate the prose text of all of the 'parts' of this control
+        # in Markdown. Filter out the parts that are not wanted.
+        return self.format_part_as_markdown(control_data, filter_name=part_types)
 
+    def format_part_as_markdown(self, part, indentation_level=0, indentation_string="    ", filter_name=None):
+        # Format part, which is either a control or a part, as Markdown.
 
+        # First construct the prose text of this part. If there is a
+        # label, put it at the start.
+
+        md = ""
+
+        # If this part has a label (i.e. "a."), get the label.
+        label = ""
+        label_property = self.find_dict_by_value(part.get('properties', []), 'name', 'label')
+        if label_property:
+            label = label_property['value'] + " "
+        
+        # Emit the label, if any.
+        md += label
+
+        # If it has a 'prose' key, then add that. The 'prose' is a string
+        # that may contain Markdown formatting, so we don't touch it much
+        # because we are supposed to produce markdown.
+        #
+        # OSCAL defines "markup-multiline" to use two escaped \n's to
+        # denote paragraph boundaries, so we replace the literal "\n\n"
+        # with two actual newline characters.
+        if 'prose' in part:
+            prose = part['prose']
+            prose = prose.replace("\\n\\n", "\n\n")
+            md += prose
+
+        # If prose is multiple lines and if there is a label, then to be
+        # valid Markdown, all lines after the first should be indented
+        # the number of characters in the label (plus its space).
+        if label:
+            md = md.split("\n")
+            for i in range(1, len(md)):
+                md[i] = (" " * len(label)) + md[i]
+            md = "\n".join(md)
+
+        # Apply indentation. Each line of the prose should be indented
+        # (not just the first line). Break the prose up into lines,
+        # add the indentation at the start of each line, and then put
+        # the lines back together again.
+        # In Python, a string times an integer repeats it.
+        md = "\n".join([
+            (indentation_level*indentation_string) + line
+            for line in md.split("\n")
+        ])
+
+        # If there was any prose text, add a paragraph boundary.
+        if md != "":
+            md += "\n\n"
+
+        # If it has sub-parts, then emit those.
+        if "parts" in part:
+            for part in part["parts"]:
+                # If filter_name is given, filter out the parts that don't have
+                # one of the givne names.
+                if filter_name and part.get('name') not in filter_name:
+                    continue
+
+                # Append this part.
+                md += self.format_part_as_markdown(part,
+                                                   indentation_string=indentation_string,
+                                                   indentation_level=indentation_level+1)
+
+        return md
+            
