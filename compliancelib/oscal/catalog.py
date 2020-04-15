@@ -155,9 +155,14 @@ class Catalog (object):
     def get_control_prose_as_markdown(self, control_data, part_types={ "statement" }):
         # Concatenate the prose text of all of the 'parts' of this control
         # in Markdown. Filter out the parts that are not wanted.
+        # Example 'statement'
+        #   python3 -c "import compliancelib; cg = compliancelib.Catalog(); print(cg.get_control_prose_as_markdown(cg.get_control_by_id('ac-6')))"
+        # Example 'guidance'
+        #   python3 -c "import compliancelib; cg = compliancelib.Catalog(); print(cg.get_control_prose_as_markdown(cg.get_control_by_id('ac-6'), part_types={'guidance'}))"
+
         return self.format_part_as_markdown(control_data, filter_name=part_types)
 
-    def format_part_as_markdown(self, part, indentation_level=0, indentation_string="    ", filter_name=None):
+    def format_part_as_markdown(self, part, indentation_level=-1, indentation_string="    ", filter_name=None, hide_first_label=True):
         # Format part, which is either a control or a part, as Markdown.
 
         # First construct the prose text of this part. If there is a
@@ -170,7 +175,9 @@ class Catalog (object):
         label_property = self.find_dict_by_value(part.get('properties', []), 'name', 'label')
         if label_property:
             label = label_property['value'] + " "
-        
+        # Hide first label to avoid showing control_id
+        if indentation_level == -1 and hide_first_label:
+            label = ""
         # Emit the label, if any.
         md += label
 
@@ -223,4 +230,3 @@ class Catalog (object):
                                                    indentation_level=indentation_level+1)
 
         return md
-            
